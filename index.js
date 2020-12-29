@@ -17,6 +17,8 @@ var Discogs = require('disconnect').Client;
 
 const { EventEmitter } = require("events");
 
+
+
 const commando = require('discord.js-commando')
 const client = new commando.CommandoClient({
 
@@ -27,7 +29,23 @@ const client = new commando.CommandoClient({
 
 
 
+var CityPopTerms = ["Mariya Takeuchi", "Meiko Nakahara", "Omega Tribe", "Momoko Kikuchi", "Tatsuro Yamashita", "Toshiki Kadomatsu", "City Pop", "Taku", "Plastic Love", "Junko Ohashi", "56709", "Piper", "Miki Matsubara", "Scramble Cross", "Minako Yoshida", "Hiromi Iwasaki", "Stay with Me", "Mao Music", "Casiopea", "Anri"];
 
+   
+
+var randomTerm = CityPopTerms[Math.floor(Math.random() * CityPopTerms.length)];
+
+client.user.setActivity(`${randomTerm} | TURBOFORCE`, 
+
+
+
+{type: "LISTENING"} )
+
+
+
+
+
+process.on('warning', e => console.warn(e.stack));
 
 
 
@@ -66,30 +84,13 @@ client.once('ready' , async () => {
 
    */ 
     
-/*
-        var CityPopTerms = ["Mariya Takeuchi", "Meiko Nakahara", "Omega Tribe", "Momoko Kikuchi", "Tatsuro Yamashita", "Toshiki Kadomatsu", "City Pop", "Taku", "Plastic Love", "Junko Ohashi", "56709", "Piper", "Miki Matsubara", "Scramble Cross", "Minako Yoshida", "Hiromi Iwasaki", "Stay with Me", "Mao Music", "Casiopea", "Anri"];
 
-   
-
-        var randomTerm = CityPopTerms[Math.floor(Math.random() * CityPopTerms.length)];
-
-        client.user.setActivity(`${randomTerm} | TURBOFORCE`, 
-
-
-
-        {type: "LISTENING"} )
-
-
+       
 
         
-        
-        process.on('warning', e => console.warn(e.stack));
 
-        
-    
-});
 
-*/
+
 
 
 
