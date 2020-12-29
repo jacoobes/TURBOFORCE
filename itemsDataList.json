@@ -1,0 +1,388 @@
+{
+     "allItems": [
+          {
+               "title": "Naruto Body Pillow",
+               "value": "100",
+               "description": "Body pillow of legendary ninja Naruto.",
+               "rarity": "common",
+               "image": " https://i.ebayimg.com/images/g/F5MAAOSwEX5b3x4B/s-l400.jpg",
+               "id": "124124"
+          },
+          {
+               "title": "Copy Of Minecraft",
+               "value": "100",
+               "description": "Genuine copy of Minecraft",
+               "rarity": "uncommon",
+               "image": "https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover.png",
+               "id": "676123"
+          },
+          {
+               "title": "Dog Paw",
+               "value": "54",
+               "description": "A dog paw",
+               "rarity": "common",
+               "image": "https://www.dogster.com/wp-content/uploads/2019/02/A-dog-paw.jpg",
+               "id": "2171421"
+          },
+          {
+               "title": "Holy Hand Grenade of Antioch",
+               "value": "500",
+               "description": "Should help in your quest",
+               "rarity": "rare",
+               "image": "https://cdna.artstation.com/p/assets/images/images/014/630/576/large/mark-buckley-screenshot001.jpg?1544759387",
+               "id": "12309838"
+          },
+          {
+               "title": "Sock",
+               "value": "5",
+               "description": "Quality sock.",
+               "rarity": "common",
+               "image": "https://cdn.shopify.com/s/files/1/1165/9124/products/Circulation_Socks_Grey_Crew_Left_1200x.png?v=1540391900",
+               "id": "1231245123"
+          },
+          {
+               "title": "Umbrella",
+               "value": "10",
+               "description": "Tool for countering most precipitation",
+               "rarity": "common",
+               "image": "https://media.gq.com/photos/5ae9d236e9616b733233300d/master/w_2000,h_1333,c_limit/AmazonBasics-automatic-travel-umbrella.jpg",
+               "id": "12398"
+          },
+          {
+               "title": "Rolex",
+               "value": "600",
+               "description": "Expensive and famous watch",
+               "rarity": "rare",
+               "image": "https://s.yimg.com/aah/movadobaby/rolex-datejust-126233-53.jpg",
+               "id": "98724"
+          },
+          {
+               "title": "Gamer Ram (128 GB)",
+               "value": "2500",
+               "description": "128 GBs of your sweaty pc gamer RAM.",
+               "rarity": "legendary",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/81PIk2a8YZL._AC_SL1500_.jpg",
+               "id": "781901241"
+          },
+          {
+               "title": "Gangster Goku Poster",
+               "value": "100",
+               "description": "Hype Beast Anime Poster",
+               "rarity": "uncommon",
+               "image": "https://ih1.redbubble.net/image.1229847745.0667/fposter,small,wall_texture,product,750x1000.jpg",
+               "id": "34896"
+          },
+          {
+               "title": "Pencil",
+               "value": "2",
+               "description": "Common writing utensil",
+               "rarity": "common",
+               "image": "https://pyxis.nymag.com/v1/imgs/a88/190/ee03b98e184488e00c7c608a5e054fb366-My-first-Ticonderoga.rhorizontal.w600.jpg",
+               "id": "12484"
+          },
+          {
+               "title": "Sunglasses",
+               "value": "10",
+               "description": "Used to block unwanted sunlight",
+               "rarity": "common",
+               "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFCHQ9Wran8l76MFbWokcKHw864SV4z5Y8UA&usqp=CAU",
+               "id": "12845128"
+          },
+          {
+               "title": "African Blackwood Pencil",
+               "value": "550",
+               "description": "Pencil made from rarest wood on the earth",
+               "rarity": "rare",
+               "image": "https://cdn11.bigcommerce.com/s-7edce/images/stencil/850x850/products/3372/46134/ardium_black_wood_pencil_set_03__32903.1423583146.jpg?c=2",
+               "id": "124749"
+          },
+          {
+               "title": "Pog Fish",
+               "value": "750",
+               "description": "Almighty Pog Fish",
+               "rarity": "rare",
+               "image": "https://media1.tenor.com/images/114b0104f9cae3b439daba7cb3fff15c/tenor.gif?itemid=15374056",
+               "id": "576910673"
+          },
+          {
+               "title": "Pen",
+               "value": "3",
+               "description": "Common writing utensil",
+               "rarity": "common",
+               "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcHoxfPrs0KVGormXjaCHV6IGN-W8h9pwg1w&usqp=CAU",
+               "id": "2399240"
+          },
+          {
+               "title": "Paperclip",
+               "value": "1",
+               "description": "Holds paper together",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/41QQ6i6KjVL._AC_.jpg",
+               "id": "91351"
+          },
+          {
+               "title": "Polyethylene terephthalate cup",
+               "value": "30",
+               "description": "What plastic even is this",
+               "rarity": "common",
+               "image": "https://m.media-amazon.com/images/I/61jN7saduxL._AC_SL1500_.jpg",
+               "id": "35223"
+          },
+          {
+               "title": "Obsidian Whetstone",
+               "value": "70",
+               "description": "Sharpening tool made from lava rocks",
+               "rarity": "uncommon",
+               "image": "https://web.poecdn.com/image/Art/2DItems/Currency/Heist/ObsidianSharpeningStone.png?w=2&h=2&",
+               "id": "34289"
+          },
+          {
+               "title": "Indian Elephant Sword",
+               "value": "550",
+               "description": "Ancient sword used by Indians in war",
+               "rarity": "rare",
+               "image": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/679021/1476842/main-image",
+               "id": "458068"
+          },
+          {
+               "title": "Titanium Scissors",
+               "value": "25",
+               "description": "Common cutting tool",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/91I9SuaHEVL._AC_SL1500_.jpg",
+               "id": "238957"
+          },
+          {
+               "title": "Hennessy XO",
+               "value": "250",
+               "description": "Some Nice Booze",
+               "rarity": "rare",
+               "image": "https://img.thewhiskyexchange.com/900/cognc_hen7.jpg",
+               "id": "243688674"
+          },
+          {
+               "title": "Tungsten Fidget Spinner",
+               "value": "150",
+               "description": "Good way to pass time",
+               "rarity": "uncommon",
+               "image": "https://cdn.shopify.com/s/files/1/1813/7801/products/28424506_2018317865105201_568976168578389591_o_530x@2x.jpg?v=1529800371",
+               "id": "823945"
+          },
+          {
+               "title": "Mahogany Toothpicks",
+               "value": "8",
+               "description": "Good for cleaning your teeth",
+               "rarity": "common",
+               "image": "https://i.etsystatic.com/5232831/d/il/d3e33b/2580372991/il_340x270.2580372991_7wnt.jpg?version=0",
+               "id": "457893"
+          },
+          {
+               "title": "Giant Rubber Duck",
+               "value": "500",
+               "description": "A whole lot of duck",
+               "rarity": "rare",
+               "image": "https://cdn.cnn.com/cnnnext/dam/assets/130502152627-rubber-duck-in-hong-kong-1.jpg",
+               "id": "789189021"
+          },
+          {
+               "title": "Dragon Blood Tree",
+               "value": "475",
+               "description": "Wierd and very rare tree",
+               "rarity": "rare",
+               "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Socotra_dragon_tree.JPG/1200px-Socotra_dragon_tree.JPG",
+               "id": "235782"
+          },
+          {
+               "title": "Chimera Axolotl",
+               "value": "250",
+               "description": "Rarest color on an axolotl",
+               "rarity": "uncommon",
+               "image": "https://i.imgur.com/6wwGq9J.jpg",
+               "id": "123748"
+          },
+          {
+               "title": "Centuries Old Pine Bonsai",
+               "value": "2200",
+               "description": "Sold for 1.3 million dollars at the International Bonsai Convention in Japan",
+               "rarity": "legendary",
+               "image": "https://bonsaitonight.com/wp-content/uploads/2011/11/DSC0214-S.jpg",
+               "id": "258923"
+          },
+          {
+               "title": "Rainbow Candy Cane",
+               "value": "3",
+               "description": "Colorful candy",
+               "rarity": "common",
+               "image": "https://ih1.redbubble.net/image.15023023.8956/flat,750x,075,f-pad,750x1000,f8f8f8.u1.jpg",
+               "id": "12434"
+          },
+          {
+               "title": "Ceramic Spoon",
+               "value": "20",
+               "description": "Eating utensil",
+               "rarity": "common",
+               "image": "https://i.etsystatic.com/16228185/r/il/ce994f/1608813739/il_570xN.1608813739_ghqj.jpg",
+               "id": "120485"
+          },
+          {
+               "title": "Leichester Longwool Rug",
+               "value": "40",
+               "description": "A rug made from a Leichester Longwool Sheep",
+               "rarity": "common",
+               "image": "https://i.pinimg.com/originals/1c/b2/48/1cb248f88c5d65f9e531c3cb1a830c45.jpg",
+               "id": "239404"
+          },
+          {
+               "title": "Adzuki Beans",
+               "value": "2",
+               "description": "Bean for eating",
+               "rarity": "common",
+               "image": "https://www.jessicagavin.com/wp-content/uploads/2020/05/types-of-beans-adzuki-600x400.jpg",
+               "id": "490346"
+          },
+          {
+               "title": "Dinosaur Bone",
+               "value": "300",
+               "description": "Bone of a prehistoric animal",
+               "rarity": "uncommon",
+               "image": "https://www.thecrazyfifties.es/wp-content/uploads/2020/01/Hueso-de-Dinosaurio-2.jpg",
+               "id": "93406"
+          },
+          {
+               "title": "Furry Blanket",
+               "value": "30",
+               "description": "Fuzzy",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/71q05Rcz00L._AC_SL1200_.jpg",
+               "id": "378493"
+          },
+          {
+               "title": "Prismatic Compass",
+               "value": "50",
+               "description": "Navigational tool",
+               "rarity": "common",
+               "image": "https://www.brasscompass.com/FrancisBarkerM73Black360.jpg",
+               "id": "349630"
+          },
+          {
+               "title": "Sun Hat",
+               "value": "30",
+               "description": "For Sun Haters",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/71tKXRvS9IL._AC_UL1500_.jpg",
+               "id": "9234"
+          },
+          {
+               "title": "Popeyes 12 pc",
+               "value": "20",
+               "description": "A lot of chicken for cheap",
+               "rarity": "common",
+               "image": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/screen-shot-2020-05-21-at-1-52-57-pm-1590083593.png",
+               "id": "89010164925341"
+          },
+          {
+               "title": "Petrified Wood Plate",
+               "value": "150",
+               "description": "Holds food on an unusual plate",
+               "rarity": "uncommon",
+               "image": "https://www.madagascarminerals.com/prod_images_blowup/Petrified-Wood-Plate-Fancy-Base-85-inch-083Kg-1.JPG",
+               "id": "83529"
+          },
+          {
+               "title": "Extremely ripe banana",
+               "value": "5",
+               "description": "Only for banana bread",
+               "rarity": "common",
+               "image": "https://1.bp.blogspot.com/-6B3i0EhGo3w/XGg4H0XT_2I/AAAAAAAAQeE/Z0vYFXvYFhgbDGyZd1leUx_5i8VIk4KBwCLcBGAs/s1600/Black%2BBananas%2B2010-500.JPG",
+               "id": "923401"
+          },
+          {
+               "title": "Lead Fork",
+               "value": "3",
+               "description": "Use at your own risk",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/518sHIPgx%2BL._AC_SX679_.jpg",
+               "id": "91204"
+          },
+          {
+               "title": "Oolong Tea Leaves",
+               "value": "25",
+               "description": "Common tea leaves",
+               "rarity": "common",
+               "image": "https://cdn2.bigcommerce.com/server2800/59819/product_images/uploaded_images/oolong-content.jpg",
+               "id": "482391"
+          },
+          {
+               "title": "Weiner",
+               "value": "3",
+               "description": "Used between two buns",
+               "rarity": "common",
+               "image": "https://atlas-content-cdn.pixelsquid.com/stock-images/hot-dog-wiener-ZR1MW0D-600.jpg",
+               "id": "92304"
+          },
+          {
+               "title": "Papyrus Paper",
+               "value": "6",
+               "description": "Paper known to be used by Egyptians",
+               "rarity": "common",
+               "image": "https://m.media-amazon.com/images/I/71Q+ag4OapL._AC_SL1454_.jpg",
+               "id": "93202"
+          },
+          {
+               "title": "Green Glue",
+               "value": "7",
+               "description": "Green glue made from Green Glue",
+               "rarity": "common",
+               "image": "https://images-na.ssl-images-amazon.com/images/I/71nukH1xbwL._AC_SY450_PIbundle-12,TopRight,0,0_SH20_.jpg",
+               "id": "329450"
+          },
+          {
+               "title": "Big Mac",
+               "value": "8",
+               "description": "Mcdonals's special",
+               "rarity": "common",
+               "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Big_Mac_hamburger.jpg/235px-Big_Mac_hamburger.jpg",
+               "id": "129301"
+          },
+          {
+               "title": "Backpack Kid Photo",
+               "value": "150",
+               "description": "Floss it up",
+               "rarity": "uncommon",
+               "image": "https://hollywoodlife.com/wp-content/uploads/2018/12/Backpack-Kid-Exclusive-Interview-ftr.jpg?w=620",
+               "id": "23940"
+          },
+          {
+               "title": "Murano Vase",
+               "value": "250",
+               "description": "Hand Blown Vase from Murano",
+               "rarity": "uncommon",
+               "image": "https://i.etsystatic.com/11751906/r/il/cd134a/1795074120/il_570xN.1795074120_odld.jpg",
+               "id": "13469"
+          },
+          {
+               "title": "Phosphate Rock",
+               "value": "80",
+               "description": "Contain an abundance of phosphate used in fertilization",
+               "rarity": "common",
+               "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg/1200px-Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg",
+               "id": "81293"
+          },
+          {
+               "title": "Zinc Rock",
+               "value": "80",
+               "description": "Contains an abundance of zinc",
+               "rarity": "common",
+               "image": "https://uwaterloo.ca/earth-sciences-museum/sites/ca.earth-sciences-museum/files/styles/body-500px-wide/public/uploads/images/zinc%20ore%206-500x375.JPG",
+               "id": "81294"
+          },
+          {
+               "title": "Jade Ring",
+               "value": "150",
+               "description": "Made of a gem that is thought to display one's health",
+               "rarity": "uncommon",
+               "image": "https://www.jadeshop.com/assets/images/GJR.jpg",
+               "id": "821934"
+          }
+     ]
+}
