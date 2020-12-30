@@ -1,48 +1,55 @@
-        
-        /*
-        const {Command} = require('advanced-command-handler');
-        module.exports = new Command(
-            {
+        const commando = require('discord.js-commando')
+
+    module.exports = class bringFunction extends commando.Command {
+
+        constructor(client) {
+
+            super(client, {
+
                 name: 'bring',
-                description: 'mute people', // Optionnals :
-                usage: 'tcp bring <mention>',
-                category: '',
-                tags: [],
                 aliases: ['b'],
-                userPermissions: ['KICK_MEMBERS'],
-                clientPermissions: [],
-                cooldown: 10,
-            } /* Note :
-             You can now put the args you want as this handler
-             doesn't have default a message event. 
-        
-             ,
-            async (client, message, args) => {
+                group: 'mod',
+                memberName: 'bring',
+                description: "A quick way to silence a member without much commotion",
+                userPermissions: ["KICK_MEMBERS"],
+
+            })
 
 
-                console.log(args)
+        }
 
-                if(message.author.bot) return;
-           
+
+        async run(message, args) {
+
+            if(message.author.bot) return;
             
-                var argsOfCmdHandler = args[1]
-                
+                var stringArray = args.split(/(\s+)/);
+    
 
+                stringArray = stringArray.filter(function(str) {
+                    return /\S/.test(str)
+                })
 
-                if(args.length <= 1 || !argsOfCmdHandler.startsWith(`<`)){
+            stringArray.forEach(userId => {
+
+                console.log(userId)
+
+                if(!userId.startsWith(`<@!`) || !isNaN(userId.charAt(userId.indexOf(`<`) + 2))) {
 
                     message.reply("You need a id for this command.")
                     return;
 
                 } else { 
 
-                    var id = argsOfCmdHandler.slice(3, argsOfCmdHandler.length-1);
-        
+
+
+                    var id = userId.slice(3, userId.length-1);
+    
                     let personFoundFromId = message.guild.members.cache.get(id)
-
-
-                    let mutedRole = message.guild.roles.cache.get("704840632652398623")
-
+    
+    
+                    let mutedRole = message.guild.roles.cache.get("791343546497105941")
+    
             
                 personFoundFromId.roles.cache.has(mutedRole.id) 
                 
@@ -53,24 +60,34 @@
                 
                 
                
-
+    
                 message.reply('wooshing...')
-
+    
                 .then(msg => msg.delete({timeout: 1000}))
 
-                
+
+
+
+
+                }
 
                 
-
-                }   
+            });
+                
 
 
                 
-            }
-        );
-            
 
-        
 
-     */  
-   
+            function isNumeric(str) {
+                if (typeof str != "string") return false // we only process strings!  
+               return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+                       !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+
+
+        }
+
+
+    }
+
+}

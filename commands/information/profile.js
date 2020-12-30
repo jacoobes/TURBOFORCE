@@ -10,10 +10,10 @@ module.exports = class profileCmd extends Commando.Command {
 
             name: 'profile',
             aliases: ['p'],
-            group: 'commands',
+            group: 'information',
             memberName: 'profile',
-            description: "checks your profile"
-
+            description: "checks your own profile",
+            examples: ["tcp profile"]
         })
     
     }

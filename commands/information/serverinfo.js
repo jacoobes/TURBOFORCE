@@ -1,13 +1,24 @@
 
-/*
-module.exports = {
+const commando = require('discord.js-commando')
+module.exports = class serverInfoEmbed extends commando.Command {
 
-    commands: ['si', 'serverinfo'],
-    expectedArgs: '',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 1,
-    callback: (message, arguments, text) =>{
+    constructor(client) {
+
+        super(client, {
+
+            name : 'serverinfo',
+            aliases: ['si'],
+            group: "information",
+            memberName: "serverinfo",
+            description: "checks the server you are in",
+            examples: ["tcp serverinfo, tcp si"]
+        })
+
+
+    }
+    async run(message) {
+
+
         const {MessageEmbed} = require('discord.js')
 
 
@@ -58,7 +69,7 @@ module.exports = {
                   }   //implement a way to remove roles with ------------
            
                
-           
+           // implement global emoji function
    
            var cpEmotes = {
                yukikopog: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_POGyukiko'),
@@ -66,6 +77,8 @@ module.exports = {
                jackieSmile: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_JackieSmile' ),
                yukiNaughty: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_YukiNaughty'),
            }
+
+           //implement global emoji function
    
            const serverWho = new MessageEmbed()
            .setColor(' #a6f7e4 ')
@@ -94,9 +107,19 @@ module.exports = {
            serv();
 
 
-    },
-    permissions: [],
-    requiredRoles: []
-}
 
-*/
+
+
+
+
+
+
+
+
+    }
+
+
+}
+        
+
+

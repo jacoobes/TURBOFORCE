@@ -1,66 +1,83 @@
-/*
+const commando = require('discord.js-commando')
 
-module.exports = {
 
-    commands: ['release', 'r'],
-    expectedArgs: '<mention>',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 2,
-    callback: (message, arguments, text) =>{
-       
-                
-        if(message.author.bot) return;
-           
+module.exports = class releaseCommand extends commando.Command {
+
+
+    constructor(client) {
+
+        super(client, {
+
+            name: 'release',
+            aliases: ['r'],
+            group: 'mod',
+            memberName: 'release',
+            examples: ['tcp release <mention>', 'tcp r <mention>'],
+            description: "Releasing members from muted channel.",
+            userPermissions: ["KICK_MEMBERS"],
+
+
+
+
+
+        })
+
+
+
+
+    }
+
+async run(message, args) {
+
+    if(message.author.bot) return;
             
-            var args = arguments[1]
-
-            if(arguments.length <= 1 || !args.startsWith(`<`)){
-
-                message.reply("You need a id for this command.")
-
-                return;
-
-            }  else { 
-
-                    var id = args.slice(3, args.length-1);
-
-                    
-        
-                    let personFound = message.guild.members.cache.get(`${id}`)
+    var stringArray = args.split(/(\s+)/);
 
 
-                    let role = message.guild.roles.cache.get("704840632652398623")
+    stringArray = stringArray.filter(function(str) {
+        return /\S/.test(str)
+    })
+
+    stringArray.forEach(userId => {
+
+        console.log(userId)
+
+         if(!userId.startsWith(`<@!`) || !isNaN(userId.charAt(userId.indexOf(`<`) + 2))) {
+
+        message.reply("You need a id for this command.")
+        return;
+
+    }  else { 
+
+            var id = args.slice(3, args.length-1);
 
             
 
-                    if(personFound.roles.cache.has(role.id)){  
-                
-                      personFound.roles.remove(role) 
-                      message.channel.send('wooshing..')
-                    
-                       
-                
-                         
-                    } else{
-                        message.reply("The targeted user is not muted.")
-                    }
-                
-            }
+            let personFound = message.guild.members.cache.get(`${id}`)
 
-           
-            
-        
-        
-            
-        
+
+            let role = message.guild.roles.cache.get("704840632652398623")
+
     
 
+            if(personFound.roles.cache.has(role.id)){  
+        
+              personFound.roles.remove(role) 
+              message.channel.send('wooshing..')
+            
+               
+        
+                 
+            } else{
+                message.reply("The targeted user is not muted.")
+                 }
+        
+            }
 
-       
-    },
-    permissions: ['KICK_MEMBERS'],
-    requiredRoles: []
+
+        })
+
+    }
+    
 }
 
-*/

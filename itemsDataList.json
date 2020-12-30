@@ -383,6 +383,14 @@
                "rarity": "uncommon",
                "image": "https://www.jadeshop.com/assets/images/GJR.jpg",
                "id": "821934"
+          },
+          {
+               "title": "Forest Cologne",
+               "value": "50",
+               "description": "The strongest cologne you'll smell.",
+               "rarity": "rare",
+               "image": "https://www.bathandbodyworks.com/dw/image/v2/BBDL_PRD/on/demandware.static/-/Sites-master-catalog/default/dw2f38b6f3/hires/026169053.jpg?sh=1500&sfrm=jpg",
+               "id": "828018481"
           }
      ]
 }
