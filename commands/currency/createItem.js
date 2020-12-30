@@ -1,3 +1,5 @@
+
+/*
 const fs = require(`fs`);
 const {MessageEmbed, Message} = require(`discord.js`);
 
@@ -225,3 +227,5 @@ function confirmationMessage() {
     permissions: [],
     requiredRoles: []
 }
+
+*/

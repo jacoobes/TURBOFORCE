@@ -1,4 +1,4 @@
-const { ifError } = require("assert");
+
 
 const { Client, MessageEmbed, Role, GuildMember} = require("discord.js");
 
@@ -23,16 +23,32 @@ const commando = require('discord.js-commando')
 const client = new commando.CommandoClient({
 
     owner: '182326315813306368',
-    commandPrefix: 'tcp'
+    commandPrefix: config.prefix
 
 })
 
+client.on('ready', async() => { 
+
+console.log(`git client ready`)
+
+client.registry
 
 
-var CityPopTerms = ["Mariya Takeuchi", "Meiko Nakahara", "Omega Tribe", "Momoko Kikuchi", "Tatsuro Yamashita", "Toshiki Kadomatsu", "City Pop", "Taku", "Plastic Love", "Junko Ohashi", "56709", "Piper", "Miki Matsubara", "Scramble Cross", "Minako Yoshida", "Hiromi Iwasaki", "Stay with Me", "Mao Music", "Casiopea", "Anri"];
+.registerGroups([
+
+    ['currency', 'trading currency system'],
+    [`fun`, `fun commands`],
+    ['mod', 'moderation commands'],
+    ['information', `basic information commands`]
+
+])
+.registerDefaults()
+.registerCommandsIn(path.join(__dirname, 'commands'))
+
+//var CityPopTerms = ["Mariya Takeuchi", "Meiko Nakahara", "Omega Tribe", "Momoko Kikuchi", "Tatsuro Yamashita", "Toshiki Kadomatsu", "City Pop", "Taku", "Plastic Love", "Junko Ohashi", "56709", "Piper", "Miki Matsubara", "Scramble Cross", "Minako Yoshida", "Hiromi Iwasaki", "Stay with Me", "Mao Music", "Casiopea", "Anri"];
 
    
-
+/*
 var randomTerm = CityPopTerms[Math.floor(Math.random() * CityPopTerms.length)];
 
 client.user.setActivity(`${randomTerm} | TURBOFORCE`, 
@@ -46,6 +62,14 @@ client.user.setActivity(`${randomTerm} | TURBOFORCE`,
 
 
 process.on('warning', e => console.warn(e.stack));
+*/
+
+
+
+
+
+})
+
 
 
 

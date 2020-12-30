@@ -1,6 +1,6 @@
 
 
-
+/*
 module.exports = {
 
     commands: ['freeItem'],
@@ -74,3 +74,5 @@ module.exports = {
     permissions: [],
     requiredRoles: []
 }
+
+*/

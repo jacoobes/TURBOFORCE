@@ -1,3 +1,5 @@
+
+/*
 module.exports = {
 
     commands: ['si', 'serverinfo'],
@@ -96,3 +98,5 @@ module.exports = {
     permissions: [],
     requiredRoles: []
 }
+
+*/

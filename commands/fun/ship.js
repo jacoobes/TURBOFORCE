@@ -1,3 +1,5 @@
+
+/*
 const { MessageEmbed, Role } = require("discord.js");
 const shipGifs = require(`/Users/jacob/OneDrive/Desktop/discord bot/ship.json`)
 
@@ -203,3 +205,5 @@ function isNumeric(str) {
     permissions: [],
     requiredRoles: []
 }
+
+*/

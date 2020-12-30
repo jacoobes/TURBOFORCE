@@ -1,3 +1,5 @@
+        
+        /*
         const {Command} = require('advanced-command-handler');
         module.exports = new Command(
             {
@@ -14,7 +16,7 @@
              You can now put the args you want as this handler
              doesn't have default a message event. 
         
-             */,
+             ,
             async (client, message, args) => {
 
 
@@ -68,8 +70,7 @@
         );
             
 
-                
+        
 
-
-       
+     */  
    

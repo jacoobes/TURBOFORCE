@@ -1,3 +1,5 @@
+/*
+
 module.exports = {
 
     commands: ['define', 'ud'],
@@ -91,3 +93,4 @@ message.channel.send(urbanDictionary);
     requiredRoles: []
 }
 
+*/

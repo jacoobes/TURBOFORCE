@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+/*
 module.exports = {
 
     commands: ['allItems', 'aI'],
@@ -92,3 +100,5 @@ function isNotValidKey() {
     permissions: [],
     requiredRoles: []
 }
+
+*/

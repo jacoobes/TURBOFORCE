@@ -1,6 +1,6 @@
 
 
-
+/*
 module.exports = {
 
     commands: ['create'],
@@ -143,3 +143,4 @@ return hadID
     permissions: [],
     requiredRoles: []
 }
+*/

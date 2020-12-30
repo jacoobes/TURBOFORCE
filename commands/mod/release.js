@@ -1,3 +1,5 @@
+/*
+
 module.exports = {
 
     commands: ['release', 'r'],
@@ -60,3 +62,5 @@ module.exports = {
     permissions: ['KICK_MEMBERS'],
     requiredRoles: []
 }
+
+*/
