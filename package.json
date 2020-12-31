@@ -12,6 +12,8 @@
     "discord.io": "github:woor/discord.io#gateway_v6",
     "discord.js": "^12.4.1",
     "discord.js-commando": "github:discordjs/commando",
+    "keyv": "^4.0.3",
+    "nedb": "^1.8.0",
     "winston": "^3.3.3"
   }
 }

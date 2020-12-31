@@ -42,7 +42,7 @@ module.exports = class serverInfoEmbed extends commando.Command {
 
 
            
-           
+           //the elements / parameters are very vague and need some reworking. 
            
            function randomRole(arg) {
                
@@ -107,7 +107,7 @@ module.exports = class serverInfoEmbed extends commando.Command {
            serv();
 
 
-
+           
 
 
 

@@ -1,36 +1,57 @@
+const commando = require('discord.js-commando')
 
-/*
-const { MessageEmbed, Role } = require("discord.js");
+module.exports = class Ship extends commando.Command {
+
+constructor(client) {
+
+    super(client,{
+
+        name: 'ship',
+        group: 'fun',
+        memberName: 'ship',
+        description: "Are you horny? You can ship two people. Just mention them.",
+        args: [
+            {
+                key: "firstName",
+                prompt: "Who would you like to ship first?",
+                type: "user"
+
+            },
+            {
+                key:"secondName",
+                prompt: "Who else would you like to ship?",
+                type: "user"
+
+            }
+
+
+
+
+
+
+        ],
+        throttling : {
+            
+            usages: 5,
+            duration: 120
+        }
+
+    })
+
+    
+
+
+}
+
+async run(message, {firstName, secondName}) {
+
+const { MessageEmbed} = require("discord.js");
 const shipGifs = require(`/Users/jacob/OneDrive/Desktop/discord bot/ship.json`)
-
-module.exports = {
-
-    commands: ['ship'],
-    expectedArgs: '<partner1> <partner2>',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 3,
-    callback: (message, arguments, text) =>{
-
-        
-
-
 
 var axios = require("axios").default;
 
-if(arguments.length < 3 || arguments[1].startsWith(`<@&`) || arguments[2].startsWith(`<@&`) || arguments[1].length < 11 || arguments[2].length < 11 ){
 
-    message.reply("You need a two user ids (mention) for this command.")
-    return;
-
-} else { 
     
-   
-var firstName = message.guild.members.cache.get(transformMention(arguments[1])).user
-
-var secondName= message.guild.members.cache.get(transformMention(arguments[2])).user
-
-
    
 var optionsForLoveCalculator = {
   method: 'GET',
@@ -103,27 +124,11 @@ sendDelayedEmbed(shipEmbed)
 	console.error(axiosError);
 });
 
-}
+
  
 //really need to start focusing on simplfying code
 
-function transformMention(argumentsFromCmdHandler){
 
-    var id;
-
-    if(!isNaN(argumentsFromCmdHandler.charAt(argumentsFromCmdHandler.indexOf(`<`) + 2))){
-
-      id = argumentsFromCmdHandler.slice(2, argumentsFromCmdHandler.length-1)  
-
-      return id;
-
-    } else {
-
-     id = argumentsFromCmdHandler.slice(3 , argumentsFromCmdHandler.length-1);
-
-     return id;
-    }
- }
 
 
 
@@ -197,6 +202,29 @@ function isNumeric(str) {
 
 
 }
+
+
+
+
+
+    }
+}
+/*
+
+
+module.exports = {
+
+    commands: ['ship'],
+    expectedArgs: '<partner1> <partner2>',
+    permissionError: 'You need more permissions to run this command',
+    minArgs: 0,
+    maxArgs: 3,
+    callback: (message, arguments, text) =>{
+
+        
+
+
+
 
 
 

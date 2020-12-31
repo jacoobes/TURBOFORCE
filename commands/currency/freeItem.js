@@ -1,16 +1,29 @@
+const commando = require('discord.js-commando')
 
 
-/*
-module.exports = {
 
-    commands: ['freeItem'],
-    expectedArgs: '',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 1,
-    callback: (message, arguments, text) =>
-    
-    {
+module.exports = class freeItem extends commando.Command {
+
+
+    constructor(client) {
+
+        super(client, {
+
+                name: 'freeitem',
+                group: 'currency',
+                memberName: 'freeitem',
+                description: "Everyone gets one free item!",
+
+        })
+
+
+
+
+    }
+
+
+    async run(message) {
+
 
         const listOfAllItemNames = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`)
         const accountList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
@@ -65,6 +78,28 @@ module.exports = {
         })
        
         message.reply(`You have received the free item: **${randomFreeItem.title}**, **MSRP**: ${randomFreeItem.value}, Rarity: **${randomFreeItem.rarity}** ${randomFreeItem.image}`)
+
+
+
+
+
+    }
+
+
+
+
+}
+/*
+module.exports = {
+
+    commands: ['freeItem'],
+    expectedArgs: '',
+    permissionError: 'You need more permissions to run this command',
+    minArgs: 0,
+    maxArgs: 1,
+    callback: (message, arguments, text) =>
+    
+    {
 
 
 

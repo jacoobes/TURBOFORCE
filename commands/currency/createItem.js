@@ -8,7 +8,7 @@ module.exports = class newItem extends commando.Command {
         super(client, {
 
             name: 'createitem',
-            alias: ['newitem', 'ci', 'ni'],
+            aliases: ['newitem', 'ci', 'ni'],
             group: 'currency',
             memberName: 'createitem',
             description: 'If an authorized user, you can create items for the currency system.',
@@ -55,6 +55,11 @@ module.exports = class newItem extends commando.Command {
                 }
 
             ],
+            throttling: {
+
+                usages: 1,
+                duration: 300
+            }
 
         })
 
@@ -63,13 +68,10 @@ module.exports = class newItem extends commando.Command {
 
     async run(message, {title, value, description, rarity, image, id}){
 
+if(message.author.bot) return;
+
 const fs = require(`fs`);
 const {MessageEmbed} = require(`discord.js`);
-
-const itemsList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`);
-
-
-
 
         if(isAuthorizedUser()) {
         
@@ -201,7 +203,8 @@ function writetoFile(object){
         object = JSON.stringify(object, null, 5)
         
         fs.writeFile('C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json', object, 'utf8', function(err){
-        console.error(err)
+
+        if(err) console.error(err)
 
                         })
             

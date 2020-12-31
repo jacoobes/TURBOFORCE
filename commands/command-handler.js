@@ -116,6 +116,33 @@ let {
 
                 callback(message,arguments, arguments.join(' '))
                 return 
+
+
+
+
+
+
+
+
+
+
+                function transformMention(argumentsFromCmdHandler){
+
+    var id;
+
+    if(!isNaN(argumentsFromCmdHandler.charAt(argumentsFromCmdHandler.indexOf(`<`) + 2))){
+
+      id = argumentsFromCmdHandler.slice(2, argumentsFromCmdHandler.length-1)  
+
+      return id;
+
+    } else {
+
+     id = argumentsFromCmdHandler.slice(3 , argumentsFromCmdHandler.length-1);
+
+     return id;
+    }
+ }
             }
 
         }
