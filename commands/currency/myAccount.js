@@ -3,6 +3,7 @@
 
 const { MessageEmbed } = require('discord.js')
 const commando = require('discord.js-commando')
+const { accounts, items } = require('../..')
 
 module.exports = class myAccount extends commando.Command {
 
@@ -40,30 +41,39 @@ const {MessageEmbed} = require('discord.js')
 
 
 
-const accountEmbed = new MessageEmbed()
+var accountEmbed = new MessageEmbed()
 
 .setColor(message.member.displayHexColor)
-
 .setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
+.addFields(
+{name: "Balance in Hand", value: accounts.get(`${message.author.id}.balanceInHand`), inline: true},
 
-.addField("Balance in Hand", whoAccessAccount.balanceInHand, true)
+{name: "Balance in Bank", value: accounts.get(`${message.author.id}.balanceInBank`), inline: true},
 
-.addField("Balance in Bank", whoAccessAccount.balanceInBank, true)
+{name: "Items", value: getAllItems(), inline: false}
 
+)
 
 
 .setThumbnail(message.author.avatarURL())
 
 message.channel.send(accountEmbed)
 
+function getAllItems(){
 
-function findItemDuplicates() {
+var yourAccount = accounts.get(`${message.author.id}.Items`)
+
+var yourPossessions = yourAccount.Items
 
 
-    
-}
+for (yourPossessions of yourAccount) {
+
+return `${yourPossessions.title} (${yourPossessions.value}) \n` 
+
+        }
 
 
+    }
 
 
 }

@@ -13,9 +13,9 @@ const path = require('path');
 
 
 
-const accounts = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
+//onst accounts = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
 const itemsDataList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`)
-const Datastore = require('nedb')
+const db = require('quick.db')
 
 
 
@@ -28,24 +28,20 @@ const client = new commando.CommandoClient({
 })
 
 
-client.on('ready', async() => { 
+client.once('ready', async() => { 
 
 
 
 
+var items = new db.table('items')
 
-var db = {} 
+var accounts = new db.table('accounts')
 
-db.Items = new Datastore({filename: `items.db`, corruptAlertThreshold: 1})
-db.Accounts = new Datastore({filename: `accounts.db`, corruptAlertThreshold: 1})
+module.exports.items = items
+module.exports.accounts = accounts
 
 
-db.Items.loadDatabase(err => err? console.error(err + `items`) : "")
-db.Accounts.loadDatabase(err =>err ? console.error(err + ` accounts`) : "")
 
-module.exports.accountData = db.Accounts
-module.exports.ItemData = db.Items
-module.exports.db = db
 
 
 console.log(`git client ready`)

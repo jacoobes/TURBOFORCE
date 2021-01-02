@@ -1,4 +1,5 @@
 const commando = require('discord.js-commando')
+const { accounts, items } = require('../..')
 
 
 
@@ -24,64 +25,30 @@ module.exports = class freeItem extends commando.Command {
 
     async run(message) {
 
-
-        const listOfAllItemNames = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`)
-        const accountList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
-        const fs = require('fs')
-
-
-
-       var accountThatWantsFreeItem = accountList.allAccounts.find(user => message.author.id === user.userId);
-       var randomFreeItem = listOfAllItemNames.allItems[Math.round(Math.random() * listOfAllItemNames.allItems.length)]
+        var {accounts} = require(`../../index`)
+        var {items} = require(`../../index`)
 
        
-          
-       if(accountThatWantsFreeItem === undefined) {message.reply('You need to make an account with tcp create!'); return; }
-       if(accountThatWantsFreeItem.freeItem === true) {message.reply('You already got your free one item!'); return;}
        
+       var random = items.all()[Math.round(Math.random() * items.all().length)]
+
+       var accountThatWantsFreeItem = `${message.author.id}.Items`
+
+       var getRandomItem = items.get(random.ID)
        
-       
-       fs.readFile('C:/Users/jacob/OneDrive/Desktop/discord bot/account.json', 'utf8', function readFileCallback(err,data) {
-
-            if(err){
-                console.error(err)
-
-            } else {
-            
-            
-            
-            var accountsArray = JSON.parse(data)
-
-            console.log(accountsArray)
-
-            var whoSentCommand = accountsArray.allAccounts.find(user => message.author.id === user.userId)
-
-                whoSentCommand.Items.push(randomFreeItem)
-                
-                whoSentCommand.freeItem = true;
-
-            var test = {
-                
-                allAccounts: accountsArray.allAccounts.map(obj => whoSentCommand === obj.id || obj)
-             
-            }
-            console.log(test)
-
-            test = JSON.stringify(test, null, 5)
-           
-            fs.writeFile('C:/Users/jacob/OneDrive/Desktop/discord bot/account.json', test, err =>{  console.error(err)} )
-
-            }
-
-            
-
-        })
-       
-        message.reply(`You have received the free item: **${randomFreeItem.title}**, **MSRP**: ${randomFreeItem.value}, Rarity: **${randomFreeItem.rarity}** ${randomFreeItem.image}`)
+      
+     // accounts.set(accountThatWantsFreeItem, []) => total reset of Items!
+       if(accounts.get(message.author.id) === null) {message.reply('You need to make an account with tcp create!'); return; }
+       if(accounts.get(message.author.id).freeItem === true) {message.reply('You already got your free one item!'); return; }
 
 
+       accounts.push(`${accountThatWantsFreeItem}`, getRandomItem)
 
+       accounts.set(`${message.author.id}.freeItem`, true)
 
+       message.reply(`You have received the free item: **${getRandomItem.title}**, **MSRP**: ${getRandomItem.value}, Rarity: **${getRandomItem.rarity}** ${getRandomItem.image}`)
+
+      
 
     }
 
@@ -89,25 +56,3 @@ module.exports = class freeItem extends commando.Command {
 
 
 }
-/*
-module.exports = {
-
-    commands: ['freeItem'],
-    expectedArgs: '',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 1,
-    callback: (message, arguments, text) =>
-    
-    {
-
-
-
-
-
-    },
-    permissions: [],
-    requiredRoles: []
-}
-
-*/

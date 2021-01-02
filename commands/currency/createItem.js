@@ -50,8 +50,7 @@ module.exports = class newItem extends commando.Command {
                 {
                     key: "id",
                     prompt:"What would you like to set as the id?",
-                    type: "string",
-                    default: ""
+                    type: "string"
                 }
 
             ],
@@ -70,17 +69,22 @@ module.exports = class newItem extends commando.Command {
 
 if(message.author.bot) return;
 
+var {items} = require(`../../index`)
+
+
+
 const fs = require(`fs`);
 const {MessageEmbed} = require(`discord.js`);
 
         if(isAuthorizedUser()) {
         
-
-            console.log(title, value, description, rarity, image, id )
             
             sendEmbed()
 
             confirmationMessage()
+
+            
+        
 
 
         }
@@ -97,7 +101,12 @@ const {MessageEmbed} = require(`discord.js`);
 
             if(!(image.match(/\.(jpeg|jpg|gif|png)$/) != null)) return;
 
+
+            id === "random" ? id = randomId() : "";
+
+
             var embed = new MessageEmbed()
+
 
             embed.setTitle(replaceDashesWithSpacesFor(title))
 
@@ -122,8 +131,8 @@ const {MessageEmbed} = require(`discord.js`);
         
             return string
         }
-/*
-//going to need to find a way to set the default value of argument id i
+
+
         function randomId(){
 
             var id = ""
@@ -141,10 +150,9 @@ const {MessageEmbed} = require(`discord.js`);
             return id;
 
     }
-*/
+
 function confirmationMessage() {
     
-    if(!(image.match(/\.(jpeg|jpg|gif|png)$/) != null)) {message.reply('Not a valid image link'); return;}
 
     message.channel.send("Do you want to create this item?")
 
@@ -155,15 +163,17 @@ function confirmationMessage() {
 
             message.reply("Item Created")
                        
-            var newItemObj = {
+            var objectToBeSent = {
 
-            allItems : []
+                title: replaceDashesWithSpacesFor(title),
+                value: value,
+                description: replaceDashesWithSpacesFor(description),
+                rarity: rarity,
+                image: image,
 
             }
-
-        writetoFile(newItemObj)
-   
-
+        
+        items.set(id, objectToBeSent)
     }
         else message.reply('Operation canceled.');  return false;  
 
@@ -175,44 +185,7 @@ function confirmationMessage() {
 
 });
         
-function writetoFile(object){
 
-    fs.readFile('C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json', 'utf8', function readFileCallback(err,data) {
-
-        if(err){
-
-            console.error(err)
-        }
-
-        else {
-
-        object = JSON.parse(data)    
-
-        object.allItems.push({
-
-            title: replaceDashesWithSpacesFor(title),
-            value: value,
-            description: replaceDashesWithSpacesFor(description),
-            rarity: rarity,
-            image: image,
-            id: id
-
-        })
-
-    
-        object = JSON.stringify(object, null, 5)
-        
-        fs.writeFile('C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json', object, 'utf8', function(err){
-
-        if(err) console.error(err)
-
-                        })
-            
-
-                    }
-
-                })    
-            }
     
         }
     }

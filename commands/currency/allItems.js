@@ -1,6 +1,7 @@
 
 
-const commando = require('discord.js-commando')
+const commando = require('discord.js-commando');
+const { all } = require('quick.db');
 
 module.exports = class allItems extends commando.Command {
 
@@ -12,7 +13,19 @@ module.exports = class allItems extends commando.Command {
            aliases : ['ai'],
            group: 'currency',
            memberName: 'allitems',
-           description: 'finds item properties'
+           description: 'finds item properties',
+           args: [
+
+            {
+             key: 'item_value',
+             prompt: "What would you like to search for?",
+             oneOf: ['title', "description", "value", "rarity", "image"],
+             type: 'string'
+
+            }
+
+
+           ]
            
         })
         
@@ -21,72 +34,49 @@ module.exports = class allItems extends commando.Command {
 
     }
 
-    async run(message, args) {
-
-
-
+    async run(message, {item_value}) {
 
     if(message.author.bot) return;
 
+    const {items} = require(`../../index`)
 
-    const listOfAllItemNames = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`)
-    var keysOfObj = []
+    console.log(items)
+
+    
 
     
     if(isAuthorizedUser()) {
 
-        listOfAllItemNames.allItems.forEach(object => {
+      
     
-            return keysOfObj = Object.keys(object)
-        
+
+
+
+
+        }
     
-        })
-    
-        
-    if(isNotValidKey()) return;
-    
-    
-        
-        var itemsFromFile = listOfAllItemNames
         var messageToPost = "";
-    
-    
-        itemsFromFile.allItems.forEach(arrayElement =>{
-    
-        var propertyOfItem = arrayElement[args]
 
-        messageToPost += `**${arrayElement.title}**:${propertyOfItem}, `
-    
-    })
-    
-    
-    if(messageToPost.length >= 2000) {
+     for (var itemsStored of items.fetchAll()) {
 
-    var pageTwo = messageToPost.split(" ", messageToPost.length / 2)
+       var eachItem = items.get(itemsStored.ID) 
 
-    console.log(pageTwo)
+       console.log(allItems[item_value])
 
-    }
+       messageToPost += `**${itemsStored.ID}** : ${eachItem[item_value]} `
+
+     }   
+    
+   
+    
+    
     
     message.channel.send(messageToPost)
     
         
     
-    }         
+          
         
-
-            function isNotValidKey() {
-
-                var oneOfTheKeys = keysOfObj.find(el => el === args)
-            
-                if(oneOfTheKeys === undefined) {
-                message.reply('Not a proper parameter.')
-            
-                return true;
-            
-                }
-                return;
-                }
 
             function isAuthorizedUser() {
 
