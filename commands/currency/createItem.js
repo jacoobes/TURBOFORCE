@@ -87,6 +87,11 @@ const {MessageEmbed} = require(`discord.js`);
         
 
 
+        } else {
+
+
+           message.channel.send( "You cannot use this command!" )
+
         }
 
 

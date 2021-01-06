@@ -13,7 +13,7 @@ module.exports = class allItems extends commando.Command {
            aliases : ['ai'],
            group: 'currency',
            memberName: 'allitems',
-           description: 'finds item properties',
+           description: 'finds all item properties',
            args: [
 
             {
@@ -39,21 +39,6 @@ module.exports = class allItems extends commando.Command {
     if(message.author.bot) return;
 
     const {items} = require(`../../index`)
-
-    console.log(items)
-
-    
-
-    
-    if(isAuthorizedUser()) {
-
-      
-    
-
-
-
-
-        }
     
         var messageToPost = "";
 
@@ -61,9 +46,8 @@ module.exports = class allItems extends commando.Command {
 
        var eachItem = items.get(itemsStored.ID) 
 
-       console.log(allItems[item_value])
 
-       messageToPost += `**${itemsStored.ID}** : ${eachItem[item_value]} `
+       messageToPost += `**${itemsStored.ID}** : ${eachItem[item_value]}, `
 
      }   
     
@@ -71,21 +55,9 @@ module.exports = class allItems extends commando.Command {
     
     
     
-    message.channel.send(messageToPost)
+    message.channel.send(messageToPost, {split : true})
     
         
-    
-          
-        
-
-            function isAuthorizedUser() {
-
-                if(message.author.id === `182326315813306368` || message.author.id === '304386631719452682' || message.author.id === '383101377347584012' ) return true
-            
-                else message.reply("Not an authorized user"); return false;
-            
-            }        
-
 
 
 

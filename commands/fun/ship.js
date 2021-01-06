@@ -24,11 +24,6 @@ constructor(client) {
 
             }
 
-
-
-
-
-
         ],
         throttling : {
             

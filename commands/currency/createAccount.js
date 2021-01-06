@@ -24,7 +24,7 @@ module.exports = class createAccount extends commando.Command {
     var {accounts} = require('../../index')
     const {MessageEmbed} = require('discord.js')
     
-
+//will export embed from myAccount.js to here 
          
 var Account = {
             username: message.author.username,
@@ -38,6 +38,9 @@ if(accounts.fetch(message.author.id) === null) {
 
 message.reply('Account created!')
 
+const {accountEmbed} = require('./myAccount')
+
+message.channel.send(accountEmbed)
 
 
 
@@ -50,7 +53,23 @@ message.reply("You already made an account!")
 }
 
 
-console.log(accounts.all())
+
+
+function getAllItems() {
+
+  var yourAccount = accounts.get(`${message.author.id}.Items`)
+  
+  var yourPossessions = yourAccount.Items
+  
+  
+  for (yourPossessions of yourAccount) {
+  
+  return `**${yourPossessions.title}** (${yourPossessions.value}) \n` 
+  
+          }
+  
+  
+      }
 
 
 
