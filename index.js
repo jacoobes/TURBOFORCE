@@ -1,5 +1,4 @@
 
-
 const { Client, MessageEmbed, Role, GuildMember} = require("discord.js");
 
 //const client = new Client();
@@ -12,9 +11,6 @@ const fs = require('fs');
 const path = require('path');
 
 
-
-//onst accounts = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
-const itemsDataList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/itemsDataList.json`)
 const db = require('quick.db')
 
 
@@ -37,9 +33,11 @@ var items = new db.table('items')
 
 var accounts = new db.table('accounts')
 
+var dailyStore = new db.table('daily_store');
+
 module.exports.items = items
 module.exports.accounts = accounts
-
+module.exports.dailyStore = dailyStore
 
 
 
@@ -54,7 +52,8 @@ client.registry
     ['currency', 'trading currency system'],
     [`fun`, `fun commands`],
     ['mod', 'moderation commands'],
-    ['information', `basic information commands`]
+    ['information', `basic information commands`],
+    ['getitems', 'ways to get money and items!']
 
 ])
 .registerDefaults()
@@ -74,21 +73,6 @@ client.user.setActivity(`${randomTerm} | TURBOFORCE`,
 
 
 {type: "LISTENING"} )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 })

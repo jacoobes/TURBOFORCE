@@ -36,50 +36,50 @@ var arrayOfAllItems = items.all()
 
 for (var itemsStored of arrayOfAllItems) {
 
-var eachItem = items.get(itemsStored.ID)
+    var entriesForEmbed = items.get(itemsStored.ID)
 
-const valuesInAnArray = Object.values(eachItem)
+    const valuesInAnArray = Object.values(entriesForEmbed)
 
-if(valuesInAnArray.some( value => value.toLowerCase() === args.toLowerCase())) {
-
-
-
-console.log(eachItem)
-
-var itemEmbeds = new MessageEmbed()
-
-.setTitle(eachItem.title)
-
-.addField('Value', eachItem.value, true)
-.addField('Rarity', eachItem.rarity, true)
-.setColor(checkRarityOfItem())
-.setImage(eachItem.image)
-.setDescription(eachItem.description)
-// find way to make the object result into an message Embed
+    if(valuesInAnArray.some( value => value.toLowerCase() === args.toLowerCase())) {
 
 
-pages.push(itemEmbeds)
+
+
+
+    var itemEmbeds = new MessageEmbed()
+
+    .setTitle(entriesForEmbed.title)
+
+    .addField('Value', entriesForEmbed.value, true)
+    .addField('Rarity', entriesForEmbed.rarity, true)
+    .setColor(checkRarityOfItem())
+    .setImage(entriesForEmbed.image)
+    .setDescription(entriesForEmbed.description)
+    // find way to make the object result into an message Embed
+
+
+    pages.push(itemEmbeds)
 
     }
 
     function checkRarityOfItem() {
 
-        if(eachItem.rarity === 'uncommon') {
+        if(entriesForEmbed.rarity === 'uncommon') {
 
             return '#808080'
 
 
-        } else if (eachItem.rarity === 'rare') {
+        } else if (entriesForEmbed.rarity === 'rare') {
 
 
             return '#5CFF5C'
 
-        } else if(eachItem.rarity === 'legendary') {
+        } else if(entriesForEmbed.rarity === 'legendary') {
 
 
             return '#c12020'
 
-        } else if(eachItem.rarity === 'mystic') {
+        } else if(entriesForEmbed.rarity === 'mystic') {
 
             return ' #f7a537 '
 
@@ -93,6 +93,7 @@ pages.push(itemEmbeds)
 
 
 }
+
 
 
 

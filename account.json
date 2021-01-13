@@ -1,74 +1,8 @@
 {
      "allAccounts": [
           {
-               "userId": "182326315813306368",
-               "username": "serendipity",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": true,
-               "Items": [
-                    {
-                         "title": "Pog Fish",
-                         "value": "750",
-                         "description": "Almighty Pog Fish",
-                         "rarity": "rare",
-                         "image": "https://media1.tenor.com/images/114b0104f9cae3b439daba7cb3fff15c/tenor.gif?itemid=15374056",
-                         "id": "576910673"
-                    }
-               ]
-          },
-          {
-               "userId": "383101377347584012",
-               "username": "soulja boy",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": true,
-               "Items": [
-                    {
-                         "title": "Indian Elephant Sword",
-                         "value": "550",
-                         "description": "Ancient sword used by Indians in war",
-                         "rarity": "rare",
-                         "image": "https://collectionapi.metmuseum.org/api/collection/v1/iiif/679021/1476842/main-image",
-                         "id": "458068"
-                    }
-               ]
-          },
-          {
                "userId": "503319065297682462",
                "username": "OcyrusHightop",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": false,
-               "Items": []
-          },
-          {
-               "userId": "396671306914856967",
-               "username": "Prorecon22",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": false,
-               "Items": []
-          },
-          {
-               "userId": "784886078045683782",
-               "username": "ℂ𝕖𝕫𝕒𝕣",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": false,
-               "Items": []
-          },
-          {
-               "userId": "758759209768058921",
-               "username": "lol ok",
-               "balanceInHand": 0,
-               "balanceInBank": 50,
-               "freeItem": false,
-               "Items": []
-          },
-          {
-               "userId": "343847868014002188",
-               "username": "Space",
                "balanceInHand": 0,
                "balanceInBank": 50,
                "freeItem": false,

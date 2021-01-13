@@ -40,6 +40,8 @@ module.exports = class allItems extends commando.Command {
 
     const {items} = require(`../../index`)
     
+    
+
         var messageToPost = "";
 
      for (var itemsStored of items.fetchAll()) {

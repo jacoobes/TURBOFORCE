@@ -7,38 +7,7 @@
                "rarity": "uncommon",
                "image": "https://i.etsystatic.com/11751906/r/il/cd134a/1795074120/il_570xN.1795074120_odld.jpg",
                "id": "13469"
-          },
-          {
-               "title": "Phosphate Rock",
-               "value": "80",
-               "description": "Contain an abundance of phosphate used in fertilization",
-               "rarity": "common",
-               "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg/1200px-Peloidal_phosphorite_Phosphoria_Formation_Simplot_Mine_Idaho.jpg",
-               "id": "81293"
-          },
-          {
-               "title": "Zinc Rock",
-               "value": "80",
-               "description": "Contains an abundance of zinc",
-               "rarity": "common",
-               "image": "https://uwaterloo.ca/earth-sciences-museum/sites/ca.earth-sciences-museum/files/styles/body-500px-wide/public/uploads/images/zinc%20ore%206-500x375.JPG",
-               "id": "81294"
-          },
-          {
-               "title": "Jade Ring",
-               "value": "150",
-               "description": "Made of a gem that is thought to display one's health",
-               "rarity": "uncommon",
-               "image": "https://www.jadeshop.com/assets/images/GJR.jpg",
-               "id": "821934"
-          },
-          {
-               "title": "Forest Cologne",
-               "value": "50",
-               "description": "The strongest cologne you'll smell.",
-               "rarity": "rare",
-               "image": "https://www.bathandbodyworks.com/dw/image/v2/BBDL_PRD/on/demandware.static/-/Sites-master-catalog/default/dw2f38b6f3/hires/026169053.jpg?sh=1500&sfrm=jpg",
-               "id": "828018481"
           }
+          
      ]
 }
