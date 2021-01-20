@@ -71,9 +71,6 @@ if(message.author.bot) return;
 
 var {items} = require(`../../index`)
 
-
-
-const fs = require(`fs`);
 const {MessageEmbed} = require(`discord.js`);
 
         if(isAuthorizedUser()) {
@@ -83,8 +80,6 @@ const {MessageEmbed} = require(`discord.js`);
 
             confirmationMessage()
 
-            
-        
 
 
         } else {
@@ -99,7 +94,7 @@ const {MessageEmbed} = require(`discord.js`);
 
         function isAuthorizedUser() {
 
-            if(message.author.id === `182326315813306368` || message.author.id === '304386631719452682' || message.author.id === '383101377347584012' ) return true
+            return Boolean(message.author.id === `182326315813306368` || message.author.id === '304386631719452682' || message.author.id === '383101377347584012' )
         }
 
         function sendEmbed() {

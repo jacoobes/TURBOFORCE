@@ -14,6 +14,7 @@ constructor(client) {
 
         name: 'account',     
         group: 'currency',
+        aliases: ['acc', 'balance', 'bal'],
         memberName: 'account',
         description: 'your account',
         throttling: {
@@ -30,9 +31,6 @@ constructor(client) {
 
 async run(message) {
 
-const accountList = require(`C:/Users/jacob/OneDrive/Desktop/discord bot/account.json`)
-
-
 const {MessageEmbed} = require('discord.js')
 
 
@@ -45,45 +43,74 @@ var accountEmbed = new MessageEmbed()
 
 {name: "Balance in Hand", value: accounts.get(`${message.author.id}.balanceInHand`), inline: true},
 
-{name: "Balance in Bank", value: accounts.get(`${message.author.id}.balanceInBank`), inline: true},
-
-{name: "Items", value: undefined ? "No items at the moment" : getAllItems(), inline: false}
+{name: "Balance in Bank", value: accounts.get(`${message.author.id}.balanceInBank`), inline: true}
 
 )
 
-
 .setThumbnail(message.author.avatarURL())
 
+getAllItemsForEmbed()
 
-
-module.exports.accountEmbed = accountEmbed
 
 message.channel.send(accountEmbed)
 
-function getAllItems() {
+function getAllItemsForEmbed() {
+    
+    var yourAccount = accounts.get(`${message.author.id}.Items`)
+    let stringOfAllItems = "";
 
-var yourAccount = accounts.get(`${message.author.id}.Items`)
 
-var yourPossessions = yourAccount.Items
+    yourAccount.sort()
+
+    console.log(yourAccount)
+
+    let uniqueEntries = [...new Set(yourAccount.map(item => item.title))]
+
+    console.log(uniqueEntries)
+
+for(var i = 0; i < uniqueEntries.length; i++) { 
+
+    let countOfSameItem = 0;
+
+    for(var item of yourAccount ) {
 
 
-for (yourPossessions of yourAccount) {
+        if(item.title === uniqueEntries[i]) {
 
-return `**${yourPossessions.title}** (${yourPossessions.value}) ` 
+            countOfSameItem++;
+            
 
-        }
-
+        } 
 
     }
 
 
+stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
+
+    }
+accountEmbed.addField('Items', null ? 'No items at the moment' : stringOfAllItems)
+
+}
+
+
+    }
+
 }
 
 
 
 
 
+/*
+uniqueEntries = uniqueEntries.reduce((accumulator, currentValue, index) => {
+
+        accumulator.push({title: currentValue, value: valuesOfEntries[index]})
+
+        return accumulator
+
+    }, [])
 
 
+    my first working reduce method usage!
+*/ 
 
-}

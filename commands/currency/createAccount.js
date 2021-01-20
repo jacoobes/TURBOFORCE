@@ -38,11 +38,6 @@ if(accounts.fetch(message.author.id) === null) {
 
 message.reply('Account created!')
 
-const {accountEmbed} = require('./myAccount')
-
-message.channel.send(accountEmbed)
-
-
 
 accounts.set(message.author.id, Account)
 
@@ -51,27 +46,6 @@ accounts.set(message.author.id, Account)
 message.reply("You already made an account!")
 
 }
-
-
-
-
-function getAllItems() {
-
-  var yourAccount = accounts.get(`${message.author.id}.Items`)
-  
-  var yourPossessions = yourAccount.Items
-  
-  
-  for (yourPossessions of yourAccount) {
-  
-  return `**${yourPossessions.title}** (${yourPossessions.value}) \n` 
-  
-          }
-  
-  
-      }
-
-
 
 
 

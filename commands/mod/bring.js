@@ -12,14 +12,27 @@
                 memberName: 'bring',
                 description: "A quick way to silence a member without much commotion",
                 userPermissions: ["KICK_MEMBERS"],
+                args:[
 
+                    {
+                        key: 'members',
+                        prompt: 'who wants to be muted',
+                        type:'member'
+                    }
+
+
+                ],
+                argsType: 'multiple',
+                argsCount: 2
             })
 
 
         }
 
 
-        async run(message, args) {
+        async run(message, {members}) {
+
+            console.log(members)
 
             if(message.author.bot) return;
             
@@ -48,7 +61,7 @@
                     let personFoundFromId = message.guild.members.cache.get(id)
     
     
-                    let mutedRole = message.guild.roles.cache.get("791343546497105941")
+                    let mutedRole = message.guild.roles.cache.get("704831833321242784")
     
             
                 personFoundFromId.roles.cache.has(mutedRole.id) 

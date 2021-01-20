@@ -1,4 +1,4 @@
-
+/*
 const commando = require(`discord.js-commando`);
 const {MessageEmbed} = require('discord.js');
 const {items, dailyStore} = require('../../index');
@@ -48,7 +48,7 @@ entriesForEmbed = items.get(storeArray[i].ID)
 
 
 
-StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  **${entriesForEmbed.value}**`, false)
+StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  \`${entriesForEmbed.value}\``, false)
 
 
 
@@ -165,6 +165,6 @@ function checkRarityOf(item) {
 
 
 
-
+*/
 
 
