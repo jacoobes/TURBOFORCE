@@ -1,4 +1,4 @@
-const commando = require('discord.js-commando')
+/*
 
 
 module.exports = class releaseCommand extends commando.Command {
@@ -81,3 +81,4 @@ async run(message, args) {
     
 }
 
+*/

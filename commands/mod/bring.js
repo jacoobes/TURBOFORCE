@@ -1,4 +1,5 @@
-        const commando = require('discord.js-commando')
+        /*
+
 
     module.exports = class bringFunction extends commando.Command {
 
@@ -104,3 +105,4 @@
     }
 
 }
+*/

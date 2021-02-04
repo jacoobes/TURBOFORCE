@@ -1,4 +1,4 @@
-const commando = require('discord.js-commando');
+/*
 const {items, accounts, dailyStore} = require('../../index');
 const {MessageEmbed} = require('discord.js');
 
@@ -155,3 +155,5 @@ function saidYes(response) {
 
     
 }
+
+*/

@@ -1,33 +1,16 @@
-const commando = require('discord.js-commando')
-const {MessageEmbed} = require('discord.js')
-const {items} = require(`../../index`)  
-const paginationEmbed = require('discord.js-pagination');
 
-module.exports = class viewItem extends commando.Command {
-
-constructor(client) {
-
-
-    super(client, {
+module.exports =  {
 
         name: 'viewitem',     
         aliases : ['vi'],
         group: 'currency',
-        memberName: 'viewitem',
         description: 'finds item properties',
+        callback: (client, message, arguments) => {
 
-
-
-
-    })
-
-
-
-
-
-}
-
-async run(message, args) {
+const {MessageEmbed} = require('discord.js')
+const {items} = require(`../../index`)  
+const paginationEmbed = require('discord.js-pagination');
+            
 
 var pages = []
 var arrayOfAllItems = items.all()
@@ -101,7 +84,6 @@ pages.length < 1 ? message.channel.send('Nothing found!') : paginationEmbed(mess
 
 
 
-}
 
 
 
@@ -113,4 +95,35 @@ pages.length < 1 ? message.channel.send('Nothing found!') : paginationEmbed(mess
 
 
 
-}
+
+
+        }
+
+
+
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

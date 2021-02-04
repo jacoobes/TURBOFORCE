@@ -1,6 +1,6 @@
-const commando = require(`discord.js-commando`)
 
 
+/*
 module.exports = class newItem extends commando.Command {
 
     constructor(client) {
@@ -193,3 +193,4 @@ function confirmationMessage() {
 
 
 
+*/

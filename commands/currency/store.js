@@ -1,41 +1,23 @@
-/*
-const commando = require(`discord.js-commando`);
-const {MessageEmbed} = require('discord.js');
-const {items, dailyStore} = require('../../index');
-const DailyDay = new Date()
-
-var allDatabaseArray = items.all()
-var storeArray = []
-var entriesForEmbed
 
 
+module.exports =  {
+
+  name: 'store',
+  argType: 'string',
+  withMultipleArguments : false,
+  description: 'daily store of Items',
+  callback: (client, message, arguments) => {
+
+      const {MessageEmbed} = require('discord.js');
+        const {items, dailyStore} = require('../../index');
+        const DailyDay = new Date()
+
+        let allDatabaseArray = items.all()
+        let storeArray = []
+        let entriesForEmbed
 
 
-module.exports = class StoreEmbed extends commando.Command {
-
-
-constructor(client) {
-
-    super(client, {
-
-        name: 'store',
-        group: 'currency',
-        description: 'daily store of Items',
-        memberName: 'store'
-
-
-
-
-    })
-
-
-
-}
-async run(message) {
-
-
-   
-var StoreEmbed = new MessageEmbed()
+      var StoreEmbed = new MessageEmbed()
 
 for(var i = 0; i < 6; i++) {
 
@@ -44,11 +26,11 @@ for(var i = 0; i < 6; i++) {
 
     addNewItems();
 
-entriesForEmbed = items.get(storeArray[i].ID)
+    entriesForEmbed = items.get(storeArray[i].ID)
 
 
 
-StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  \`${entriesForEmbed.value}\``, false)
+    StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  \`${entriesForEmbed.value}\``, false)
 
 
 
@@ -56,9 +38,8 @@ StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesF
 
 
 
-StoreEmbed.setTitle(`✯ Daily Store for ${DailyDay.toLocaleDateString()} ✯`)
-StoreEmbed.setColor('#c12020')
-StoreEmbed.setImage(this.client.user.displayAvatarURL())
+    StoreEmbed.setTitle(`✯ Daily Store for ${DailyDay.toLocaleDateString()} ✯`)
+    StoreEmbed.setColor('#c12020')
 
 if(DailyDay.getDay() === dailyStore.get('Day')) {
 
@@ -156,15 +137,29 @@ function checkRarityOf(item) {
       }
 
 
+
+
+
+
+  }
+
+
+
+   
+
+
+
 }
 
 
+   
 
 
-}
 
 
 
-*/
+
+
+
 
 

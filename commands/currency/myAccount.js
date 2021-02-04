@@ -1,38 +1,14 @@
 
-
-
-const { MessageEmbed } = require('discord.js')
-const commando = require('discord.js-commando')
-const { accounts, items } = require('../..')
-
-module.exports = class myAccount extends commando.Command {
-
-constructor(client) {
-
-
-    super(client, {
-
-        name: 'account',     
-        group: 'currency',
+module.exports =  {
+        name: 'account',
+        withMultipleArguments: false,
+        argType: 'string',     
         aliases: ['acc', 'balance', 'bal'],
-        memberName: 'account',
         description: 'your account',
-        throttling: {
-
-            usages: 3,
-            duration: 60 
-
-        }
-
-    })
-
-
-}
-
-async run(message) {
+        callback : (client, message, arguments) => {
 
 const {MessageEmbed} = require('discord.js')
-
+const {accounts} = require('../..')
 
 
 var accountEmbed = new MessageEmbed()
@@ -58,44 +34,63 @@ function getAllItemsForEmbed() {
     
     var yourAccount = accounts.get(`${message.author.id}.Items`)
     let stringOfAllItems = "";
-
-
+    
+    let uniqueEntries = [...new Set(yourAccount.map(item => item.title))]
     yourAccount.sort()
 
-    console.log(yourAccount)
+    for(var i = 0; i < uniqueEntries.length; i++) { 
 
-    let uniqueEntries = [...new Set(yourAccount.map(item => item.title))]
-
-    console.log(uniqueEntries)
-
-for(var i = 0; i < uniqueEntries.length; i++) { 
-
-    let countOfSameItem = 0;
-
-    for(var item of yourAccount ) {
-
-
-        if(item.title === uniqueEntries[i]) {
-
-            countOfSameItem++;
+        let countOfSameItem = 0;
+        
+        for(var item of yourAccount ) {
             
+    
+            if(item.title === uniqueEntries[i]) {
+    
+                countOfSameItem++;
+                
+    
+            } 
+    
+        }
+    
+    
+    stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
+    
+        }
+    accountEmbed.addField('Items', null ? 'No items at the moment' : stringOfAllItems)
 
-        } 
+    
+    
 
-    }
 
 
-stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
 
-    }
-accountEmbed.addField('Items', null ? 'No items at the moment' : stringOfAllItems)
 
+/*
+
+
+    
+
+*/
 }
 
 
     }
 
-}
+
+
+
+
+
+
+
+
+
+            
+        }
+
+    
 
 
 

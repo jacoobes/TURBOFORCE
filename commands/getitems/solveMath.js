@@ -1,6 +1,6 @@
-const commando = require('discord.js-commando');
+/*
 const {create, all, simplify, random, randomInt} = require('mathjs');
-const {accounts, items} = require('../../index')
+const {accounts} = require('../../index')
 const symbol = require ('../../config.json')
 const {MessageEmbed} = require('discord.js')
 
@@ -235,5 +235,5 @@ function makeMathProblemToObject() {
 
 
 
-
+*/
 

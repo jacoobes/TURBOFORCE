@@ -1,3 +1,5 @@
+
+/*
 const commando = require('discord.js-commando')
 
 module.exports = class ItemFlip extends commando.Command { 
@@ -50,3 +52,5 @@ async run(message, {user}, ) {
 
 
 }
+
+*/

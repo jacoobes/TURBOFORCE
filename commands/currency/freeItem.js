@@ -1,29 +1,11 @@
-const commando = require('discord.js-commando')
-const { accounts, items } = require('../..')
 
+module.exports =  {
 
-
-module.exports = class freeItem extends commando.Command {
-
-
-    constructor(client) {
-
-        super(client, {
-
-                name: 'freeitem',
-                group: 'currency',
-                memberName: 'freeitem',
-                description: "Everyone gets one free item!",
-
-        })
-
-
-
-
-    }
-
-
-    async run(message) {
+    name: 'freeitem',
+    argType: 'string',
+    withMultipleArguments: false,
+    description: "Everyone gets one free item!",
+    callback: (client, message, arguments) =>{ 
 
         var {accounts} = require(`../../index`)
         var {items} = require(`../../index`)
@@ -46,13 +28,12 @@ module.exports = class freeItem extends commando.Command {
 
        accounts.set(`${message.author.id}.freeItem`, true)
 
-       message.reply(`You have received the free item: **${getRandomItem.title}**, **MSRP**: ${getRandomItem.value}, Rarity: **${getRandomItem.rarity}** ${getRandomItem.image}`)
+       message.reply(`You have received the free item: **${getRandomItem.title}**, **MSRP**: ${getRandomItem.value}, Rarity: **                    ${getRandomItem.rarity}** ${getRandomItem.image}`)
 
-      
+
+
 
     }
-
-
-
+    
 
 }

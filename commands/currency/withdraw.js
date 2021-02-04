@@ -1,4 +1,4 @@
-const commando = require(`discord.js-commando`);
+/*
 var {accounts} = require(`../../index`)
 var currency = require('../../config.json')
 
@@ -63,3 +63,4 @@ message.reply(`Withdrew ${money} ${currency.currencyName} from your account!`)
 
 
 
+*/

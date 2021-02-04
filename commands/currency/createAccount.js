@@ -1,32 +1,19 @@
-const { MessageEmbed } = require('discord.js');
-const commando = require('discord.js-commando');
-const { db } = require('../../index.js');
 
+module.exports =  {
 
-module.exports = class createAccount extends commando.Command {
-
-
-  constructor(client) {
-
-    super(client, {
-
-      name: 'create',     
-      group: 'currency',
-      memberName: 'create',
+      name: 'create',
       description: 'intiate TURBOFORCE Currency Account!',
+      withMultipleArguments: false,
+      argType: 'string',     
+      callback: (client, message, arguments) => {
 
-    })
+       
+      var {accounts} = require('../../index')
 
-  }
-
-  async run(message) {
-
-    var {accounts} = require('../../index')
-    const {MessageEmbed} = require('discord.js')
     
-//will export embed from myAccount.js to here 
+
          
-var Account = {
+      var Account = {
             username: message.author.username,
             balanceInHand: 0,
             balanceInBank: 50,
@@ -34,7 +21,9 @@ var Account = {
             Items: []
             } 
 
-if(accounts.fetch(message.author.id) === null) { 
+
+let hasAccount = accounts.fetch(message.author.id) || null
+if(!hasAccount) { 
 
 message.reply('Account created!')
 
@@ -49,8 +38,26 @@ message.reply("You already made an account!")
 
 
 
+
+
+
+
+
+
+
+
+
+      }
+    
+
   }
 
+  
 
-}
+    
+
+  
+
+
+
 

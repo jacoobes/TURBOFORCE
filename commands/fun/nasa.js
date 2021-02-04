@@ -1,4 +1,4 @@
-const commando = require('discord.js-commando') 
+/* 
 const axios = require(`axios`).default
 const {MessageEmbed} = require('discord.js')
 
@@ -32,4 +32,5 @@ constructor(client) {
 
 
 
-}
+
+*/
