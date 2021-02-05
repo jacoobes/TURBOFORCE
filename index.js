@@ -4,9 +4,13 @@ const config = require('./config.json')
 const db = require('quick.db')
 const {commandHandler} = require(`./testNewHandler`);
 const chalk = require("chalk");
-
+const Datastore = require('nedb')
 const client = new Client({messageCacheMaxSize: 150, messageCacheLifetime: 300, messageSweepInterval: 10})
-
+const allDBS = {
+    accountDB : new Datastore('./databases/accounts'), 
+    itemsDB : new Datastore('./databases/items'),
+    dailyStoreDB : new Datastore('./databases/daily_store')
+   }
 
 client.on('ready', async() => { 
 
@@ -32,6 +36,10 @@ client.user.setActivity(`${randomTerm} | TURBOFORCE`,
 {type: "LISTENING"} )
 
 
+
+allDBS.accountDB.loadDatabase()
+allDBS.itemsDB.loadDatabase()
+allDBS.dailyStoreDB.loadDatabase()
 })
 
 
@@ -43,7 +51,7 @@ client.on('message', async (message) => {
 
     var dailyStore = new db.table('daily_store');
     
-    module.exports = {items, accounts, dailyStore, message};
+    module.exports = {items, accounts, dailyStore, message, allDBS};
     
     commandHandler.commandExecuter()
 

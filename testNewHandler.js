@@ -1,5 +1,6 @@
 
 
+
 const commandHandler = ( () => {
   
 const { Client, Message, } = require('discord.js');
@@ -168,16 +169,16 @@ getDirectories('./commands', function (err, res) {
       
       let messageEmitted = aliases.get(commandName.argument[1]) || command.get(commandName.argument[1]) || null
 
-      if(this.hasUserPermissions()){
+     
           try {
-
+            if(this.hasUserPermissions()){
              messageEmitted.callback(client, commandName.message, this.finalArgument()) 
-      
+            }
           } catch(e) {
               console.error(e)
                commandName.message.reply('Command not found')
         } 
-      }
+      
    } 
 
         
@@ -250,7 +251,7 @@ getDirectories('./commands', function (err, res) {
       let name = messageEmitted[1]
       
       command = command.get(name) || aliases.get(name) || null;
-      if(!command.userPermissions) {return true}
+      if(!command.userPermissions) {return true} 
       else { 
         
       const allValidPermissions = [
