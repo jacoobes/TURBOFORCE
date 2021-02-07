@@ -1,16 +1,15 @@
 
 
 <!--DOCTYPE html-->
-<link rel="stylesheet" type="text/css" href="style.css" />
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
+
+<html>
 
 <header>
 
-<h1>TURBOFORCE <img id = 'logo' src = 'https://i.postimg.cc/MpdWxtP7/jacoblogo-994.png' alt = 'Logo-image' width = 50 length = 50 </img>   </h1>
+<h1 class>TURBOFORCE <img id = 'logo' src = 'https://i.postimg.cc/MpdWxtP7/jacoblogo-994.png' alt = 'Logo-image' width = 50 length = 50 </img>   </h1>
     <div>
     <h2>
-    A complex economy bot. (Working on it!)
+    A complex economy bot based on items and rarities (Working on it!)
     </h2>
      </div>
 </header>
@@ -47,3 +46,5 @@
 
 
 </body>
+
+</html>

@@ -10,7 +10,7 @@ module.exports =  {
 
 
         const {MessageEmbed} = require('discord.js')
-        
+        let {UBkey} = require('../../config.json')
 
         const axios = require("axios").default
         
@@ -21,7 +21,7 @@ module.exports =  {
             url: 'https://mashape-community-urban-dictionary.p.rapidapi.com/define',
             params: {term: arguments},
             headers: {
-              'x-rapidapi-key': 'c3337957e4mshd354f1938a4c3b3p15669ajsn8ac3b80b3cb2',
+              'x-rapidapi-key': UBkey,
               'x-rapidapi-host': 'mashape-community-urban-dictionary.p.rapidapi.com'
             }
           };

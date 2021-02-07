@@ -13,7 +13,7 @@ module.exports =  {
         const shipGifs = require(`/Users/jacob/OneDrive/Desktop/discord bot/ship.json`)
         const {getMentions} = require('../../mentions')
         var axios = require("axios").default;
-        
+        let {rapidShipAPIkey} = require('../../config.json')
         let allMentions = getMentions(arguments)
             
          console.log(allMentions)  
@@ -25,7 +25,7 @@ module.exports =  {
           url: 'https://love-calculator.p.rapidapi.com/getPercentage',
           params: {fname: firstName.username ,sname: secondName.username},
           headers: {
-            'x-rapidapi-key': 'c3337957e4mshd354f1938a4c3b3p15669ajsn8ac3b80b3cb2',
+            'x-rapidapi-key': rapidShipAPIkey,
             'x-rapidapi-host': 'love-calculator.p.rapidapi.com'
           }
         };

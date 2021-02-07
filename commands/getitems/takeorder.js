@@ -1,10 +1,12 @@
+
+
 module.exports = {
     name: 'order',
     description: 'Take the order of hungry customers to earn tip',
     aliases: ['or'],
     withMultipleArguments: false,
     argType: 'string',
-    callback: (client, message, args) => {
+    callback: async (client, message, args) => {
         const {
             allDBS: { accountDB, itemDB },
         } = require('../../index')
@@ -39,14 +41,14 @@ module.exports = {
         ]
 
         let randomElement = (array) => {
-            return array[Math.round(Math.random() * array.length)]
+            return array[Math.ceil(Math.random() * array.length)]
         }
 
         let randomRestaurant = randomElement(lotsOfRestaurants)
 
         let randomFood = randomElement(foods)
 
-        let numberOfFoodsOrdered = Math.round(Math.random() * 6)
+        let numberOfFoodsOrdered = Math.ceil(Math.random() * 6)
 
         let questions = [
             `Can I get **${numberOfFoodsOrdered} ${randomFood}** from ${randomRestaurant}.`,
@@ -55,19 +57,30 @@ module.exports = {
 
         let answer = '';
 
-        for(let i = 0; i <= numberOfFoodsOrdered; i++){
+        for(let i = 1; i < numberOfFoodsOrdered; i++){
 
-            answer += `${randomFood} `
-            if(i === numberOfFoodsOrdered) {
+            if(i === 6) {
 
                 answer += `${randomRestaurant} `
+
+            } else {
+            
+            answer += `${randomFood} `
 
             }
 
         }    
         
         message.channel.send(`${randomElement(questions)}`)
+       let collected = await message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1})
+        
+       if(collected.first().content === answer){
+        console.log('solved correctly')
 
-       
+       } else{
+        console.log(answer)
+        console.log('wrong')
+       }
+
     },
 }
