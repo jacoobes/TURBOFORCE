@@ -1,80 +1,43 @@
+module.exports = {
+    name: 'allitems',
+    aliases: ['ai'],
+    description: 'finds all item properties',
+    withMultipleArguments: false,
+    argType: 'string',
+    callback: async (client, message, args) => {
+        let { items } = require('../../index')
 
+        //let {title, value, description, rarity, image}
 
-module.exports =  {
+        let {
+            allDBS: { accountDB, itemsDB, dailyStoreDB },
+        } = require('../../index')
+        var allItems = []
 
-           name: 'allitems',     
-           aliases : ['ai'],
-           description: 'finds all item properties',
-           withMultipleArguments : true, 
-           argType : 'string',
-           callback: (client, message, arguments) => {
+        /*
+        let {title, value, description, rarity, image} = items.get(b.ID)
+        let item = {
+            title: title,
+            value: value,
+            description: description,
+            rarity: rarity,
+            image: image,
+            _id: title.toLowerCase().replace(/ /g, "")
+        }
 
-            let {items} = require(`../../index`)
-            let{allDBS : {accountDB, itemsDB, dailyStoreDB } } = require('../../index')
-          
-            
-            for (var itemsStored of items.fetchAll()) {
+    */
 
-                var eachItem = items.get(itemsStored.ID)
-                
-                
+        itemsDB.find({}, function (err, docs) {
+            allItems = docs
+            let messageToPost = ''
 
-               //messageToPost += `**${itemsStored.ID}** : ${eachItem[item_value]}, `
+            for (let item of allItems) {
+                if (item[args] === undefined) return message.reply('Search query not detected!')
 
-                }   
-
-
-
-                function randomId(){
-
-                    var id = ""
-                    var isAddingNumbers = 0
-            
-                    while(isAddingNumbers <= 12){
-            
-                        var randomNumber = Math.round(Math.random() * 12)
-            
-                        id += randomNumber
-            
-                        isAddingNumbers++
-                    }
-            
-                    return id;
-        
+                messageToPost += ` <**${item[args]}**> `
             }
 
-
-
-
-            /*
-                if(message.author.bot) return;
-
-                    var messageToPost = "";
-
-                for (var itemsStored of items.fetchAll()) {
-
-                var eachItem = items.get(itemsStored.ID) 
-
-
-                messageToPost += `**${itemsStored.ID}** : ${eachItem[item_value]}, `
-
-                }   
-                
-            
-                
-                
-                
-                message.channel.send(messageToPost, {split : true})
-                
-                    
-*/
-
-
-
-
-    }
-
-
-
+            message.channel.send(messageToPost)
+        })
+    },
 }
-

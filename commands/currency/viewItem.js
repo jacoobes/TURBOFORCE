@@ -3,41 +3,46 @@ module.exports =  {
 
         name: 'viewitem',     
         aliases : ['vi'],
-        group: 'currency',
+        withMultipleArguments : false,
+        argType: 'string',
         description: 'finds item properties',
-        callback: (client, message, arguments) => {
+        callback: async (client, message, args) => {
 
 const {MessageEmbed} = require('discord.js')
-const {items} = require(`../../index`)  
+  
 const paginationEmbed = require('discord.js-pagination');
-            
+let { allDBS : {accountDB, itemsDB, dailyStoreDB } } = require('../../index')
 
 var pages = []
-var arrayOfAllItems = items.all()
+var arrayOfAllItems = await new Promise((resolve, reject) => {itemsDB.find({}, function(err, docs) {
+
+    resolve(docs)
+
+    })
+
+})
 
 
 
 for (var itemsStored of arrayOfAllItems) {
 
-    var entriesForEmbed = items.get(itemsStored.ID)
+    var valuesOfItem = Object.values(itemsStored)
 
-    const valuesInAnArray = Object.values(entriesForEmbed)
-
-    if(valuesInAnArray.some( value => value.toLowerCase() === args.toLowerCase())) {
+    if(valuesOfItem.some( value => value.toLowerCase() === args.toLowerCase())) {
 
 
 
 
 
-    var itemEmbeds = new MessageEmbed()
+    let itemEmbeds = new MessageEmbed()
 
-    .setTitle(entriesForEmbed.title)
+    .setTitle(itemsStored.title)
 
-    .addField('Value', entriesForEmbed.value, true)
-    .addField('Rarity', entriesForEmbed.rarity, true)
-    .setColor(checkRarityOfItem())
-    .setImage(entriesForEmbed.image)
-    .setDescription(entriesForEmbed.description)
+    .addField('Value', itemsStored.value, true)
+    .addField('Rarity', itemsStored.rarity, true)
+    .setColor(checkRarityOfItem(itemsStored))
+    .setImage(itemsStored.image)
+    .setDescription(itemsStored.description)
     // find way to make the object result into an message Embed
 
 
@@ -47,22 +52,22 @@ for (var itemsStored of arrayOfAllItems) {
 
     function checkRarityOfItem() {
 
-        if(entriesForEmbed.rarity === 'uncommon') {
+        if(itemsStored.rarity === 'uncommon') {
 
             return '#808080'
 
 
-        } else if (entriesForEmbed.rarity === 'rare') {
+        } else if (itemsStored.rarity === 'rare') {
 
 
             return '#5CFF5C'
 
-        } else if(entriesForEmbed.rarity === 'legendary') {
+        } else if(itemsStored.rarity === 'legendary') {
 
 
             return '#c12020'
 
-        } else if(entriesForEmbed.rarity === 'mystic') {
+        } else if(itemsStored.rarity === 'mystic') {
 
             return ' #f7a537 '
 

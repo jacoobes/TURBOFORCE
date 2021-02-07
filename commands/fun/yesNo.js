@@ -1,57 +1,30 @@
-
-
 module.exports = {
+    name: 'yesno',
+    aliases: ['yn'],
+    description: 'Let the bot guide your choices.',
+    withMultipleArguments: false,
+    argType: 'string',
+    callback: (client, message, arguments) => {
+        const axios = require('axios').default
+        const { MessageEmbed } = require('discord.js')
 
-        name: 'yesno',
-        aliases: ['yn'],
-        description: "Let the bot guide your choices.",
-        withMultipleArguments: false,
-        argType: 'string',
-        callback: (client, message, arguments) => {
+        var options = {
+            method: 'GET',
+            url: `https://yesno.wtf/api`,
+        }
 
-            const axios = require('axios').default
-            const {MessageEmbed} = require('discord.js')
-            
+        async function getData(arguments) {
+            var apiCall = await axios.request(options)
 
-            var options = {
+            var yesNoEmbed = new MessageEmbed()
 
-                method: 'GET',
-                url: `https://yesno.wtf/api`
-        
-            }
-        
-        
-            async function getData(arguments) {
-        
-                var apiCall = await axios.request(options)
-        
-                var yesNoEmbed = new MessageEmbed()
-        
                 .setTitle(`👍 ${arguments} 👎`)
                 .setDescription(`${apiCall.data.answer}`)
                 .setColor('#FFD700')
                 .setThumbnail(message.author.displayAvatarURL())
-                message.channel.send(yesNoEmbed) 
-                
-        
-            }
-        
-        
+            message.channel.send(yesNoEmbed)
+        }
+
         getData(arguments)
-        
-        
-        
-        
-        
-        }
-
-
-
-
-
-
-
-
-
-        }
-   
+    },
+}

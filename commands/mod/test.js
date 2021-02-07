@@ -1,17 +1,24 @@
 module.exports = {
+    name: 'test',
+    description: 'testing',
+    withMultipleArguments: true,
+    argType: 'string',
+    aliases: ['t'],
+    callback: (client, message, arguments) => {
+        const {getMentions} = require('../../mentions')
+        const {oneOfOnly} = require('../../mentions')
+        let {
+            allDBS: { accountDB, itemsDB, dailyStoreDB },
+        } = require('../../index')
+        const { accounts, dailyStore } = require('../../index')
+        
+        oneOfOnly(['chicken', 'loodle'])
+        message.reply('noodle')
 
-name: 'test',
-description: 'testing',
-withMultipleArguments : true, 
-argType : 'string',
-aliases: ['t'],
-userPermissions : ['KICK_MEMBERS'],
-callback : (client, message, arguments) => {
+        // accountDB.update({ _id: message.author.id }, { $set: { balanceInBank: 180 } })
 
-    const getMentions = require('../../mentions')
-    
-    console.log(getMentions(arguments))
+        // accountDB.update({ _id: message.author.id }, { $set: { balanceInHand: 0 } })
 
-
-    }
+       
+    },
 }

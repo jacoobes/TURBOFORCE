@@ -1,61 +1,60 @@
-
 module.exports = {
     name: 'deposit',
-    aliases: ['d'],
-    argType: 'string',
-    withMultipleArguments: true,
+    aliases: ['d', 'dep'],
+    argType: 'flex',
+    withMultipleArguments: false,
     description: 'Deposit money so you can use it.',
-    callback: (client, message, arguments) => {
-        
+    callback: async (client, message, args) => {
         const currency = require('../../config.json')
-        const {accounts} = require('../../index')
+        let {
+            allDBS: { accountDB, itemsDB, dailyStoreDB },
+            accounts,
+        } = require('../../index')
 
-        console.log(accounts.all())
-        let totalInBank = accounts.get(`${message.author.id}.balanceInHand`)
-        if(message.author.bot) return;
-        if(accounts.get(`${message.author.id}`) === null) {message.reply('Please make an account with tcp create!');   }  
-        if(arguments <  0) {message.reply('You cannot deposit a negative number!'); return;}
-        if(accounts.get(`${message.author.id}.balanceInHand`) < arguments) {
+        let currentMoney = await new Promise((resolve, reject) => {
+            accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+                resolve({
+                    totalInHand: docs.balanceInHand,
+                    totalInBank: docs.balanceInBank,
+                })
+            })
+        })
 
-            message.reply('You cannot deposit more than what you have in hand!');
-            return;
+        if (message.author.bot) return
 
+        accountDB.find({}, function (err, docs) {
+            if (docs === null) {
+                message.reply('Please make an account with tcp create!')
+                return
+            }
+        })
+
+        if (args <= 0) {
+            message.reply('You cannot deposit zero or a negative number!')
+            return
         }
 
-        if (arguments === 'all') { 
+        if (currentMoney.totalInHand < args) {
+            message.reply('You cannot deposit more than what you have in hand!')
+            return
+        }
 
-        accounts.subtract(`${message.author.id}.balanceIn
-        Hand`, totalInBank)
-        accounts.add(`${message.author.id}.balanceInBank`, totalInBank)
+        if (args === 'all') {
+            accountDB.update({ _id: message.author.id }, { $inc: { balanceInBank: currentMoney.totalInHand } })
 
-        message.reply(`Deposited ${arguments} ${currency.currencyName} from your account!`)
+            accountDB.update({ _id: message.author.id }, { $set: { balanceInHand: 0 } })
 
-        } else { 
-
-        accounts.subtract(`${message.author.id}.balanceInHand`, arguments);
-        accounts.add(`${message.author.id}.balanceInBank`, arguments);
-
-        message.reply(`Deposited ${arguments} ${currency.currencyName} from your account!`)
-
+            return message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+        } else {
+            if (isNaN(args)) {
+                return message.reply('Cannot do operation with argument: ' + args)
             }
 
+            accountDB.update({ _id: message.author.id }, { $inc: { balanceInBank: parseInt(args) } })
 
+            accountDB.update({ _id: message.author.id }, { $inc: { balanceInHand: 0 - parseInt(args) } })
+        }
 
-                }
-
-
-
-
-            }
-
- 
-
-
-    
-
-
-
-
-
-
-
+        message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+    },
+}

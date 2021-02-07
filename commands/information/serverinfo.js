@@ -48,10 +48,10 @@ module.exports =  {
                    // implement global emoji function
            
                    var cpEmotes = {
-                       yukikopog: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_POGyukiko'),
-                       plasticCry: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_PlasticLUL'),
-                       jackieSmile: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_JackieSmile' ),
-                       yukiNaughty: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_YukiNaughty'),
+                       yukikopog: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_POGyukiko') || "",
+                       plasticCry: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_PlasticLUL') || "",
+                       jackieSmile: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_JackieSmile' ) || "",
+                       yukiNaughty: message.guild.emojis.cache.find(emotes => emotes.name === 'tcpop_YukiNaughty') || "",
                    }
         
                    //implement global emoji function

@@ -11,7 +11,7 @@ module.exports =  {
 
         const { MessageEmbed} = require("discord.js");
         const shipGifs = require(`/Users/jacob/OneDrive/Desktop/discord bot/ship.json`)
-        const getMentions = require('../../mentions')
+        const {getMentions} = require('../../mentions')
         var axios = require("axios").default;
         
         let allMentions = getMentions(arguments)

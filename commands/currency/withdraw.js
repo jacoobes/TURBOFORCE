@@ -1,66 +1,115 @@
-/*
-var {accounts} = require(`../../index`)
-var currency = require('../../config.json')
 
-module.exports = class Withdraw extends commando.Command {
+module.exports =  {
+    
+    name: 'withdraw',
+    aliases: ['w', 'with'],
+    withMultipleArguments: false,
+    argType: 'flex',
+    description: 'Withdraw money so you can use it.',
 
-    constructor(client) {
+    callback: async (client, message, args) => {
 
-        super(client, {
+        const currency = require('../../config.json')
+        let { allDBS : {accountDB, itemsDB, dailyStoreDB } } = require('../../index')
 
-            name: 'withdraw',
-            aliases: ['w'],
-            group: 'currency',
-            memberName: 'withdraw',
-            description: 'Withdraw money so you can use it.',
-            examples: [`tcp withdraw 100`],
-            args: [
-                {
-                    key: 'money',
-                    prompt: 'How much would you like to deposit?',
-                    type: 'string',
-                    default: 'all'
-                },
+        
+        let currentMoney = await new Promise((resolve, reject) => { accountDB.findOne({_id: message.author.id}, function(err, docs) {
 
-            ],
+            resolve({totalInHand: docs.balanceInHand , totalInBank: docs.balanceInBank} )
+
+        }) }) 
+
+        
+        
+        if(message.author.bot) return;
+
+        accountDB.find({}, function(err, docs) {
+
+        if(docs === null) {message.reply('Please make an account with tcp create!'); return;}
 
         })
 
+        if(args <=  0) {message.reply('You cannot deposit zero or a negative number!'); return;}
 
-    }
+        if(currentMoney.totalInBank < args) {
 
-    async run(message, {money}){
-var totalInBank = accounts.get(`${message.author.id}.balanceInBank`)
-if(message.author.bot) return;
-if(accounts.get(`${message.author.id}`) === null) {message.reply('Please make an account with tcp create!');   }  
-if(money <  0) {message.reply('You cannot withdraw a negative number!'); return;}
-if(accounts.get(`${message.author.id}.balanceInBank`) < money) {
+            message.reply('You cannot deposit more than what you have in hand!');
+            return;
 
-    message.reply('You cannot withdraw more than what you have!');
-    return;
+        }
+
+        
+
+        if (args === 'all') { 
+
+        accountDB.update({_id: message.author.id}, {$inc : {balanceInHand : currentMoney.totalInBank  }})
+
+        accountDB.update({_id: message.author.id}, {$set : {balanceInBank : 0 }})
+
+       
+        return  message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+
+        } else { 
+            if(isNaN(args)) {
+
+                return message.reply('Cannot do operation with argument: ' + args)
+
+            }
+
+       accountDB.update({_id: message.author.id}, {$inc : {balanceInHand: parseInt(args)}})
+
+       accountDB.update({_id: message.author.id}, {$inc: {balanceInBank : 0 - parseInt(args)}})
+        
+
+            }
+
+
+            message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+
+        }
+            
+
+
+                // var totalInBank = accounts.get(`${message.author.id}.balanceInBank`)
+                // if(message.author.bot) return;
+                // if(accounts.get(`${message.author.id}`) === null) {message.reply('Please make an account with tcp create!');   }  
+                // if(money <  0) {message.reply('You cannot withdraw a negative number!'); return;}
+                // if(accounts.get(`${message.author.id}.balanceInBank`) < money) {
+
+                //     message.reply('You cannot withdraw more than what you have!');
+                //     return;
+
+                // }
+
+                // if (money === 'all') { 
+
+                // accounts.subtract(`${message.author.id}.balanceInBank`, totalInBank)
+                // accounts.add(`${message.author.id}.balanceInHand`, totalInBank)
+
+                // message.reply(`Withdrew ${money} ${currency.currencyName} from your account!`)
+
+                // } else { 
+
+                // accounts.subtract(`${message.author.id}.balanceInBank`, money);
+                // accounts.add(`${message.author.id}.balanceInHand`, money);
+
+                // message.reply(`Withdrew ${money} ${currency.currencyName} from your account!`)
 
 }
 
-if (money === 'all') { 
-
-accounts.subtract(`${message.author.id}.balanceInBank`, totalInBank)
-accounts.add(`${message.author.id}.balanceInHand`, totalInBank)
-
-message.reply(`Withdrew ${money} ${currency.currencyName} from your account!`)
-
-} else { 
-
-accounts.subtract(`${message.author.id}.balanceInBank`, money);
-accounts.add(`${message.author.id}.balanceInHand`, money);
-
-message.reply(`Withdrew ${money} ${currency.currencyName} from your account!`)
-
-}
-}
-
-
-}
 
 
 
-*/
+
+
+
+
+
+
+
+
+
+
+    
+
+   

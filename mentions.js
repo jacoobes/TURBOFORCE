@@ -1,80 +1,82 @@
-
 /**
- * 
- * @param {String} arguments - Can take in an array or string. Returns Collection or Object of Collections  
+ *
+ * @param {String} arguments - Can take in an array or string. Returns Collection or Object of Collections
  */
-
-
+const { message } = require(`./index`)
+const {commandHandler} = require('./testNewHandler')
 function getMentions(arguments) {
-
-const {message} = require(`./index`)
-const objectContainingMentions = {}
-let anyIDs = turnMentionIntoID(arguments)
-
-if (Array.isArray(arguments)) {
     
-    let mentionMap = new Map()
-    
-    mentionMap = arguments.reduce((accumulator, currentValue, index) => {
-            
-          accumulator.set(currentValue, 
+    const objectContainingMentions = {}
+    let anyIDs = turnMentionIntoID(arguments)
 
-                message.guild.members.cache.get(anyIDs[index]) || message.guild.roles.cache.get(anyIDs[index])
-          )
+    if (Array.isArray(arguments)) {
+        let mentionMap = new Map()
 
-          
+        mentionMap = arguments.reduce((accumulator, currentValue, index) => {
+            accumulator.set(
+                currentValue,
+
+                message.guild.members.cache.get(anyIDs[index]) ||
+                    message.guild.roles.cache.get(anyIDs[index])
+            )
 
             return accumulator
-
         }, mentionMap)
 
-        for( var i = 0; i < arguments.length; i++) {
-            
+        for (var i = 0; i < arguments.length; i++) {
             objectContainingMentions[`mention${i}`] = mentionMap.get(arguments[i])
-            
-            objectContainingMentions[`mention${i}`] === undefined ? delete objectContainingMentions[`mention${i}`] : ""
+
+            objectContainingMentions[`mention${i}`] === undefined
+                ? delete objectContainingMentions[`mention${i}`]
+                : ''
         }
-       
-            
-          
-return objectContainingMentions;
+
+        return objectContainingMentions
     } else {
-        
-     return message.guild.members.cache.get(anyIDs) || message.guild.roles.cache.get(anyIDs)
-
-
+        return message.guild.members.cache.get(anyIDs) || message.guild.roles.cache.get(anyIDs)
     }
-    
-    
-
-
 }
 
 function turnMentionIntoID(arguments) {
+    if (Array.isArray(arguments)) {
+        let onlyUniques = [...new Set(arguments.map((mentions) => mentions))]
 
-if (Array.isArray(arguments)) {
-let onlyUniques = [...new Set(arguments.map(mentions => mentions))]
+        onlyUniques = onlyUniques.reduce((accumulator, currentValue) => {
+            currentValue = currentValue.replace(/[<>@!&]/g, '')
+            accumulator.push(currentValue)
 
-onlyUniques = onlyUniques.reduce((accumulator,currentValue, ) => {
+            return accumulator
+        }, [])
 
-    currentValue = currentValue.replace(/[<>@!&]/g,"")
-    accumulator.push(currentValue)
+        return onlyUniques
+    } else {
+        return (arguments = arguments.replace(/[<>@!&]/g, ''))
+    }
+}
 
-    return accumulator
+/*
+function oneOfOnly(oneOfThese = [], args = commandHandler.finalArgument()){
+    console.log(oneOfThese)
+if(Array.isArray(args)) {
+    
+for(let filterWords of oneOfThese){
+    if(!args.some(word => word.includes(filterWords))){
+       return message.reply(`Not one of the set arguments: ${oneOfThese.join(',')}`)
+    }
 
-},[])
+    return;
+} 
 
+    
 
-return onlyUniques
+} else{
+    
+    message.reply('p')
+}
 
-} else {
-
-    return arguments = arguments.replace(/[<>@!&]/g,"")
 
 
 
 }
-
-}
-
-module.exports = getMentions
+*/
+module.exports = {getMentions, oneOfOnly}

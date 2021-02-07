@@ -10,7 +10,7 @@ module.exports = class SolveMath extends commando.Command {
 
 constructor(client) {
 
-    super(client, {
+    
 
         name: 'solve',
         aliases: ['s'],
@@ -24,7 +24,7 @@ constructor(client) {
                 prompt:'How hard will the problem be?',
                 type:'string',
                 oneOf:['easy', 'medium', 'hard']
-            }
+        }
 
 
         ]

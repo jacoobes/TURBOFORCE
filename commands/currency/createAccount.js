@@ -1,63 +1,29 @@
+module.exports = {
+    name: 'create',
+    description: 'intiate TURBOFORCE Currency Account!',
+    withMultipleArguments: false,
+    argType: 'string',
+    callback: (client, message, arguments) => {
+        var {
+            allDBS: { accountDB },
+        } = require('../../index')
 
-module.exports =  {
-
-      name: 'create',
-      description: 'intiate TURBOFORCE Currency Account!',
-      withMultipleArguments: false,
-      argType: 'string',     
-      callback: (client, message, arguments) => {
-
-       
-      var {accounts} = require('../../index')
-
-    
-
-         
-      var Account = {
+        var Account = {
+            _id: message.author.id,
             username: message.author.username,
             balanceInHand: 0,
             balanceInBank: 50,
-            freeItem : false,
-            Items: []
-            } 
+            freeItem: false,
+            Items: [],
+        }
 
-
-let hasAccount = accounts.fetch(message.author.id) || null
-if(!hasAccount) { 
-
-message.reply('Account created!')
-
-
-accounts.set(message.author.id, Account)
-
-} else {
-
-message.reply("You already made an account!")
-
+        accountDB.insert(Account, function (err, docs) {
+            if (err) {
+                console.error(err)
+                message.reply('You already made an account!')
+            } else {
+                message.reply('Account created!')
+            }
+        })
+    },
 }
-
-
-
-
-
-
-
-
-
-
-
-
-      }
-    
-
-  }
-
-  
-
-    
-
-  
-
-
-
-

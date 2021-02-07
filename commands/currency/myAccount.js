@@ -1,101 +1,74 @@
+module.exports = {
+    name: 'account',
+    withMultipleArguments: false,
+    argType: 'string',
+    aliases: ['acc', 'balance', 'bal'],
+    description: 'your account',
+    callback: async (client, message, arguments) => {
 
-module.exports =  {
-        name: 'account',
-        withMultipleArguments: false,
-        argType: 'string',     
-        aliases: ['acc', 'balance', 'bal'],
-        description: 'your account',
-        callback : (client, message, arguments) => {
+        const { MessageEmbed } = require('discord.js')
+        const {
+            allDBS: { accountDB, itemsDB } } = require('../../index')
 
-const {MessageEmbed} = require('discord.js')
-const {accounts} = require('../..')
+        let accountStats = await new Promise((resolve, reject) => {
+            accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+                console.log(docs)
+                resolve({ totalInHand: docs.balanceInHand, totalInBank: docs.balanceInBank, items: docs.Items })
+            })
+        })
 
+        var accountEmbed = new MessageEmbed()
 
-var accountEmbed = new MessageEmbed()
+            .setColor(message.member.displayHexColor)
+            .setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
+            .addFields(
+                {
+                    name: 'Balance in Hand',
+                    value: accountStats.totalInHand,
+                    inline: true,
+                },
 
-.setColor(message.member.displayHexColor)
-.setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
-.addFields(
+                {
+                    name: 'Balance in Bank',
+                    value: accountStats.totalInBank,
+                    inline: true,
+                }
+            )
 
-{name: "Balance in Hand", value: accounts.get(`${message.author.id}.balanceInHand`), inline: true},
+            .setThumbnail(message.author.avatarURL())
 
-{name: "Balance in Bank", value: accounts.get(`${message.author.id}.balanceInBank`), inline: true}
+        getAllItemsForEmbed()
 
-)
+        message.channel.send(accountEmbed)
 
-.setThumbnail(message.author.avatarURL())
+        function getAllItemsForEmbed() {
+            var yourItems = accountStats.items
+            let stringOfAllItems = ''
 
-getAllItemsForEmbed()
-
-
-message.channel.send(accountEmbed)
-
-function getAllItemsForEmbed() {
-    
-    var yourAccount = accounts.get(`${message.author.id}.Items`)
-    let stringOfAllItems = "";
-    
-    let uniqueEntries = [...new Set(yourAccount.map(item => item.title))]
-    yourAccount.sort()
-
-    for(var i = 0; i < uniqueEntries.length; i++) { 
-
-        let countOfSameItem = 0;
-        
-        for(var item of yourAccount ) {
-            
-    
-            if(item.title === uniqueEntries[i]) {
-    
-                countOfSameItem++;
+            let uniqueEntries
+            if (yourItems.items < 1) {
+                return accountEmbed.addField('Items', 'No Items')
+            } else {
                 
-    
-            } 
-    
+               uniqueEntries = [...new Set(yourItems.map(item => item))]
+                yourItems.sort()
+
+                for (var i = 0; i < uniqueEntries.length; i++) {
+                    let countOfSameItem = 0
+
+                    for (var item of yourItems) {
+                        if (item === uniqueEntries[i]) {
+                            countOfSameItem++
+                        }
+                    }
+
+                    stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
+                }
+                accountEmbed.addField('Items', stringOfAllItems)
+            }
         }
-    
-    
-    stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
-    
-        }
-    accountEmbed.addField('Items', null ? 'No items at the moment' : stringOfAllItems)
-
-    
-    
-
-
-
-
-
-/*
-
-
-    
-
-*/
+    },
 }
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-            
-        }
-
-    
-
-
-
-
-
 /*
 uniqueEntries = uniqueEntries.reduce((accumulator, currentValue, index) => {
 
@@ -107,5 +80,4 @@ uniqueEntries = uniqueEntries.reduce((accumulator, currentValue, index) => {
 
 
     my first working reduce method usage!
-*/ 
-
+*/
