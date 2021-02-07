@@ -1,80 +1,42 @@
 
 
-/*
-module.exports = class newItem extends commando.Command {
 
-    constructor(client) {
-
-        super(client, {
+module.exports =  {
 
             name: 'createitem',
             aliases: ['newitem', 'ci', 'ni'],
-            group: 'currency',
-            memberName: 'createitem',
             description: 'If an authorized user, you can create items for the currency system.',
-            examples: [`tcp createitem Chicken-Soup 10 Homemade-soup common *img link* id number (make sure id is at least 10 numbers long)`],
-            args: [
-                {
-                    key: 'title',
-                    prompt: 'What would you like to set the title to?',
-                    type: 'string'
-                },
-
-                {
-                    key: 'value',
-                    prompt:'What would you like to set the MSRP price for?',
-                    type: 'string'
-
-                },
-                {
-                    key:'description',
-                    prompt: "What would you like to set the description as?",
-                    type: 'string'
-                },
-                {
-                    key:'rarity',
-                    prompt:"What would you like to set the rarity to? (common, uncommon, rare, legendary, mystic)",
-                    type: 'string',
-                    oneOf : ['common', 'uncommon', 'rare', 'legendary', 'mystic']
-                
-                }, 
-                {
-                    key: "image",
-                    prompt:"What link would you like to set as the image?",
-                    type: "string",
-                    validate : (image) => {
-                            return image.match(/\.(jpeg|jpg|gif|png)$/) != null;
-                            
-                    }
-                },
-                {
-                    key: "id",
-                    prompt:"What would you like to set as the id?",
-                    type: "string"
-                }
-
-            ],
-            throttling: {
-
-                usages: 1,
-                duration: 300
-            }
-
-        })
+            argType: 'string',
+            withMultipleArguments: false,
+           callback: (client,message,args) =>{
 
 
-    }
 
-    async run(message, {title, value, description, rarity, image, id}){
+         let {
+            allDBS: { accountDB, itemsDB, dailyStoreDB },
+        } = require('../../index')
 
-if(message.author.bot) return;
+        message.channel.send('Please create an item in the follow format: title | value | description | rarity | imagelink')
 
-var {items} = require(`../../index`)
 
-const {MessageEmbed} = require(`discord.js`);
 
+        const {MessageEmbed} = require(`discord.js`);
+
+    
+
+/*
+        let item = {
+            title: title,
+            value: value,
+            description: description,
+            rarity: rarity,
+            image: image,
+            _id: title.toLowerCase().replace(/ /g, "")
+        }
+*/
         if(isAuthorizedUser()) {
         
+            makeItem()
             
             sendEmbed()
 
@@ -89,7 +51,13 @@ const {MessageEmbed} = require(`discord.js`);
 
         }
 
+        async function makeItem() {
 
+            message.channel.send('Please create an item in the follow format: title | value | description | rarity | imagelink')
+            let collected = await message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1})
+
+            console.log(collected)
+        }
 
 
         function isAuthorizedUser() {
@@ -189,8 +157,14 @@ function confirmationMessage() {
     
         }
     }
+
+
 }
 
 
 
-*/
+
+
+
+
+
