@@ -14,18 +14,7 @@ module.exports = {
         } = require('../../index')
         var allItems = []
 
-        /*
-        let {title, value, description, rarity, image} = items.get(b.ID)
-        let item = {
-            title: title,
-            value: value,
-            description: description,
-            rarity: rarity,
-            image: image,
-            _id: title.toLowerCase().replace(/ /g, "")
-        }
-
-    */
+       
 
         itemsDB.find({}, function (err, docs) {
             allItems = docs

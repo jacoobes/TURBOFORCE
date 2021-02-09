@@ -165,7 +165,7 @@ const commandHandler = (() => {
 
         finalArgument: function () {
             let { command, aliases } = this.eventLoad()
-            let { message, argument } = this.commandInfo()
+            let { argument } = this.commandInfo()
             let name = argument[1]
 
             command = command.get(name) || aliases.get(name) || null
@@ -190,9 +190,9 @@ const commandHandler = (() => {
                 desiredType = typeOfArgument.get(desiredType)
 
                 if (command.withMultipleArguments) {
-                    return (statTypedArgument = statTypedArgument.map(
-                        (el) => (el = desiredType(el))
-                    ))
+                    return statTypedArgument.map(
+                        (el) => (el = desiredType(el)))
+                    
                 } else {
                     return (statTypedArgument = new desiredType(statTypedArgument))
                 }

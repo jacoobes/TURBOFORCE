@@ -3,7 +3,7 @@
  * @param {String} arguments - Can take in an array or string. Returns Collection or Object of Collections
  */
 const { message } = require(`./index`)
-const {commandHandler} = require('./testNewHandler')
+
 function getMentions(arguments) {
     
     const objectContainingMentions = {}
@@ -50,7 +50,8 @@ function turnMentionIntoID(arguments) {
 
         return onlyUniques
     } else {
-        return (arguments = arguments.replace(/[<>@!&]/g, ''))
+
+        return arguments.replace(/[<>@!&]/g, '')
     }
 }
 

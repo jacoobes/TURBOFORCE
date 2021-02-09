@@ -1,83 +1,74 @@
 module.exports = {
-    name: 'account',
-    withMultipleArguments: false,
-    argType: 'string',
-    aliases: ['acc', 'balance', 'bal'],
-    description: 'your account',
-    callback: async (client, message, arguments) => {
+  name: "account",
+  withMultipleArguments: false,
+  argType: "string",
+  aliases: ["acc", "balance", "bal"],
+  description: "your account",
+  callback: async (client, message, arguments) => {
+    const { MessageEmbed } = require("discord.js");
+    const {
+      allDBS: { accountDB },
+    } = require("../../index");
 
-        const { MessageEmbed } = require('discord.js')
-        const {
-            allDBS: { accountDB } } = require('../../index')
+    let accountStats = await new Promise((resolve, reject) => {
+      accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+        console.log(docs);
+        resolve({
+          totalInHand: docs.balanceInHand,
+          totalInBank: docs.balanceInBank,
+          items: docs.Items,
+        });
+      });
+    });
 
-        let accountStats = await new Promise((resolve, reject) => {
-            accountDB.findOne({ _id: message.author.id }, function (err, docs) {
-                console.log(docs)
-                resolve({ totalInHand: docs.balanceInHand, totalInBank: docs.balanceInBank, items: docs.Items })
-            })
-        })
+    var accountEmbed = new MessageEmbed()
 
-        var accountEmbed = new MessageEmbed()
+      .setColor(message.member.displayHexColor)
+      .setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
+      .addFields(
+        {
+          name: "Balance in Hand",
+          value: accountStats.totalInHand,
+          inline: true,
+        },
 
-            .setColor(message.member.displayHexColor)
-            .setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
-            .addFields(
-                {
-                    name: 'Balance in Hand',
-                    value: accountStats.totalInHand,
-                    inline: true,
-                },
-
-                {
-                    name: 'Balance in Bank',
-                    value: accountStats.totalInBank,
-                    inline: true,
-                }
-            )
-
-            .setThumbnail(message.author.avatarURL())
-
-        getAllItemsForEmbed()
-
-        message.channel.send(accountEmbed)
-
-        function getAllItemsForEmbed() {
-            var yourItems = accountStats.items
-            let stringOfAllItems = ''
-
-            let uniqueEntries
-            if (yourItems.length < 1) {
-                return accountEmbed.addField('Items', 'No Items')
-            } else {
-                
-               uniqueEntries = [...new Set(yourItems.map(item => item))]
-                yourItems.sort()
-
-                for (var i = 0; i < uniqueEntries.length; i++) {
-                    let countOfSameItem = 0
-
-                    for (var item of yourItems) {
-                        if (item === uniqueEntries[i]) {
-                            countOfSameItem++
-                        }
-                    }
-
-                    stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`
-                }
-                accountEmbed.addField('Items', stringOfAllItems)
-            }
+        {
+          name: "Balance in Bank",
+          value: accountStats.totalInBank,
+          inline: true,
         }
-    },
-}
-/*
-uniqueEntries = uniqueEntries.reduce((accumulator, currentValue, index) => {
+      )
 
-        accumulator.push({title: currentValue, value: valuesOfEntries[index]})
+      .setThumbnail(message.author.avatarURL());
 
-        return accumulator
+    getAllItemsForEmbed();
 
-    }, [])
+    message.channel.send(accountEmbed);
 
+    function getAllItemsForEmbed() {
+      var yourItems = accountStats.items;
+      let stringOfAllItems = "";
 
-    my first working reduce method usage!
-*/
+      let uniqueEntries;
+      if (yourItems.length < 1) {
+        return accountEmbed.addField("Items", "No Items");
+      } else {
+        uniqueEntries = [...new Set(yourItems.map((item) => item))];
+        yourItems.sort();
+
+        for (var i = 0; i < uniqueEntries.length; i++) {
+          let countOfSameItem = 0;
+
+          for (var item of yourItems) {
+            if (item === uniqueEntries[i]) {
+              countOfSameItem++;
+            }
+          }
+
+          stringOfAllItems += `**${countOfSameItem}** ${uniqueEntries[i]} \n`;
+        }
+        accountEmbed.addField("Items", stringOfAllItems);
+      }
+    }
+  },
+};

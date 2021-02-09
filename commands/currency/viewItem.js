@@ -40,7 +40,7 @@ for (var itemsStored of arrayOfAllItems) {
 
     .addField('Value', itemsStored.value, true)
     .addField('Rarity', itemsStored.rarity, true)
-    .setColor(checkRarityOfItem(itemsStored))
+    .setColor(checkRarityOfItem())
     .setImage(itemsStored.image)
     .setDescription(itemsStored.description)
     // find way to make the object result into an message Embed

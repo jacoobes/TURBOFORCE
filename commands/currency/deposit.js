@@ -20,7 +20,7 @@ module.exports = {
             })
         })
 
-        if (message.author.bot) return//in discord
+        if (message.author.bot) return
 
         accountDB.find({}, function (error, docs) {
             if (docs === null) {

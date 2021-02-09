@@ -24,17 +24,6 @@ module.exports =  {
         const {MessageEmbed} = require(`discord.js`);
 
     
-
-/*
-        let item = {
-            title: title,
-            value: value,
-            description: description,
-            rarity: rarity,
-            image: image,
-            _id: title.toLowerCase().replace(/ /g, "")
-        }
-*/
         if(isAuthorizedUser()) {
         
             makeItem()

@@ -1,3 +1,5 @@
+const { accounts } = require("../..");
+
 module.exports = {
   name: "test",
   description: "testing",
@@ -10,10 +12,10 @@ module.exports = {
     let {
       allDBS: { accountDB, itemsDB, dailyStoreDB },
     } = require("../../index");
-    const { accounts, dailyStore } = require("../../index");
+    
 
     let { randomInt } = require("mathjs");
-
+/*
     let databaseEmbed = await new Promise((resolve,reject)=>{
 
       dailyStoreDB.findOne({_id: 'embed'}, function(err, docs){
@@ -25,13 +27,23 @@ module.exports = {
   })
 
 
-  dailyStoreDB.find({_id: {$nin : ['embed', 'Day'] } }, function(err, docs) {
+*/let databaseEmbed = await new Promise((resolve,reject)=>{
 
-   console.log(docs)
+  dailyStoreDB.findOne({_id: 'LLRLhFryWEvDge7E'}, function(err, docs){
 
-
-   })
-
+    resolve(docs.embed)
     
+})
+
+})
+
+ 
+//dailyStoreDB.remove({ _id: 'QEMV1i7t806z6IxM' })
+    
+
+
+
+
+
   },
 };
