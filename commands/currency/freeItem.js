@@ -1,34 +1,47 @@
 module.exports = {
-    name: 'freeitem',
-    argType: 'string',
-    withMultipleArguments: false,
-    description: 'Everyone gets one free item!',
-    callback: (client, message, arguments) => {
-        var { accounts } = require(`../../index`)
-        var { items } = require(`../../index`)
+  name: "freeitem",
+  argType: "string",
+  withMultipleArguments: false,
+  description: "Everyone gets one free item!",
+  callback: async (client, message, arguments) => {
+    const { randomInt } = require("mathjs");
 
-        var random = items.all()[Math.round(Math.random() * items.all().length)]
+    let {
+      allDBS: { accountDB, itemsDB },
+    } = require("../../index");
 
-        var accountThatWantsFreeItem = `${message.author.id}.Items`
+    let accountThatWantsFreeItem = await new Promise((resolve, reject) => {
+      accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+        resolve(docs);
 
-        var getRandomItem = items.get(random.ID)
-
-        // accounts.set(accountThatWantsFreeItem, []) => total reset of Items!
-        if (accounts.get(message.author.id) === null) {
-            message.reply('You need to make an account with tcp create!')
-            return
+        if (docs === null) {
+          return message.reply("Create an account with tcp create!");
         }
-        if (accounts.get(message.author.id).freeItem === true) {
-            message.reply('You already got your free one item!')
-            return
-        }
+      });
+    });
 
-        accounts.push(`${accountThatWantsFreeItem}`, getRandomItem)
+    if (accountThatWantsFreeItem.freeItem === true) {
+      message.reply("You already got your free one item!");
+      return;
+    } else {
+      let randomItem = await new Promise((resolve, reject) => {
+        itemsDB.find({}, function (err, docs) {
+          resolve(docs[randomInt(0, docs.length)]);
+        });
+      });
 
-        accounts.set(`${message.author.id}.freeItem`, true)
+      accountDB.update(
+        { _id: message.author.id },
+        { $set: { freeItem: true } }
+      );
+      accountDB.update(
+        { _id: message.author.id },
+        { $push: { Items: randomItem._id } }
+      );
 
-        message.reply(
-            `You have received the free item: **${getRandomItem.title}**, **MSRP**: ${getRandomItem.value}, Rarity: **                    ${getRandomItem.rarity}** ${getRandomItem.image}`
-        )
-    },
-}
+      message.reply(
+        `You have received the free item: **${randomItem.title}**, **MSRP**: ${randomItem.value}, Rarity: **${randomItem.rarity}** ${randomItem.image}`
+      );
+    }
+  },
+};

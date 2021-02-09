@@ -11,6 +11,7 @@ module.exports =  {
            callback: (client,message,args) =>{
 
 
+//read comment <<< leave this alone for now working on this command go to allItems
 
          let {
             allDBS: { accountDB, itemsDB, dailyStoreDB },

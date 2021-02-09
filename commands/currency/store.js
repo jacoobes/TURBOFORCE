@@ -6,56 +6,88 @@ module.exports =  {
   argType: 'string',
   withMultipleArguments : false,
   description: 'daily store of Items',
-  callback: (client, message, arguments) => {
+  callback: async (client, message, arguments) => {
 
       const {MessageEmbed} = require('discord.js');
-        const {items, dailyStore} = require('../../index');
+        let {allDBS: {itemsDB, dailyStoreDB} } = require('../../index');
         const DailyDay = new Date()
-
-        let allDatabaseArray = items.all()
-        let storeArray = []
-        let entriesForEmbed
-
-
+        let entriesForEmbed;
       var StoreEmbed = new MessageEmbed()
 
-for(var i = 0; i < 6; i++) {
-
-    var random = Math.floor(Math.random() * allDatabaseArray.length)
-    storeArray.push(allDatabaseArray[random])
-
-    addNewItems();
-
-    entriesForEmbed = items.get(storeArray[i].ID)
 
 
+    let { randomInt } = require("mathjs");
 
-    StoreEmbed.addField(`${i + 1} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  \`${entriesForEmbed.value}\``, false)
+    let allItems = await new Promise((resolve, reject) => {
+    itemsDB.find({}, function (err, docs) {
+        resolve(docs);
+        });
+    });
 
 
+    let databaseEmbed = await new Promise((resolve,reject)=>{
 
-}
+        dailyStoreDB.findOne({_id: 'embed'}, function(err, docs){
+
+            resolve(docs.embed)
+            
+        })
+
+    })
 
 
-
+        
     StoreEmbed.setTitle(`✯ Daily Store for ${DailyDay.toLocaleDateString()} ✯`)
     StoreEmbed.setColor('#c12020')
-
-if(DailyDay.getDay() === dailyStore.get('Day')) {
-
+    
 
 
-    console.log('still same day')
+    dailyStoreDB.find({day: DailyDay.getDay()}, async function(err, docs){
 
-    var databaseEmbed = new MessageEmbed(dailyStore.get('StoreEmbed'))
+        if(docs.length < 1) {
+
+          
+            getItems()
+
+            message.channel.send(StoreEmbed)
+
+           dailyStoreDB.update({_id: "Day"}, {$set: {day: DailyDay.getDay()} } )    
+
+           dailyStoreDB.update({'embed' : databaseEmbed}, {'embed' : StoreEmbed}, function(err, docs) {
+
+            console.error(err)
+            console.log(docs)
+
+           })
+
+           
+
+
+ 
+
+        } else {
+
+            console.log('still same day')
 
     
-    message.channel.send(databaseEmbed)
+
+            
+            databaseEmbed = new MessageEmbed(databaseEmbed)
+        
+            
+            message.channel.send(databaseEmbed)
+
+        }
+
     
+
+    })
+
    
 
 
-} else {
+
+/*else {
 
     message.channel.send(StoreEmbed)
 
@@ -73,7 +105,7 @@ if(DailyDay.getDay() === dailyStore.get('Day')) {
 
     }
 
-
+*/
 function checkRarityOf(item) {
 
         if(item.rarity === 'uncommon') {
@@ -105,40 +137,27 @@ function checkRarityOf(item) {
 
     }
 
-    function hasDuplicates(array) {
-        return (new Set(array)).size !== array.length;
-    }
+  function getItems(){
 
-    function onlyUnique(value, index, self) {
-        return self.indexOf(value) === index;
-      }
-      
-      function addNewItems() {
+    for(var i = 1; i < 7; i++) {
 
-        if(hasDuplicates(storeArray)) {
+      entriesForEmbed = allItems[randomInt(0, allItems.length)];
 
-            storeArray = storeArray.filter(onlyUnique);
-            
-            for(var i = 0; i < 6 - storeArray.length; i++) {
-                var newRandomAdd = Math.floor(Math.random() * allDatabaseArray.length)
-                storeArray.push(allDatabaseArray[newRandomAdd])
+       allItems = allItems.filter((item) => item._id !== entriesForEmbed._id);
 
+       StoreEmbed.addField(`${i} : `,`${checkRarityOf(entriesForEmbed)} *${entriesForEmbed.title}* ⟹  \`${entriesForEmbed.value}\``, false)
 
-            }
-            
-            return storeArray;
-    
-    
-    
-    
-        }
+    //    dailyStoreDB.update({_id: a}, function(err, docs){
 
+    //        console.log(docs)
 
-      }
+    //    })
+       
+       }
 
 
 
-
+  }
 
 
   }

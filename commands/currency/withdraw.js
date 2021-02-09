@@ -10,7 +10,7 @@ module.exports =  {
     callback: async (client, message, args) => {
 
         const currency = require('../../config.json')
-        let { allDBS : {accountDB, itemsDB, dailyStoreDB } } = require('../../index')
+        let { allDBS : {accountDB} } = require('../../index')
 
         
         let currentMoney = await new Promise((resolve, reject) => { accountDB.findOne({_id: message.author.id}, function(err, docs) {

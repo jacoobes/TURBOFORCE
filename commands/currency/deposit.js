@@ -7,8 +7,8 @@ module.exports = {
     callback: async (client, message, args) => {
         const currency = require('../../config.json')
         let {
-            allDBS: { accountDB, itemsDB, dailyStoreDB },
-            accounts,
+            allDBS: { accountDB },
+            
         } = require('../../index')
 
         let currentMoney = await new Promise((resolve, reject) => {
@@ -20,9 +20,9 @@ module.exports = {
             })
         })
 
-        if (message.author.bot) return
+        if (message.author.bot) return//in discord
 
-        accountDB.find({}, function (err, docs) {
+        accountDB.find({}, function (error, docs) {
             if (docs === null) {
                 message.reply('Please make an account with tcp create!')
                 return

@@ -11,7 +11,7 @@ module.exports =  {
 const {MessageEmbed} = require('discord.js')
   
 const paginationEmbed = require('discord.js-pagination');
-let { allDBS : {accountDB, itemsDB, dailyStoreDB } } = require('../../index')
+let { allDBS : {itemsDB } } = require('../../index')
 
 var pages = []
 var arrayOfAllItems = await new Promise((resolve, reject) => {itemsDB.find({}, function(err, docs) {

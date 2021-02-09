@@ -10,7 +10,7 @@ module.exports = {
         const {
             allDBS: { accountDB, itemDB },
         } = require('../../index')
-
+        const currency = require('../../config.json')
         let lotsOfRestaurants = [
             'Chik-fil-a',
             "Mc Donald's",
@@ -40,8 +40,22 @@ module.exports = {
             'Potatoes',
         ]
 
+        let wrongAnswersOnly = [
+
+            'you suck',
+            'really bro?',
+            'piece of garbage',
+            'smelly poopy',
+            'drip goku',
+            'bingus with waves',
+            'I hate noodles',
+            'C\'mon man...'
+        ]
+
+
+
         let randomElement = (array) => {
-            return array[Math.ceil(Math.random() * array.length)]
+            return array[Math.floor(Math.random() * array.length)]
         }
 
         let randomRestaurant = randomElement(lotsOfRestaurants)
@@ -57,9 +71,9 @@ module.exports = {
 
         let answer = '';
 
-        for(let i = 1; i < numberOfFoodsOrdered; i++){
+        for(let i = 1; i <= numberOfFoodsOrdered + 1; i++){
 
-            if(i === 6) {
+            if(i === numberOfFoodsOrdered + 1) {
 
                 answer += `${randomRestaurant} `
 
@@ -69,17 +83,25 @@ module.exports = {
 
             }
 
-        }    
+        }   
+        
+        let reward = 10 + numberOfFoodsOrdered;
         
         message.channel.send(`${randomElement(questions)}`)
        let collected = await message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1})
         
-       if(collected.first().content === answer){
-        console.log('solved correctly')
 
-       } else{
-        console.log(answer)
-        console.log('wrong')
+       if(collected.first().content.trimEnd() === answer.trimEnd()){
+        message.reply(`The order was made correctly! **${reward}** ${currency.currencyName} was wired to your bank account.`)
+
+        accountDB.update({_id: message.author.id}, {$inc:{ balanceInBank: reward }})
+
+
+       } else {
+
+        message.reply(`The customer said "${randomElement(wrongAnswersOnly)}" and left`)
+
+
        }
 
     },

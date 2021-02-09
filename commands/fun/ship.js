@@ -10,7 +10,7 @@ module.exports =  {
             
 
         const { MessageEmbed} = require("discord.js");
-        const shipGifs = require(`/Users/jacob/OneDrive/Desktop/discord bot/ship.json`)
+        const shipGifs = require(`../../misc/ship.json`)
         const {getMentions} = require('../../mentions')
         var axios = require("axios").default;
         let {rapidShipAPIkey} = require('../../config.json')
@@ -84,8 +84,7 @@ module.exports =  {
             
         sendDelayedEmbed(shipEmbed)
         
-        
-        
+    
         
         }).catch(function (axiosError) {
             console.error(axiosError);
@@ -158,10 +157,7 @@ module.exports =  {
         
         
         
-        function isNumeric(str) {
-             if (typeof str != "string") return false // we only process strings!  
-            return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-                    !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail 
+        
             
         
         
@@ -175,7 +171,6 @@ module.exports =  {
         
         
             }
-        }
 
 
 

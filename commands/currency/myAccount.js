@@ -8,7 +8,7 @@ module.exports = {
 
         const { MessageEmbed } = require('discord.js')
         const {
-            allDBS: { accountDB, itemsDB } } = require('../../index')
+            allDBS: { accountDB } } = require('../../index')
 
         let accountStats = await new Promise((resolve, reject) => {
             accountDB.findOne({ _id: message.author.id }, function (err, docs) {
@@ -46,7 +46,7 @@ module.exports = {
             let stringOfAllItems = ''
 
             let uniqueEntries
-            if (yourItems.items < 1) {
+            if (yourItems.length < 1) {
                 return accountEmbed.addField('Items', 'No Items')
             } else {
                 

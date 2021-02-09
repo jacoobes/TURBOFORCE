@@ -5,12 +5,12 @@ module.exports = {
     withMultipleArguments: false,
     argType: 'string',
     callback: async (client, message, args) => {
-        let { items } = require('../../index')
+        
 
-        //let {title, value, description, rarity, image}
+        
 
         let {
-            allDBS: { accountDB, itemsDB, dailyStoreDB },
+            allDBS: { itemsDB},
         } = require('../../index')
         var allItems = []
 

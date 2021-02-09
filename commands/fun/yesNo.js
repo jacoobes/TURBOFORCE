@@ -8,10 +8,18 @@ module.exports = {
         const axios = require('axios').default
         const { MessageEmbed } = require('discord.js')
 
+        // let object = {
+//          method: function () {console.log('chicken') }
+//          
+//
+        //}
+
+        //API fetch data from the web
+        
         var options = {
             method: 'GET',
             url: `https://yesno.wtf/api`,
-        }
+        } 
 
         async function getData(arguments) {
             var apiCall = await axios.request(options)

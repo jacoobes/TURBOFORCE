@@ -79,4 +79,4 @@ for(let filterWords of oneOfThese){
 
 }
 */
-module.exports = {getMentions, oneOfOnly}
+module.exports = {getMentions}

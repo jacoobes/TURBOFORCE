@@ -39,6 +39,17 @@ const commandHandler = (() => {
     })
 
     return {
+
+        throwIfPossibleUnkown: function(thingtoCheck){
+            let {message} = this.commandInfo()
+            if(thingtoCheck === null || thingtoCheck === undefined){
+
+                 message.reply('Unknown command detected.')
+
+            }
+            return;
+
+        },
         commandInfo: function () {
             let { message } = require('./index')
             let messageEmitted = message.content.split(/\s+/g)
@@ -123,13 +134,15 @@ const commandHandler = (() => {
                     command.get(commandName.argument[1]) ||
                     null
 
+                   this.throwIfPossibleUnkown(messageEmitted); 
+
                 try {
                     if (this.hasUserPermissions()) {
                         messageEmitted.callback(client, commandName.message, this.finalArgument())
                     }
                 } catch (e) {
                     console.error(e)
-                    commandName.message.reply('Command not found')
+    
                 }
             }
         },
@@ -140,6 +153,8 @@ const commandHandler = (() => {
             let name = messageEmitted[1]
 
             command = command.get(name) || aliases.get(name) || null
+
+            this.throwIfPossibleUnkown(command);
 
             if (command.withMultipleArguments) {
                 return messageEmitted.slice(2)
@@ -192,6 +207,7 @@ const commandHandler = (() => {
             let name = messageEmitted[1]
 
             command = command.get(name) || aliases.get(name) || null
+            
             if (message.member.permissions.has('ADMINISTRATOR')) {
                 return true
             }
@@ -243,5 +259,7 @@ const commandHandler = (() => {
         },
     }
 })()
+
+
 
 module.exports.commandHandler = commandHandler
