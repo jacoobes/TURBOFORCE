@@ -194,7 +194,7 @@ const commandHandler = (() => {
                         (el) => (el = desiredType(el)))
                     
                 } else {
-                    return (statTypedArgument = new desiredType(statTypedArgument))
+                    return desiredType(statTypedArgument) || new desiredType(statTypedArgument)
                 }
             }
         },

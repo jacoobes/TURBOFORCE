@@ -1,6 +1,5 @@
 const { Client } = require('discord.js')
 const config = require('./config.json')
-const db = require('quick.db')
 const { commandHandler } = require(`./testNewHandler`)
 const chalk = require('chalk')
 const Datastore = require('nedb')
@@ -59,13 +58,9 @@ client.on('ready', async () => {
 })
 
 client.on('message', async (message) => {
-    var items = new db.table('items')
+   
 
-    var accounts = new db.table('accounts')
-
-    var dailyStore = new db.table('daily_store')
-
-    module.exports = { items, accounts, dailyStore, message, allDBS }
+    module.exports = { message, allDBS }
 
     commandHandler.commandExecuter()
 })

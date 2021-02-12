@@ -8,7 +8,16 @@ module.exports = {
             description: "checks your own profile",
             callback: (client, message, arguments) => {
 
+                let {allDBS: {accountDB}} = require('../../index')
+                async function hasAccount(){
 
+                    let hasEcoAccount = await new Promise((resolve, reject)=> {
+
+                        
+
+                    })
+
+                }
                 console.log(message.content)
                 var createdAt = message.author.createdAt.toDateString();
                 const {MessageEmbed} = require('discord.js')
@@ -25,8 +34,8 @@ module.exports = {
                 .addFields(
                     {name: 'Current Server:', value: message.guild.name, inline:true},
                     {name: '\u200B', value : '\u200B', inline:true},
-                    {name: "Joined:", value: message.member.joinedAt.toDateString(), inline: true} //help
-                )
+                    {name: "Joined:", value: message.member.joinedAt.toDateString(), inline: true},
+                    {name: "Joined", value: 'lorem ipsum', inline: 'false' })
                 .setThumbnail(message.guild.iconURL());
                 
 

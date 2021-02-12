@@ -3,6 +3,7 @@
 module.exports =  {
 
   name: 'store',
+  aliases:['shop'],
   argType: 'string',
   withMultipleArguments : false,
   description: 'daily store of Items',
@@ -48,7 +49,7 @@ module.exports =  {
 
             dailyStoreDB.update({_id: "x1qSo8oXKktAHkhQ"},{itemArray: entriesForEmbedArray} )
 
-           dailyStoreDB.update({_id: "Day"}, {$set: {day: DailyDay.getDay()} } )
+           dailyStoreDB.update({_id: "IKxjvFdx6HoVONBo"}, {$set: {day: DailyDay.getDay()} } )
 
             message.channel.send(StoreEmbed)
   
@@ -60,7 +61,7 @@ module.exports =  {
 
         } else {
 
-
+            
 
             console.log('still same day')
 
@@ -110,7 +111,7 @@ function checkRarityOf(item) {
 
   function getItems(){
 
-    for(var i = 1; i < 7; i++) {
+    for(var i = 0; i < 6; i++) {
         
         entriesForEmbed = allItems[randomInt(0, allItems.length - 1)];
         entriesForEmbedArray.push(entriesForEmbed._id)

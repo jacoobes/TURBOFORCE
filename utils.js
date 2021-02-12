@@ -1,9 +1,11 @@
+
+const { message } = require(`./index`)
+const {allDBS: {itemsDB}} = require('./index')
+
 /**
  *
  * @param {String} arguments - Can take in an array or string. Returns Collection or Object of Collections
  */
-const { message } = require(`./index`)
-
 function getMentions(arguments) {
     
     const objectContainingMentions = {}
@@ -55,29 +57,5 @@ function turnMentionIntoID(arguments) {
     }
 }
 
-/*
-function oneOfOnly(oneOfThese = [], args = commandHandler.finalArgument()){
-    console.log(oneOfThese)
-if(Array.isArray(args)) {
-    
-for(let filterWords of oneOfThese){
-    if(!args.some(word => word.includes(filterWords))){
-       return message.reply(`Not one of the set arguments: ${oneOfThese.join(',')}`)
-    }
 
-    return;
-} 
-
-    
-
-} else{
-    
-    message.reply('p')
-}
-
-
-
-
-}
-*/
 module.exports = {getMentions}

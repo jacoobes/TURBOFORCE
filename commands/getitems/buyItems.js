@@ -1,159 +1,101 @@
-/*
-const {items, accounts, dailyStore} = require('../../index');
-const {MessageEmbed} = require('discord.js');
+module.exports = {
+  name: "buy",
+  aliases: ["b"],
+  description: "buy items from the shop.",
+  withMultipleArguments: true,
+  argType: "number",
+  callback: async (client, message, argument) => {
+    let [index, quantity] = argument;
 
-const { config } = require('winston');
+    quantity = quantity || 1;
 
-module.exports = class buyItems extends commando.Command {
-
-    constructor(client) {
-
-        super(client, {
-    
-            name: 'buy',
-            aliases: ['purchase'],
-            group: 'getitems',
-            memberName: 'buy',
-            examples: ['tcp buy <number>'],
-            description: "Buy an item from the daily store",
-            args:[ 
-
-                {
-                    key: 'number',
-                    prompt: 'Which item would you like to buy?',
-                    type: 'integer',
-                    oneOf: [1,2,3,4,5,6]
-
-                }
-
-
-            ]
-    
-        })
-    
-    
-    
-    
+    if (index < 0 || index > 5) {
+      message.reply("Not a valid index!");
+      return;
     }
 
-async run(message, {number}) {
+    if (quantity < 0 || quantity > 10) {
+      message.reply(
+        "Cannot determine correct quantity wanted. Please use a number between 1 and 20."
+      );
+      return;
+    }
 
-   var storeItemsForToday = [];
-   
-   var mappedStoreItems = new Map();
-   var theItemWanted;
+    let {
+      allDBS: { dailyStoreDB, itemsDB, accountDB },
+    } = require("../../index");
 
-    storeItemsForToday = getDailyItems()
+    let itemRequested = await new Promise((resolve, reject) => {
+      dailyStoreDB.findOne({ _id: "x1qSo8oXKktAHkhQ" }, function (err, docs) {
+        resolve(docs.itemArray[index]);
+      });
+    });
 
-    
+    let item = await new Promise((resolve, reject) => {
+      itemsDB.findOne({ _id: itemRequested }, function (err, docs) {
+        resolve(docs);
+      });
+    });
 
-    storeItemsForToday.forEach((currentValue, index) => {
+    accountDB.findOne({ _id: message.author.id }, function (err, account) {
+      if (account === null) {
+        message.reply("Make an account with tcp create!");
+        return;
+      } else {
+        let quantityXItem = getQuantity();
+        let priceOfItem = item.value;
+        let totalPrice = +priceOfItem * quantityXItem.length;
 
+        if (account.balanceInHand < totalPrice) {
+          message.reply("Please return with more money in hand. Thank you.");
+          return;
+        }
 
-        mappedStoreItems.set(index + 1, currentValue)
+        accountDB.update(
+          { _id: message.author.id },
+          { $inc: { balanceInHand: 0 - totalPrice } }
+        );
+        accountDB.update(
+          { _id: message.author.id },
+          { $push: { Items: { $each: quantityXItem } } }
+        );
 
+        let { title, image } = item;
+        let { MessageEmbed } = require("discord.js");
+        let itemConfirmation = new MessageEmbed()
 
+          .setTitle(`Purchase for ${quantity} ${title} was successful.`)
+          .setColor(checkRarityOfItem(item))
+          .setImage(image)
+          .setDescription("Total Price Paid: " + totalPrice);
 
-    })
+        message.channel.send(itemConfirmation);
+      }
+    });
 
-    
+    function checkRarityOfItem(itemsStored) {
+      if (itemsStored.rarity === "uncommon") {
+        return "#808080";
+      } else if (itemsStored.rarity === "rare") {
+        return "#5CFF5C";
+      } else if (itemsStored.rarity === "legendary") {
+        return "#c12020";
+      } else if (itemsStored.rarity === "mystic") {
+        return " #f7a537 ";
+      }
+    }
 
-    for (let [key, value] of mappedStoreItems ) {
+    function getQuantity() {
+      let quantityXItem = [];
+      if (quantity === 1) {
+        quantityXItem.push(itemRequested);
+      } else {
+        for (var i = 0; i < quantity; i++) {
+          quantityXItem.push(itemRequested);
+        }
+      }
 
-        key === number ? theItemWanted = value : ""; 
-
-        
-
-    } 
-
-if(accounts.get(`${message.author.id}.balanceInHand`) < theItemWanted.value ) {message.reply('Not enough funds on hand'); return; } ;
-message.channel.send(`Are you sure you want to buy ${theItemWanted.title} for ${theItemWanted.value}?`)
-
-let filter = (m => m.author.id === message.author.id);
-var answer = await message.channel.awaitMessages(filter, {max: 1}) 
-var contentOfMessage = answer.first().content
-var sentAMessage = saidYes(contentOfMessage);
-
-confirm()
-
-
-function confirm() { 
-    
- 
-    setTimeout(() => {
-
-
-        if(sentAMessage) {
-
-        message.reply('Resolving purchase...')
-
-            if(accounts.get(`${message.author.id}.balanceInHand`) >= theItemWanted.value){ 
-        
-                message.reply(`Succesfully bought ${theItemWanted.title} ${theItemWanted.image}`)
-                accounts.push(`${message.author.id}.Items`, theItemWanted);
-                accounts.subtract(`${message.author.id}.balanceInHand`, theItemWanted.value)
-         
-
-                        }
-
-            
-        } else {
-
-            message.reply('Canceled purchase')
-
-
-            }
-        
-
-
-
-    }, 4000)
-
-
-   
-
-
-}
-
-
-
-function getDailyItems() {
-
-   for(var i = 1; i < 7; i++) {
-
-    var IDforItems = dailyStore.get(`${i}`)
-
-    storeItemsForToday.push(items.get(`${IDforItems}`))
-    
-
-   }
-
-   return storeItemsForToday;
-
-}
-
-
-function saidYes(response) {
-    
-    return Boolean(response === 'yes')
-
-    
-}
-
-
-    
-}
-
-
-
-
-
-
-
-
-
-
-    
-}
-
-*/
+      return quantityXItem;
+    }
+  },
+};

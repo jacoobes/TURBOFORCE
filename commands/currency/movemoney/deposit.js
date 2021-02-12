@@ -5,11 +5,11 @@ module.exports = {
     withMultipleArguments: false,
     description: 'Deposit money so you can use it.',
     callback: async (client, message, args) => {
-        const currency = require('../../config.json')
+        const currency = require('../../../config.json')
         let {
             allDBS: { accountDB },
             
-        } = require('../../index')
+        } = require('../../../index')
 
         let currentMoney = await new Promise((resolve, reject) => {
             accountDB.findOne({ _id: message.author.id }, function (err, docs) {

@@ -8,9 +8,10 @@ module.exports = {
     argType: 'string',
     callback: async (client, message, args) => {
         const {
-            allDBS: { accountDB, itemDB },
+            allDBS: { accountDB },
         } = require('../../index')
         const currency = require('../../config.json')
+
         let lotsOfRestaurants = [
             'Chik-fil-a',
             "Mc Donald's",
@@ -86,7 +87,7 @@ module.exports = {
         }   
         
         let reward = 10 + numberOfFoodsOrdered;
-        
+       //wrap in try-catch? 
         message.channel.send(`${randomElement(questions)}`)
        let collected = await message.channel.awaitMessages(m => m.author.id === message.author.id, {max: 1})
         
@@ -99,7 +100,7 @@ module.exports = {
 
        } else {
 
-        message.reply(`The customer said "${randomElement(wrongAnswersOnly)}" and left`)
+        message.reply(`The customer said "${randomElement(wrongAnswersOnly)}" and left, throwing your ${collected.content} on you.`)
 
 
        }

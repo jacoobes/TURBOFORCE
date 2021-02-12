@@ -41,7 +41,7 @@ module.exports =  {
         
             .setColor('#f57777')
         
-            .setTitle(`❤️  How compatibile are ${firstName.username} and ${secondName.username}? ❤️ `)
+            .setTitle(`❤️ How compatibile are ${firstName.username} and ${secondName.username}? ❤️ `)
         
             .addFields( 
                 {name: firstName.tag, value: ` \n **Who** : ${firstName.bot? "Bot 🤖 " : "Real Person 🥰"} \n **Tag**: #${firstName.discriminator} \n **Nickname**: ${findGuildMemberNickname(firstName)}`, inline: true},

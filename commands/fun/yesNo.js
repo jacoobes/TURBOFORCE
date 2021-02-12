@@ -4,24 +4,16 @@ module.exports = {
     description: 'Let the bot guide your choices.',
     withMultipleArguments: false,
     argType: 'string',
-    callback: (client, message, arguments) => {
+    callback: async (client, message, arguments) => {
+
         const axios = require('axios').default
         const { MessageEmbed } = require('discord.js')
 
-        // let object = {
-//          method: function () {console.log('chicken') }
-//          
-//
-        //}
-
-        //API fetch data from the web
-        
         var options = {
             method: 'GET',
             url: `https://yesno.wtf/api`,
         } 
-
-        async function getData(arguments) {
+       
             var apiCall = await axios.request(options)
 
             var yesNoEmbed = new MessageEmbed()
@@ -30,9 +22,10 @@ module.exports = {
                 .setDescription(`${apiCall.data.answer}`)
                 .setColor('#FFD700')
                 .setThumbnail(message.author.displayAvatarURL())
+                
             message.channel.send(yesNoEmbed)
-        }
+        
 
-        getData(arguments)
+        
     },
 }
