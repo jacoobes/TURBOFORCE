@@ -74,8 +74,6 @@ module.exports = {
       return countTotalItems;
     };
 
-    if (currentPossesions.items.find((ids) => ids === itemBeingSold._id)) {
-    }
     for (let i = 0; i < allSimilar() - howMany; i++) {
       accountDB.update(
         { _id: message.author.id },
@@ -89,7 +87,7 @@ module.exports = {
     );
 
     message.reply(
-      `Added **${sellingPrice}** to your bank account and sold **${howMany}** **${idInInventory}**`
+      `Added **${sellingPrice}** ${currency.currencyName} to your bank account and sold **${howMany}** **${idInInventory}**`
     );
   },
 };

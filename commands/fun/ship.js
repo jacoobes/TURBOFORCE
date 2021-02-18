@@ -15,8 +15,7 @@ module.exports =  {
         var axios = require("axios").default;
         let {rapidShipAPIkey} = require('../../config.json')
         let allMentions = getMentions(arguments)
-            
-         console.log(allMentions)  
+             
         let firstName = allMentions.mention0.user
         let secondName= allMentions.mention1.user
 

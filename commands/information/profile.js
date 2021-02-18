@@ -1,4 +1,5 @@
 
+
 module.exports = {
 
             name: 'profile',
@@ -6,19 +7,21 @@ module.exports = {
             argType: 'string',
             withMultipleArguments: false,
             description: "checks your own profile",
-            callback: (client, message, arguments) => {
+            callback: async (client, message, arguments) => {
 
                 let {allDBS: {accountDB}} = require('../../index')
-                async function hasAccount(){
+                let currency = require('../../config.json')
 
-                    let hasEcoAccount = await new Promise((resolve, reject)=> {
+                    let ecoAccount = await new Promise((resolve, reject)=> {
+                        accountDB.findOne({_id: message.author.id}, function(err, docs) {
 
-                        
+                            resolve(docs)
 
+                        })
                     })
 
-                }
-                console.log(message.content)
+                    let totalMoney = ecoAccount.balanceInHand + ecoAccount.balanceInBank;
+
                 var createdAt = message.author.createdAt.toDateString();
                 const {MessageEmbed} = require('discord.js')
 
@@ -35,7 +38,7 @@ module.exports = {
                     {name: 'Current Server:', value: message.guild.name, inline:true},
                     {name: '\u200B', value : '\u200B', inline:true},
                     {name: "Joined:", value: message.member.joinedAt.toDateString(), inline: true},
-                    {name: "Joined", value: 'lorem ipsum', inline: 'false' })
+                    {name: "Economy Status", value: ecoAccount === null ? `No account found.` : `${ecoAccount.Items.length} items | ${totalMoney} ${currency.currencyName}`, inline: 'false' })
                 .setThumbnail(message.guild.iconURL());
                 
 

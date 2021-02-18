@@ -1,7 +1,5 @@
 
 const { message } = require(`./index`)
-const {allDBS: {itemsDB}} = require('./index')
-
 /**
  *
  * @param {String} arguments - Can take in an array or string. Returns Collection or Object of Collections

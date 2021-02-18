@@ -7,7 +7,7 @@ module.exports = {
   withMultipleArguments: false,
   callback: async (client, message, args) => {
     let {
-      allDBS: { accountDB, itemsDB, dailyStoreDB },
+      allDBS: { itemsDB, },
     } = require("../../index");
 
     const { MessageEmbed } = require(`discord.js`);

@@ -8,7 +8,7 @@ module.exports = {
     const { MessageEmbed } = require("discord.js");
     const {
       allDBS: { accountDB },
-    } = require("../../index");
+    } = require("../../../index");
 
     let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
       resolve(docs)
