@@ -7,7 +7,7 @@
 
 <header>
 
-<h1 class>TURBOFORCE V. 0.01 <img id = 'logo' src = 'https://i.postimg.cc/MpdWxtP7/jacoblogo-994.png' alt = 'Logo-image' width = 50 length = 50 </img>  </h1>
+<h1 class>TURBOFORCE V. 1.00 <img id = 'logo' src = 'https://i.postimg.cc/MpdWxtP7/jacoblogo-994.png' alt = 'Logo-image' width = 50 length = 50 </img>  </h1>
     <div>
     <h2>
     A complex economy bot based on items and rarities 
