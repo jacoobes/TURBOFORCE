@@ -5,6 +5,20 @@ module.exports = {
   withMultipleArguments: true,
   argType: "number",
   callback: async (client, message, argument) => {
+
+
+
+    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+      resolve(docs)
+  })
+})
+
+if(hasAccount === null){
+
+  return message.reply('Please make an account with `tcp create`!')
+}
+
+
     let [index, quantity] = argument;
 
     quantity = quantity || 1;

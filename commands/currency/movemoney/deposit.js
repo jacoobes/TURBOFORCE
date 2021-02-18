@@ -21,13 +21,16 @@ module.exports = {
         })
 
         if (message.author.bot) return
-
-        accountDB.find({}, function (error, docs) {
-            if (docs === null) {
-                message.reply('Please make an account with tcp create!')
-                return
-            }
+        
+        let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+            resolve(docs)
         })
+      })
+    
+      if(hasAccount === null){
+    
+        return message.reply('Please make an account with `tcp create`!')
+      }
 
         if (args <= 0) {
             message.reply('You cannot deposit zero or a negative number!')

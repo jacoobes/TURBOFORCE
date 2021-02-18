@@ -9,10 +9,25 @@ module.exports =  {
 
     callback: async (client, message, args) => {
 
+
+        
+
+
         const currency = require('../../../config.json')
         let { allDBS : {accountDB} } = require('../../../index')
 
-        
+        let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+            resolve(docs)
+        })
+      })
+    
+      if(hasAccount === null){
+    
+        return message.reply('Please make an account with `tcp create`!')
+      }
+
+
+
         let currentMoney = await new Promise((resolve, reject) => { accountDB.findOne({_id: message.author.id}, function(err, docs) {
 
             resolve({totalInHand: docs.balanceInHand , totalInBank: docs.balanceInBank} )

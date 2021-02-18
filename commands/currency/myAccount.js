@@ -10,6 +10,18 @@ module.exports = {
       allDBS: { accountDB },
     } = require("../../index");
 
+    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+      resolve(docs)
+  })
+})
+
+if(hasAccount === null){
+
+  return message.reply('Please make an account with `tcp create`!')
+}
+
+
+
     let accountStats = await new Promise((resolve, reject) => {
       accountDB.findOne({ _id: message.author.id }, function (err, docs) {
         console.log(docs);
@@ -43,7 +55,7 @@ module.exports = {
 
     getAllItemsForEmbed();
 
-    message.channel.send(accountEmbed);
+    message.channel.send(accountEmbed || 'Use `tcp myitems`');
 
     function getAllItemsForEmbed() {
       var yourItems = accountStats.items;

@@ -1,8 +1,9 @@
 const { Client } = require('discord.js')
 const config = require('./config.json')
-const { commandHandler } = require(`./testNewHandler`)
+const  {commandHandler} = require('ezhandler')
 const chalk = require('chalk')
 const Datastore = require('nedb')
+
 const client = new Client({
     messageCacheMaxSize: 150,
     messageCacheLifetime: 300,
@@ -56,6 +57,7 @@ client.on('ready', async () => {
     allDBS.itemsDB.loadDatabase()
     allDBS.dailyStoreDB.loadDatabase()
 })
+
 
 client.on('message', async (message) => {
    

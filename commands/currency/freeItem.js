@@ -6,6 +6,17 @@ module.exports = {
   callback: async (client, message, arguments) => {
     const { randomInt } = require("mathjs");
 
+
+    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+      resolve(docs)
+  })
+})
+
+if(hasAccount === null){
+
+  return message.reply('Please make an account with `tcp create`!')
+}
+
     let {
       allDBS: { accountDB, itemsDB },
     } = require("../../index");
@@ -14,9 +25,7 @@ module.exports = {
       accountDB.findOne({ _id: message.author.id }, function (err, docs) {
         resolve(docs);
 
-        if (docs === null) {
-          return message.reply("Create an account with tcp create!");
-        }
+      
       });
     });
 

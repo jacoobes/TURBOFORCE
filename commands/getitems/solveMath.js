@@ -4,18 +4,23 @@ module.exports = {
   argType: "string",
   withMultipleArguments: false,
   description: "Solve a math problem to earn some money. Keep your mind sharp!",
-  callback: (client, message, args) => {
+  callback: async  (client, message, args) => {
     const { create, all, random, randomInt } = require("mathjs");
     const symbol = require("../../config.json");
     const { MessageEmbed } = require("discord.js");
     const {allDBS: {accountDB}} = require('../../index')
     let difficulty = args.trim().toLowerCase();
     
-    accountDB.findOne({_id: message.author.id}, function(err,docs){
-        if(docs === null) message.reply(`Make an account with \`tcp create\`!`)
-        return;
+   let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+        resolve(docs)
     })
-     
+  })
+
+  if(hasAccount === null){
+
+    return message.reply('Please make an account with `tcp create`!')
+  }
+  
     var mathEmbed = new MessageEmbed();
 
     const config = {
@@ -23,7 +28,6 @@ module.exports = {
     };
     var LengthOfProblem,
       expression = [],
-      aRandomOp,
       reward,
       finalMathProblem,
       timeToSolve;
@@ -90,7 +94,7 @@ module.exports = {
 
       reward = randomInt(51, 70);
 
-      timeToSolve = 15000;
+      timeToSolve = 20000;
     } else {
 
         return message.reply('Please use easy, medium, or hard.')
@@ -99,7 +103,7 @@ module.exports = {
 
     finalMathProblem = makeMathProblemToObject();
 
-    mathEmbed.setTitle("Make sure to round!");
+    mathEmbed.setTitle("Make sure to round the final answer!");
     mathEmbed.addFields(
       {
         name: "Problem:",
@@ -129,7 +133,7 @@ module.exports = {
         }
       })
       .catch(() => {
-        message.reply("You did not solve in time!");
+        message.reply("You did not solve in time!" + ` Correct answer: ${finalMathProblem.answer}`);
       });
 
     function randomOp(arr = ops) {

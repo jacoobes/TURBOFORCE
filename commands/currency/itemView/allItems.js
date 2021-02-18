@@ -24,6 +24,8 @@ module.exports = {
             }
 
             message.channel.send(messageToPost)
+
+        
         })
     },
 }

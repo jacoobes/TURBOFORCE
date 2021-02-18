@@ -11,7 +11,7 @@ module.exports =  {
 
         const { MessageEmbed} = require("discord.js");
         const shipGifs = require(`../../misc/ship.json`)
-        const {getMentions} = require('../../mentions')
+        const {getMentions} = require('../../utils')
         var axios = require("axios").default;
         let {rapidShipAPIkey} = require('../../config.json')
         let allMentions = getMentions(arguments)

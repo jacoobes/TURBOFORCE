@@ -7,6 +7,18 @@ module.exports = {
     withMultipleArguments: false,
     argType: 'string',
     callback: async (client, message, args) => {
+
+        let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+            resolve(docs)
+        })
+      })
+    
+      if(hasAccount === null){
+    
+        return message.reply('Please make an account with `tcp create`!')
+      }
+
+
         const {
             allDBS: { accountDB },
         } = require('../../index')
