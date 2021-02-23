@@ -1,21 +1,14 @@
 module.exports = {
   name: "freeitem",
-  argType: "string",
-  withMultipleArguments: false,
+  usesArguments: {
+
+    array: false,
+    argType: "string",
+    
+  },
   description: "Everyone gets one free item!",
   callback: async (client, message, arguments) => {
     const { randomInt } = require("mathjs");
-
-
-    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
-      resolve(docs)
-  })
-})
-
-if(hasAccount === null){
-
-  return message.reply('Please make an account with `tcp create`!')
-}
 
     let {
       allDBS: { accountDB, itemsDB },
@@ -28,6 +21,17 @@ if(hasAccount === null){
       
       });
     });
+
+
+    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+      resolve(docs)
+  })
+})
+
+if(hasAccount === null){
+
+  return message.reply('Please make an account with `tcp create`!')
+}
 
     if (accountThatWantsFreeItem.freeItem === true) {
       message.reply("You already got your free one item!");

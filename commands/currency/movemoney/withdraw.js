@@ -44,11 +44,11 @@ module.exports =  {
 
         })
 
-        if(args <=  0) {message.reply('You cannot deposit zero or a negative number!'); return;}
+        if(args <=  0) {message.reply('You cannot withdraw zero or a negative number!'); return;}
 
         if(currentMoney.totalInBank < args) {
 
-            message.reply('You cannot deposit more than what you have in hand!');
+            message.reply('You cannot withdraw more than what you have in hand!');
             return;
 
         }
@@ -62,7 +62,7 @@ module.exports =  {
         accountDB.update({_id: message.author.id}, {$set : {balanceInBank : 0 }})
 
        
-        return  message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+        return  message.reply(`Withdrew ${args} ${currency.currencyName} from your account!`)
 
         } else { 
             if(isNaN(args)) {
@@ -79,7 +79,7 @@ module.exports =  {
             }
 
 
-            message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+            message.reply(`Withdrew ${args} ${currency.currencyName} from your account!`)
 
         }
             

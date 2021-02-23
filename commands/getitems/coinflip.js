@@ -13,14 +13,14 @@ module.exports = {
         
         if(args.length < 0) return message.reply('Arguments required.')
 
-        let [whoToWager, amountToWager = () => {return message.reply('Second argument must be a number!')}] = args
+        let [whoToWager, amountToWager] = args
         
-        const { isNaN } = require('mathjs')
         if(isNaN(amountToWager)) return message.reply('Amount to wager is not a number')
+
         if(!whoToWager.match(/^<@!?(\d+)>$/g)) return message.reply('First argument should mention someone, The second one should be a number.')
-
-        let target = getMentions(whoToWager).user;
-
+        
+        let target = getMentions(whoToWager).member || getMentions(whoToWager).user;
+        
         if(target.id === message.author.id) return message.reply('You cannot wager against yourself.')
   
         let { allDBS : {accountDB} } = require('../../index')
@@ -36,14 +36,10 @@ module.exports = {
 
      
 
-      if(authorAccount == null || targetAccount == null){
-        return message.reply('Either you or the person being targeted does not have an account.')
-      }
-
-      if(amountToWager < 0) {
-        return message.reply('You cannot wager this number!')
-      }
-
+      if(authorAccount == null || targetAccount == null) return message.reply('Either you or the person being targeted does not have an account.')
+      
+      if(amountToWager < 0) return message.reply('You cannot wager this number!')
+      
       if(amountToWager > authorAccount.balanceInHand || amountToWager > targetAccount.balanceInHand) {
 
           return message.reply('Either you or the person being targeted does not have enough in hand to wager.')
@@ -68,19 +64,21 @@ module.exports = {
             return message.reply('Both cannot wager the same side of the coin!')
 
           }
+
           let coinFlip = ['heads', 'tails']
-         let winningChoice = coinFlip[Math.round(Math.round() * 1)]
+         let winningChoice = coinFlip[Math.round(Math.round())]
             
 
       
       let [heads, tails] = messagesCollected.partition(msg=> msg.content === 'heads')
 
       let headsUser = heads.first().author
-      let tailsUser = tails.first().author      
+      let tailsUser = tails.first().author    
+
       if(heads.first().content === winningChoice) {
            
         message.channel.send(`${headsUser.username} wins.`)   
-        message.channel.send(`\`${headsUser.username}\` > +${amountToWager * 2} \n \`${tailsUser.username}\` > \`-${amountToWager}\``)
+        message.channel.send(`\`${headsUser.username}\` > \`+${amountToWager * 2}\` \n \`${tailsUser.username}\` > \`-${amountToWager}\``)
 
         accountDB.update({_id: headsUser.id}, {$inc: {balanceInHand: amountToWager * 2}})
 

@@ -2,8 +2,12 @@ module.exports = {
     name: 'allitems',
     aliases: ['ai'],
     description: 'finds all item properties',
-    withMultipleArguments: false,
-    argType: 'string',
+    usesArguments: {
+
+        array: false,
+        argType: 'string'
+    },
+
     callback: async (client, message, args) => {
         
         let {

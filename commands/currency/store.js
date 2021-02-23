@@ -15,6 +15,7 @@ module.exports =  {
         let entriesForEmbed;
         let entriesForEmbedArray = [];
       var StoreEmbed = new MessageEmbed()
+      
     let { randomInt } = require("mathjs");
 
      let allItems = await new Promise((resolve, reject) => {

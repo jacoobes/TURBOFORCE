@@ -6,19 +6,6 @@ module.exports = {
   argType: "number",
   callback: async (client, message, argument) => {
 
-
-
-    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
-      resolve(docs)
-  })
-})
-
-if(hasAccount === null){
-
-  return message.reply('Please make an account with `tcp create`!')
-}
-
-
     let [index, quantity] = argument;
 
     quantity = quantity || 1;
@@ -38,6 +25,18 @@ if(hasAccount === null){
     let {
       allDBS: { dailyStoreDB, itemsDB, accountDB },
     } = require("../../index");
+
+
+    
+    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+      resolve(docs)
+  })
+})
+
+if(hasAccount === null){
+
+  return message.reply('Please make an account with `tcp create`!')
+}
 
     let itemRequested = await new Promise((resolve, reject) => {
       dailyStoreDB.findOne({ _id: "x1qSo8oXKktAHkhQ" }, function (err, docs) {

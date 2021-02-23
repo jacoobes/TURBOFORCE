@@ -1,3 +1,5 @@
+const { compositionDependencies } = require('mathjs');
+
 module.exports =  {
 
             name : 'serverinfo',
@@ -5,41 +7,29 @@ module.exports =  {
             argType: 'string',
             withMultipleArguments: false,
             description: "checks the server you are in",
-            callback: (client, message, arguments) => {
+            callback: async (client, message, arguments) => {
 
 
                 const {MessageEmbed} = require('discord.js')
         
 
-                async function serv() {
+              
         
-                   var arrayChannels = []
+                   let arrayChannels = []
                    const ownerOfServer = await message.guild.members.fetch(message.guild.ownerID);     
-                   var channels = await message.guild.channels.cache.map(chan => chan.type === 'text' || chan.type === 'voice'? arrayChannels.push(chan.name) : "");
+                   let channels = await message.guild.channels.cache.map(chan => chan.type === 'text' || chan.type === 'voice'? arrayChannels.push(chan.name) : "");
                    const emotes = await message.guild.emojis.cache.map(emote => emote.id)
                    
                    var roles = await message.guild.roles.cache.array() 
                    
-                   function randomRole(arg) {
+                   function randomizerRole(arg) {
                        
-                        var randomRole;
+                        
         
-                       var i = Math.round(Math.random() * arg.length)
-           
-                       arg.forEach((el) => {
-           
-                           if(el[i] === undefined || el[i].name.toString().startsWith('══════ ◈') || el[i] === "-----------------------" ) 
-                           
-                           {
-                               randomRole = arg[i+1]       
-                
-                           } else {
-           
-                               randomRole = arg[i];
-                           }
-                
-                       })            
-           
+                       arg.filter(element => !element.name.startsWith('══════ ◈') || !element.name === "-----------------------" )
+
+                    let randomRole = arg[Math.round(Math.random() * arg.length)]
+
                        return randomRole
            
                           }   //implement a way to remove roles with ------------
@@ -65,7 +55,7 @@ module.exports =  {
                        {name:"Channels", value: `${cpEmotes.jackieSmile} ${arrayChannels.length}`, inline: true},        //optimize to show either voice or text
                        {name: "Boosted Level", value: message.guild.premiumTier, inline: true},
                        {name:`Emotes:`, value: `${cpEmotes.yukikopog}  ${emotes.length}`, inline: true},
-                       {name: `Example Role`, value: randomRole(roles), inline: true}
+                       {name: `Example Role`, value: randomizerRole(roles), inline: true}
                        
                        )
                    .setFooter(`Created: ${message.guild.createdAt.toDateString()}`)    
@@ -75,29 +65,7 @@ module.exports =  {
                        
                    
                    
-           
-                   
-           
-                   }
-                   
-                   serv();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
 
                 }
 

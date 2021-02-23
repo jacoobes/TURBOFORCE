@@ -1,16 +1,18 @@
-const { accounts } = require("../..");
+
 
 module.exports = {
   name: "test",
   description: "testing",
-  withMultipleArguments: true,
-  argType: "string",
+   usesArguments: {
+     array: false,
+     argType: 'flex',
+   },
   aliases: ["t"],
-  callback: async (client, message, arguments) => {
+  userPermissions: ['PRIORITY_SPEAKER'],
+  callback: async (client, message, argument) => {
   
-
-
-
+    console.log(argument)
+   
 
   },
 };

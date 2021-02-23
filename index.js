@@ -1,26 +1,46 @@
 const { Client } = require('discord.js')
 const config = require('./config.json')
-const  {commandHandler} = require('ezhandler')
+
+const {CommandIpsum} = require('ezhandler').CommandIpsum
+const {Payload} = require('ezhandler').Payload
 const chalk = require('chalk')
 const Datastore = require('nedb')
+
 
 const client = new Client({
     messageCacheMaxSize: 150,
     messageCacheLifetime: 300,
     messageSweepInterval: 10,
 })
+
+
+
 const allDBS = {
     accountDB: new Datastore('./databases/accounts'),
     itemsDB: new Datastore('./databases/items'),
     dailyStoreDB: new Datastore('./databases/daily_store'),
 }
 
+let payload = new Payload(
+    {commands: '/commands',
+    owners: [],
+    prefix: 'tcp',
+    client: client})
+
+const handler = new CommandIpsum(payload)
+
+payload.detectPayloadFiles()
+handler.defaultRun()
+
 client.on('ready', async () => {
-    commandHandler.displayOptions({
+
+    handler.displayOptions({
         consoleCommands: true,
         consoleRAM: true,
         customMessage: chalk.whiteBright('TURBOFORCE logging in.'),
     })
+
+   
 
     var CityPopTerms = [
         'Mariya Takeuchi',
@@ -59,12 +79,6 @@ client.on('ready', async () => {
 })
 
 
-client.on('message', async (message) => {
-   
 
-    module.exports = { message, allDBS }
-
-    commandHandler.commandExecuter()
-})
-
+module.exports = {allDBS }
 client.login(config.token)

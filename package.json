@@ -9,6 +9,7 @@
   "author": "serendipity",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
     "discord.io": "github:woor/discord.io#gateway_v6",
     "discord.js": "^12.4.1",
     "discord.js-pagination": "^1.0.3",
