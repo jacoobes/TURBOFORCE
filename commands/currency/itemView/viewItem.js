@@ -3,8 +3,11 @@ module.exports =  {
 
         name: 'viewitem',     
         aliases : ['vi'],
-        withMultipleArguments : false,
-        argType: 'string',
+        usesArguments: {
+            
+            array: false,
+            argType: 'string',
+        },
         description: 'finds item properties',
         callback: async (client, message, args) => {
 
@@ -14,7 +17,7 @@ const paginationEmbed = require('discord.js-pagination');
 let { allDBS : {itemsDB } } = require('../../../index')
 
 var pages = []
-var arrayOfAllItems = await new Promise((resolve, reject) => {itemsDB.find({}, function(err, docs) {
+var arrayOfAllItems = await new Promise((resolve) => {itemsDB.find({}, function(err, docs) {
 
     resolve(docs)
 

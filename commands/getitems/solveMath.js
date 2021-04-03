@@ -1,17 +1,19 @@
 module.exports = {
   name: "solve",
   aliases: ["s"],
-  argType: "string",
-  withMultipleArguments: false,
+  usesArguments: {
+    argType: "string",
+    array: false,
+  },
   description: "Solve a math problem to earn some money. Keep your mind sharp!",
-  callback: async  (client, message, args) => {
+  callback: async  (client, message, {argument}) => {
     const { create, all, random, randomInt } = require("mathjs");
     const symbol = require("../../config.json");
     const { MessageEmbed } = require("discord.js");
     const {allDBS: {accountDB}} = require('../../index')
-    let difficulty = args.trim().toLowerCase();
+    let difficulty = argument.trim().toLowerCase();
     
-   let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
+   let hasAccount =  await new Promise((resolve) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
         resolve(docs)
     })
   })

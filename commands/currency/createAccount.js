@@ -1,9 +1,7 @@
 module.exports = {
     name: 'create',
     description: 'intiate TURBOFORCE Currency Account!',
-    withMultipleArguments: false,
-    argType: 'string',
-    callback: (client, message, arguments) => {
+    callback: (client, message) => {
         var {
             allDBS: { accountDB },
         } = require('../../index')

@@ -4,10 +4,8 @@ module.exports =  {
 
   name: 'store',
   aliases:['shop'],
-  argType: 'string',
-  withMultipleArguments : false,
   description: 'daily store of Items',
-  callback: async (client, message, arguments) => {
+  callback: async (client, message) => {
 
       const {MessageEmbed} = require('discord.js');
         let {allDBS: {itemsDB, dailyStoreDB} } = require('../../index');

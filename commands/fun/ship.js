@@ -1,20 +1,22 @@
 
-
+const {Argument} = require('sern_handler')
 
 module.exports =  {
         name: 'ship',
-        withMultipleArguments : true,
-        argType: 'string',
+        usesArguments: {
+            array: true,
+            argType: 'string string'
+        },
         description: "Are you horny? You can ship two people. Just mention them.",
-       callback: (client, message ,arguments) => {
+       callback: (payload, message , {argument}) => {
             
 
         const { MessageEmbed} = require("discord.js");
         const shipGifs = require(`../../misc/ship.json`)
-        const {getMentions} = require('../../utils')
+  
         var axios = require("axios").default;
         let {rapidShipAPIkey} = require('../../config.json')
-        let allMentions = getMentions(arguments)
+        let allMentions = Argument.getMentions(argument, message)
              
         let firstName = allMentions.mention0.user
         let secondName= allMentions.mention1.user
@@ -28,8 +30,6 @@ module.exports =  {
             'x-rapidapi-host': 'love-calculator.p.rapidapi.com'
           }
         };
-        
-        
         
         
         axios.request(optionsForLoveCalculator).then(function (response) {
@@ -88,15 +88,9 @@ module.exports =  {
         }).catch(function (axiosError) {
             console.error(axiosError);
         });
-        
-        
-         
+           
         //really need to start focusing on simplfying code
-        
-        
-        
-        
-        
+      
          function findGuildMemberNickname(user){
             
             return message.guild.members.cache.get(user.id).nickname === null || undefined ? "None 👎" : message.guild.members.cache.get(user.id).nickname
@@ -170,40 +164,3 @@ module.exports =  {
         
         
             }
-
-
-
-
-
-
-        
-
-
-
-
-/*
-
-
-module.exports = {
-
-    commands: ['ship'],
-    expectedArgs: '<partner1> <partner2>',
-    permissionError: 'You need more permissions to run this command',
-    minArgs: 0,
-    maxArgs: 3,
-    callback: (message, arguments, text) =>{
-
-        
-
-
-
-
-
-
-
-    },
-    permissions: [],
-    requiredRoles: []
-}
-
-*/

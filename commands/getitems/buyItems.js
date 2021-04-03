@@ -2,13 +2,14 @@ module.exports = {
   name: "buy",
   aliases: ["b"],
   description: "buy items from the shop.",
-  withMultipleArguments: true,
-  argType: "number",
-  callback: async (client, message, argument) => {
+  usesArguments: {
+    array: true,
+    argType: "number",
+  },
+  
+  callback: async (payload, message, {argument}) => {
 
-    let [index, quantity] = argument;
-
-    quantity = quantity || 1;
+    let [index, quantity = 1] = argument;
 
     if (index < 0 || index > 5) {
       message.reply("Not a valid index!");
@@ -25,7 +26,6 @@ module.exports = {
     let {
       allDBS: { dailyStoreDB, itemsDB, accountDB },
     } = require("../../index");
-
 
     
     let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){

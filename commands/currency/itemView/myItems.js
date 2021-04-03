@@ -2,10 +2,8 @@ module.exports = {
 
     name: 'myitems',     
     aliases : ['mi'],
-    withMultipleArguments : false,
-    argType: 'flex',
     description: 'shows all items',
-    callback: async  (client, message, args) =>{
+    callback: async  (client, message) =>{
 
         const paginationEmbed = require('discord.js-pagination');
         const {MessageEmbed} = require('discord.js')

@@ -1,19 +1,13 @@
-const { compositionDependencies } = require('mathjs');
 
 module.exports =  {
 
             name : 'serverinfo',
             aliases: ['si'],
-            argType: 'string',
-            withMultipleArguments: false,
             description: "checks the server you are in",
-            callback: async (client, message, arguments) => {
+            callback: async (client, message) => {
 
 
                 const {MessageEmbed} = require('discord.js')
-        
-
-              
         
                    let arrayChannels = []
                    const ownerOfServer = await message.guild.members.fetch(message.guild.ownerID);     

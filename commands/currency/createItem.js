@@ -1,42 +1,56 @@
 module.exports = {
   name: "createitem",
   aliases: ["newitem", "ci", "ni"],
-  description:
-    "If an authorized user, you can create items for the currency system.",
+  description: "If an authorized user, you can create items for the currency system.",
   argType: "string",
   withMultipleArguments: false,
-  callback: async (client, message, args) => {
+  callback: async (payload, message, {argument}) => {
+
     let {
-      allDBS: { itemsDB, },
+      allDBS: {
+        itemsDB,
+      },
     } = require("../../index");
 
-    const { MessageEmbed } = require(`discord.js`);
+    const {
+      MessageEmbed
+    } = require(`discord.js`);
 
     if (isAuthorizedUser()) {
       {
-        let itemValues = args;
+        let itemValues = argument;
         itemValues = itemValues.replace(/ /g, "").split("|");
 
         let [title, value, description, rarity, imageLink] = itemValues;
         let id = title.toLowerCase().trim().replace(/-/g, "");
-        console.log(itemValues);
+      
         let itemEmbed = new MessageEmbed();
 
         //if((!imageLink.match(/\.(jpeg|jpg|gif|png)$/) != null)) return message.reply('Not correct image format');
         itemEmbed.setTitle(replaceDashesWithSpacesFor(title));
 
         itemEmbed
-          .addFields(
-            { name: `Value`, value: value, inline: false },
-            {
-              name: `Description`,
-              value: replaceDashesWithSpacesFor(description),
-              inline: false,
-            },
-            { name: `Rarity`, value: rarity, inline: false },
-            { name: `Image`, value: imageLink, inline: true },
-            { name: "Id", value: id, inline: false }
-          )
+          .addFields({
+            name: `Value`,
+            value: value,
+            inline: false
+          }, {
+            name: `Description`,
+            value: replaceDashesWithSpacesFor(description),
+            inline: false,
+          }, {
+            name: `Rarity`,
+            value: rarity,
+            inline: false
+          }, {
+            name: `Image`,
+            value: imageLink,
+            inline: true
+          }, {
+            name: "Id",
+            value: id,
+            inline: false
+          })
 
           .setImage(imageLink);
 
@@ -58,7 +72,7 @@ module.exports = {
                 description: replaceDashesWithSpacesFor(description),
                 rarity: rarity,
                 image: imageLink,
-                _id: replaceDashesWithSpacesFor(id).replace(/ /g,"")
+                _id: replaceDashesWithSpacesFor(id).replace(/ /g, "")
               };
 
               itemsDB.insert(objectToBeSent, function confirmation(err, docs) {

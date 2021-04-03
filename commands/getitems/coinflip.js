@@ -1,25 +1,31 @@
 
-
+const {Argument} = require('sern_handler')
 
 module.exports = {
     name: 'coinflip',
     aliases: ['cf'],
     description: 'coinflip vs a person.',
-    withMultipleArguments: true,
-    argType: 'flex',
-    callback: async (client, message, args) => {
+    usesArguments: {
+      array: true,
+      argType: 'string number',
+      validate: (args) => {
+        return args[0]?.match(/^<@!?(\d+)>$/g)
+      },
+      validateError: 'First argument should mention someone, The second one should be a number.'
+    },
+    
+    callback: async (payload, message, {argument}) => {
         
-        let {getMentions} = require('../../utils')
         
-        if(args.length < 0) return message.reply('Arguments required.')
+        if(argument.length < 0) return message.reply('Arguments required.')
 
-        let [whoToWager, amountToWager] = args
+        let [whoToWager, amountToWager] = argument
         
         if(isNaN(amountToWager)) return message.reply('Amount to wager is not a number')
 
         if(!whoToWager.match(/^<@!?(\d+)>$/g)) return message.reply('First argument should mention someone, The second one should be a number.')
         
-        let target = getMentions(whoToWager).member || getMentions(whoToWager).user;
+        let target = Argument.getMentions(whoToWager, message).member || Argument.getMentions(whoToWager, message).user;
         
         if(target.id === message.author.id) return message.reply('You cannot wager against yourself.')
   
@@ -51,7 +57,7 @@ module.exports = {
 
       try {
 
-      const filter = (msg => msg.content === 'heads' || msg.content === 'tails' && msg.author.id === message.author.id || msg.author.id === target.id)
+      const filter = (msg => msg.content.toLowerCase() === 'heads' || msg.content.toLowerCase() === 'tails' && msg.author.id === message.author.id || msg.author.id === target.id)
       let messagesCollected = await messageChooser.channel.awaitMessages(filter, {max : 2, time: 20000})
      
          if(messagesCollected.array()[0].author.id === messagesCollected.array()[1].author.id)  {

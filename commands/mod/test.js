@@ -1,18 +1,19 @@
 
+const {Argument} = require('sern_handler')
 
 module.exports = {
   name: "test",
   description: "testing",
    usesArguments: {
      array: false,
-     argType: 'flex',
+     argType: 'string',
    },
   aliases: ["t"],
-  userPermissions: ['PRIORITY_SPEAKER'],
-  callback: async (client, message, argument) => {
-  
-    console.log(argument)
-   
-
+  ownerOnly: false,
+  callback: async (payload, message, {argument, utils : {check}}) => {
+    
+    let f = check(message)[3]
+    console.log(f('791343546497105941'))
+    
   },
 };

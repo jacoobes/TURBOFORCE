@@ -1,11 +1,7 @@
 const { Client } = require('discord.js')
 const config = require('./config.json')
 
-const {CommandIpsum} = require('ezhandler').CommandIpsum
-const {Payload} = require('ezhandler').Payload
-const chalk = require('chalk')
 const Datastore = require('nedb')
-
 
 const client = new Client({
     messageCacheMaxSize: 150,
@@ -13,72 +9,34 @@ const client = new Client({
     messageSweepInterval: 10,
 })
 
-
-
 const allDBS = {
     accountDB: new Datastore('./databases/accounts'),
     itemsDB: new Datastore('./databases/items'),
     dailyStoreDB: new Datastore('./databases/daily_store'),
 }
 
-let payload = new Payload(
-    {commands: '/commands',
-    owners: [],
-    prefix: 'tcp',
-    client: client})
+const {Payload, sern_handler} = require('sern_handler')
 
-const handler = new CommandIpsum(payload)
+const payload = new Payload( 
+{commands: '/commands',
+owners: ['182326315813306369'],
+prefix: 'tcp',
+client: client}
+)
 
-payload.detectPayloadFiles()
-handler.defaultRun()
-
-client.on('ready', async () => {
-
-    handler.displayOptions({
-        consoleCommands: true,
-        consoleRAM: true,
-        customMessage: chalk.whiteBright('TURBOFORCE logging in.'),
-    })
-
-   
-
-    var CityPopTerms = [
-        'Mariya Takeuchi',
-        'Meiko Nakahara',
-        'Omega Tribe',
-        'Momoko Kikuchi',
-        'Tatsuro Yamashita',
-        'Toshiki Kadomatsu',
-        'City Pop',
-        'Taku',
-        'Plastic Love',
-        'Junko Ohashi',
-        '56709',
-        'Piper',
-        'Miki Matsubara',
-        'Scramble Cross',
-        'Minako Yoshida',
-        'Hiromi Iwasaki',
-        'Stay with Me',
-        'Mao Music',
-        'Casiopea',
-        'Anri',
-    ]
-
-    var randomTerm = CityPopTerms[Math.floor(Math.random() * CityPopTerms.length)]
-
-    client.user.setActivity(
-        `${randomTerm} | TURBOFORCE`,
-
-        { type: 'LISTENING' }
-    )
-
-    allDBS.accountDB.loadDatabase()
-    allDBS.itemsDB.loadDatabase()
-    allDBS.dailyStoreDB.loadDatabase()
+const handler = new sern_handler(payload)
+handler.displayOptions({
+consoleCommands: true,
+consoleRAM: true,
+customMessage: "Logged in"
 })
 
+ 
+ allDBS.accountDB.loadDatabase()
+ allDBS.itemsDB.loadDatabase()
+ allDBS.dailyStoreDB.loadDatabase()
 
 
-module.exports = {allDBS }
+
+module.exports.allDBS = allDBS
 client.login(config.token)

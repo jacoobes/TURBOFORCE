@@ -7,7 +7,7 @@ module.exports = {
         array: false,
     },
     description: "checks your own profile",
-    callback: async (client, message, arguments) => {
+    callback: async (client, message, {argument}) => {
 
         let {
             allDBS: {
@@ -16,7 +16,7 @@ module.exports = {
         } = require('../../index')
         let currency = require('../../config.json')
 
-        let ecoAccount = await new Promise((resolve, reject) => {
+        let ecoAccount = await new Promise((resolve) => {
             accountDB.findOne({
                 _id: message.author.id
             }, function (err, docs) {

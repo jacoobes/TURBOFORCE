@@ -4,21 +4,21 @@ module.exports = {
     description: 'Let the bot guide your choices.',
     withMultipleArguments: false,
     argType: 'string',
-    callback: async (client, message, arguments) => {
+    callback: async (client, message, {argument}) => {
 
         const axios = require('axios').default
         const { MessageEmbed } = require('discord.js')
 
-        var options = {
+        let options = {
             method: 'GET',
             url: `https://yesno.wtf/api`,
         } 
        
-            var apiCall = await axios.request(options)
+            let apiCall = await axios.request(options)
 
             var yesNoEmbed = new MessageEmbed()
 
-                .setTitle(`👍 ${arguments} 👎`)
+                .setTitle(`👍 ${argument} 👎`)
                 .setDescription(`${apiCall.data.answer}`)
                 .setColor('#FFD700')
                 .setThumbnail(message.author.displayAvatarURL())

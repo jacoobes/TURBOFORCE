@@ -1,29 +1,36 @@
 module.exports = {
   name: "account",
-  withMultipleArguments: false,
-  argType: "string",
   aliases: ["acc", "balance", "bal"],
   description: "your account",
-  callback: async (client, message, arguments) => {
-    const { MessageEmbed } = require("discord.js");
+  callback: async (client, message) => {
     const {
-      allDBS: { accountDB },
+      MessageEmbed
+    } = require("discord.js");
+    const {
+      allDBS: {
+        accountDB
+      },
     } = require("../../../index");
 
-    let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
-      resolve(docs)
-  })
-})
+    let hasAccount = await new Promise((resolve, reject) => {
+      accountDB.findOne({
+        _id: message.author.id
+      }, function (err, docs) {
+        resolve(docs)
+      })
+    })
 
-if(hasAccount === null){
+    if (hasAccount === null) {
 
-  return message.reply('Please make an account with `tcp create`!')
-}
+      return message.reply('Please make an account with `tcp create`!')
+    }
 
 
 
     let accountStats = await new Promise((resolve, reject) => {
-      accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+      accountDB.findOne({
+        _id: message.author.id
+      }, function (err, docs) {
         console.log(docs);
         resolve({
           totalInHand: docs.balanceInHand,
@@ -37,8 +44,7 @@ if(hasAccount === null){
 
       .setColor(message.member.displayHexColor)
       .setTitle(`♣︎ ${message.author.username}'s account ♣︎`)
-      .addFields(
-        {
+      .addFields({
           name: "Balance in Hand",
           value: accountStats.totalInHand,
           inline: true,

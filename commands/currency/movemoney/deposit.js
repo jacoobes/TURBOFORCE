@@ -1,17 +1,21 @@
+
 module.exports = {
     name: 'deposit',
     aliases: ['d', 'dep'],
-    argType: 'flex',
-    withMultipleArguments: false,
+    usesArguments: {
+        array: false,
+        argType: 'flex',
+    },
     description: 'Deposit money so you can use it.',
-    callback: async (client, message, args) => {
+    callback: async (payload, message, {argument}) => {
+
         const currency = require('../../../config.json')
         let {
             allDBS: { accountDB },
             
         } = require('../../../index')
 
-        let currentMoney = await new Promise((resolve, reject) => {
+        let currentMoney = await new Promise((resolve) => {
             accountDB.findOne({ _id: message.author.id }, function (err, docs) {
                 resolve({
                     totalInHand: docs.balanceInHand,
@@ -28,36 +32,36 @@ module.exports = {
       })
     
       if(hasAccount === null){
-    
-        return message.reply('Please make an account with `tcp create`!')
+            message.reply('Please make an account with `tcp create`!')
+            return
       }
 
-        if (args <= 0) {
+        if (argument <= 0) {
             message.reply('You cannot deposit zero or a negative number!')
             return
         }
 
-        if (currentMoney.totalInHand < args) {
+        if (currentMoney.totalInHand < argument) {
             message.reply('You cannot deposit more than what you have in hand!')
             return
         }
 
-        if (args === 'all') {
+        if (argument === 'all') {
             accountDB.update({ _id: message.author.id }, { $inc: { balanceInBank: currentMoney.totalInHand } })
 
             accountDB.update({ _id: message.author.id }, { $set: { balanceInHand: 0 } })
 
-            return message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+            return message.reply(`Deposited ${argument} ${currency.currencyName} from your account!`)
         } else {
-            if (isNaN(args)) {
-                return message.reply('Cannot do operation with argument: ' + args)
+            if (isNaN(argument)) {
+                return message.reply('Cannot do operation with argument: ' + argument)
             }
 
-            accountDB.update({ _id: message.author.id }, { $inc: { balanceInBank: parseInt(args) } })
+            accountDB.update({ _id: message.author.id }, { $inc: { balanceInBank: parseInt(argument) } })
 
-            accountDB.update({ _id: message.author.id }, { $inc: { balanceInHand: 0 - parseInt(args) } })
+            accountDB.update({ _id: message.author.id }, { $inc: { balanceInHand: 0 - parseInt(argument) } })
         }
 
-        message.reply(`Deposited ${args} ${currency.currencyName} from your account!`)
+        message.reply(`Deposited ${argument} ${currency.currencyName} from your account!`)
     },
 }

@@ -3,7 +3,6 @@ module.exports = {
     aliases: ['ai'],
     description: 'finds all item properties',
     usesArguments: {
-
         array: false,
         argType: 'string'
     },

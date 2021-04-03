@@ -3,10 +3,12 @@ module.exports =  {
 
       name: 'urbandictionary',     
       aliases : ['ub', 'define'],
-      withMultipleArguments : false,
-      argType: 'string',
+      usesArguments: {
+        array: false,
+        argType: 'flex'
+      },
       description: 'random definition from Urban Dictionary!',
-      callback: (client, message, arguments ) => {
+      callback: async (client, message, {argument}) => {
 
 
         const {MessageEmbed} = require('discord.js')
@@ -14,34 +16,24 @@ module.exports =  {
 
         const axios = require("axios").default
         
-      
-      
-          var options = {
+          let options = {
             method: 'GET',
             url: 'https://mashape-community-urban-dictionary.p.rapidapi.com/define',
-            params: {term: arguments},
+            params: {term: argument},
             headers: {
               'x-rapidapi-key': UBkey,
               'x-rapidapi-host': 'mashape-community-urban-dictionary.p.rapidapi.com'
             }
           };
         
-        
-
-         async function fetchCall() {
-          
     
         let urbanDictionaryCall = await axios.request(options)
 
-        return urbanDictionaryCall.data.list
-        
-          }
-
-          fetchCall().then(data => {
+    
 
             var i = Math.floor(Math.random() * data.length);
       
-            var pages = data[i];
+            let pages = urbanDictionaryCall[i];
         
             const defWithOutBrackets = pages.definition.replace(/[\[\]']+/g,"");
             const exampleNoBracket = pages.example.replace(/[\[\]']+/g,"");
@@ -60,16 +52,15 @@ module.exports =  {
         
             .setFooter(`Author: ${pages.author}`)
             //for each reaction, move the list to the next value
-        
-        
+    
         message.channel.send(urbanDictionary);
   
 
 
-           })
+        }
         
            
-          }
+          
 
       }
    

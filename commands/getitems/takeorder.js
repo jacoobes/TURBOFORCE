@@ -4,9 +4,10 @@ module.exports = {
     name: 'order',
     description: 'Take the order of hungry customers to earn tip',
     aliases: ['or'],
-    withMultipleArguments: false,
-    argType: 'string',
-    callback: async (client, message, args) => {
+    callback: async (client, message) => {
+        const {
+            allDBS: { accountDB },
+        } = require('../../index')
 
         let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
             resolve(docs)
@@ -18,10 +19,6 @@ module.exports = {
         return message.reply('Please make an account with `tcp create`!')
       }
 
-
-        const {
-            allDBS: { accountDB },
-        } = require('../../index')
         const currency = require('../../config.json')
 
         let lotsOfRestaurants = [

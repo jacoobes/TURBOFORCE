@@ -3,15 +3,13 @@ module.exports =  {
     
     name: 'withdraw',
     aliases: ['w', 'with'],
-    withMultipleArguments: false,
-    argType: 'flex',
+    usesArguments: {
+        array: false,
+        argType: 'number',
+    },
     description: 'Withdraw money so you can use it.',
 
-    callback: async (client, message, args) => {
-
-
-        
-
+    callback: async (client, message, {argument}) => {
 
         const currency = require('../../../config.json')
         let { allDBS : {accountDB} } = require('../../../index')
@@ -44,9 +42,9 @@ module.exports =  {
 
         })
 
-        if(args <=  0) {message.reply('You cannot withdraw zero or a negative number!'); return;}
+        if(argument <=  0) {message.reply('You cannot withdraw zero or a negative number!'); return;}
 
-        if(currentMoney.totalInBank < args) {
+        if(currentMoney.totalInBank < argument) {
 
             message.reply('You cannot withdraw more than what you have in hand!');
             return;
@@ -55,31 +53,31 @@ module.exports =  {
 
         
 
-        if (args === 'all') { 
+        if (argument === 'all') { 
 
         accountDB.update({_id: message.author.id}, {$inc : {balanceInHand : currentMoney.totalInBank  }})
 
         accountDB.update({_id: message.author.id}, {$set : {balanceInBank : 0 }})
 
        
-        return  message.reply(`Withdrew ${args} ${currency.currencyName} from your account!`)
+        return  message.reply(`Withdrew ${argument} ${currency.currencyName} from your account!`)
 
         } else { 
-            if(isNaN(args)) {
+            if(isNaN(argument)) {
 
-                return message.reply('Cannot do operation with argument: ' + args)
+                return message.reply('Cannot do operation with argument: ' + argument)
 
             }
 
-       accountDB.update({_id: message.author.id}, {$inc : {balanceInHand: parseInt(args)}})
+       accountDB.update({_id: message.author.id}, {$inc : {balanceInHand: parseInt(argument)}})
 
-       accountDB.update({_id: message.author.id}, {$inc: {balanceInBank : 0 - parseInt(args)}})
+       accountDB.update({_id: message.author.id}, {$inc: {balanceInBank : 0 - parseInt(argument)}})
         
 
             }
 
 
-            message.reply(`Withdrew ${args} ${currency.currencyName} from your account!`)
+            message.reply(`Withdrew ${argument} ${currency.currencyName} from your account!`)
 
         }
             

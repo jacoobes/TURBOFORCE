@@ -9,16 +9,17 @@
   "author": "serendipity",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^14.14.37",
     "chalk": "^4.1.0",
     "discord.io": "github:woor/discord.io#gateway_v6",
     "discord.js": "^12.4.1",
     "discord.js-pagination": "^1.0.3",
-    "ezhandler": "npm:ezhandle@^1.0.0",
-    "glob": "^7.1.6",
     "install": "^0.13.0",
     "mathjs": "^8.1.1",
     "nedb": "^1.8.0",
+    "nodemon": "^2.0.7",
     "npm": "^6.14.10",
+    "sern_handler": "file:..\\ezhandle",
     "winston": "^3.3.3"
   }
 }
