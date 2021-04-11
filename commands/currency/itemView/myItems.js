@@ -10,24 +10,20 @@ module.exports = {
         const {allDBS:{accountDB, itemsDB}} = require('../../../index')
 
 
-        let account = await new Promise((resolve, reject) => {
+        let account = await new Promise((resolve) => {
             accountDB.findOne({ _id: message.author.id }, function (err, docs) {
               resolve(docs);
             })
         })
 
-        
-
-        //if account is not found, it is null
             if(account === null){
                 return message.reply('Please make an account with \`tcp create\`');
 
             } else {
                
                 let accountItems = account.Items; //array
-
                 
-                var messageEmbedArray = [];
+                let messageEmbedArray = [];
                 for(var i = 0; i < accountItems.length; i++){
                     var messageStuff = new MessageEmbed() 
                     let yourItem = await new Promise((resolve, reject) => {

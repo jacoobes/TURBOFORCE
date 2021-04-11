@@ -20,8 +20,6 @@ module.exports = {
         if(argument.length < 0) return message.reply('Arguments required.')
 
         let [whoToWager, amountToWager] = argument
-        
-        if(isNaN(amountToWager)) return message.reply('Amount to wager is not a number')
 
         if(!whoToWager.match(/^<@!?(\d+)>$/g)) return message.reply('First argument should mention someone, The second one should be a number.')
         
@@ -40,8 +38,7 @@ module.exports = {
       })
     })
 
-     
-
+  
       if(authorAccount == null || targetAccount == null) return message.reply('Either you or the person being targeted does not have an account.')
       
       if(amountToWager < 0) return message.reply('You cannot wager this number!')
@@ -61,22 +58,23 @@ module.exports = {
       let messagesCollected = await messageChooser.channel.awaitMessages(filter, {max : 2, time: 20000})
      
          if(messagesCollected.array()[0].author.id === messagesCollected.array()[1].author.id)  {
-
-           return message.reply('You cannot wager both heads and tails! Canceled wager.');
-
+            message.reply('You cannot wager both heads and tails! Canceled wager.');
+            return;
           } 
 
           if(messagesCollected.array()[0].content === messagesCollected.array()[1].content) {
-            return message.reply('Both cannot wager the same side of the coin!')
-
+            message.reply('Both cannot wager the same side of the coin!')
+            return;
           }
 
           let coinFlip = ['heads', 'tails']
-         let winningChoice = coinFlip[Math.round(Math.round())]
+         let winningChoice = coinFlip[Math.random(Math.round())]
             
 
       
       let [heads, tails] = messagesCollected.partition(msg=> msg.content === 'heads')
+
+      if(heads.first().content === 'heads' && tails.first().content === 'tails') {
 
       let headsUser = heads.first().author
       let tailsUser = tails.first().author    
@@ -86,26 +84,28 @@ module.exports = {
         message.channel.send(`${headsUser.username} wins.`)   
         message.channel.send(`\`${headsUser.username}\` > \`+${amountToWager * 2}\` \n \`${tailsUser.username}\` > \`-${amountToWager}\``)
 
-        accountDB.update({_id: headsUser.id}, {$inc: {balanceInHand: amountToWager * 2}})
+          accountDB.update({_id: headsUser.id}, {$inc: {balanceInHand: amountToWager * 2}})
 
          accountDB.update({_id: tailsUser.id}, {$inc: {balanceInHand: 0 - amountToWager}})
+         accountDB.update({_id: headsUser.id}, {$inc: {balanceInHand: 0 - amountToWager}})
 
        } else {
          
          message.channel.send(`${tailsUser.username} wins.`)
          message.channel.send(`\`${tailsUser.username}\` > +${amountToWager * 2} \n \`${headsUser.username}\` > \`-${amountToWager}\``)
 
-        accountDB.update({_id: tailsUser.id}, {$inc: {balanceInHand: amountToWager * 2}})
+          accountDB.update({_id: tailsUser.id}, {$inc: {balanceInHand: amountToWager * 2}})
 
          accountDB.update({_id: headsUser.id}, {$inc: {balanceInHand: 0 - amountToWager}})
+         accountDB.update({_id: tailsUser.id}, {$inc: {balanceInHand: 0 - amountToWager}})
        }
     
-
+      }
       }
 
       catch(e) {
         console.error(e)
-        message.reply('Ran out of time.')
+        message.reply('Wager canceled')
 
       }
      

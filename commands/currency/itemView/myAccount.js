@@ -31,7 +31,6 @@ module.exports = {
       accountDB.findOne({
         _id: message.author.id
       }, function (err, docs) {
-        console.log(docs);
         resolve({
           totalInHand: docs.balanceInHand,
           totalInBank: docs.balanceInBank,

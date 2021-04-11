@@ -18,8 +18,13 @@ module.exports =  {
         let {rapidShipAPIkey} = require('../../config.json')
         let allMentions = Argument.getMentions(argument, message)
              
-        let firstName = allMentions.mention0.user
-        let secondName= allMentions.mention1.user
+        let firstName = allMentions.mention0.user || message.mentions.members.first().user
+        let secondName= allMentions.mention1.user || message.mentions.members.last().user
+
+        if(firstName == undefined || secondName == undefined) {
+            message.reply('An error occured with getting the mentions. Please try again');
+            return;
+        }
 
         var optionsForLoveCalculator = {
           method: 'GET',

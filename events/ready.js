@@ -7,12 +7,11 @@ module.exports = {
     callback: async (payload) => {
 
         handler.displayOptions({
-            consoleRAM: true,
             consoleCommands: true,
-            customMessage: 'TURBOFORCE logging in.',
-        })
-    
-        
+            consoleEvents: true,
+            consoleRAM: true,
+            customMessage: "Logged in"
+            })
         
     }
 

@@ -6,7 +6,7 @@ module.exports = {
         array: false,
         argType: 'string'
     },
-
+    ownerOnly: true,
     callback: async (client, message, args) => {
         
         let {

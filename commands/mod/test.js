@@ -7,13 +7,16 @@ module.exports = {
    usesArguments: {
      array: false,
      argType: 'string',
+     validate : (arg) => {
+        return arg === 'non'
+     },
+     validateError: 'no'
    },
   aliases: ["t"],
   ownerOnly: false,
   callback: async (payload, message, {argument, utils : {check}}) => {
     
-    let f = check(message)[3]
-    console.log(f('791343546497105941'))
+    console.log(argument)
     
   },
 };

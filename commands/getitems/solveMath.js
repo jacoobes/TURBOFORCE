@@ -13,15 +13,11 @@ module.exports = {
     const {allDBS: {accountDB}} = require('../../index')
     let difficulty = argument.trim().toLowerCase();
     
-   let hasAccount =  await new Promise((resolve) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
-        resolve(docs)
-    })
-  })
+    let {Account} = require('../../economyHandler')
 
-  if(hasAccount === null){
-
-    return message.reply('Please make an account with `tcp create`!')
-  }
+    if(!Account({_id: message.author.id})) {
+      return message.reply('Please make an account with `tcp create`!')
+    }
   
     var mathEmbed = new MessageEmbed();
 

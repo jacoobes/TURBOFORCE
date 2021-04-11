@@ -15,22 +15,21 @@ const allDBS = {
     dailyStoreDB: new Datastore('./databases/daily_store'),
 }
 
-const {Payload, sern_handler} = require('sern_handler')
+const {Payload,CustomEventHandler} = require('sern_handler')
 
 const payload = new Payload( 
 {commands: '/commands',
+events: '/events',
 owners: ['182326315813306369'],
 prefix: 'tcp',
 client: client}
 )
 
-const handler = new sern_handler(payload)
-handler.displayOptions({
-consoleCommands: true,
-consoleRAM: true,
-customMessage: "Logged in"
-})
+const handler = new CustomEventHandler(payload, true);
 
+
+
+module.exports.handler = handler
  
  allDBS.accountDB.loadDatabase()
  allDBS.itemsDB.loadDatabase()

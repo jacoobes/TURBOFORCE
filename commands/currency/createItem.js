@@ -2,8 +2,10 @@ module.exports = {
   name: "createitem",
   aliases: ["newitem", "ci", "ni"],
   description: "If an authorized user, you can create items for the currency system.",
-  argType: "string",
-  withMultipleArguments: false,
+  usesArguments: {
+    array: false,
+    argType: "string"
+  },
   callback: async (payload, message, {argument}) => {
 
     let {
@@ -18,9 +20,8 @@ module.exports = {
 
     if (isAuthorizedUser()) {
       {
-        let itemValues = argument;
-        itemValues = itemValues.replace(/ /g, "").split("|");
-
+        let itemValues = argument.replace(/ /g, "").split("|");
+    
         let [title, value, description, rarity, imageLink] = itemValues;
         let id = title.toLowerCase().trim().replace(/-/g, "");
       
@@ -75,10 +76,7 @@ module.exports = {
                 _id: replaceDashesWithSpacesFor(id).replace(/ /g, "")
               };
 
-              itemsDB.insert(objectToBeSent, function confirmation(err, docs) {
-
-                message.reply('Item made successfully.')
-              })
+              itemsDB.insert(objectToBeSent, () => { message.reply('Item made successfully.')})
             } else message.reply("Operation canceled.");
           })
           .catch(() => {

@@ -1,38 +1,39 @@
 module.exports = {
   name: "sell",
-  withMultipleArguments: true,
-  argType: "flex",
+  usesArguments: {
+    array: true,
+    argType: "string integer",
+    validate : (args) => {
+      return args?.[1] > 0
+    },
+    validateError: 'You cannot sell 0 quantity or lower'
+  },
   description: "Sell your items.",
-  callback: async (client, message, args) => {
+  callback: async (client, message, {argument}) => {
     const currency = require("../../../config.json");
 
     let {
-      allDBS: { accountDB, itemsDB },
-    } = require("../../../index");
+      allDBS: {
+        accountDB,
+        itemsDB
+      },
+    } = require('../../../index');
 
-    let [idInInventory = undefined, howMany = 1] = args;
+    let [idInInventory = undefined, howMany] = argument;
 
     if (message.author.bot) return;
-
-    if (isNaN(howMany)) return message.reply("Quantity was not a number.");
-
-    if (idInInventory === undefined)
-      return message.reply("No argument provided!");
-
     idInInventory = idInInventory.trimEnd();
 
-    let hasAccount = await new Promise((resolve, reject) => {
-      accountDB.findOne({ _id: message.author.id }, function (err, docs) {
-        resolve(docs);
-      });
-    });
+    const {Account} = require('../../../economyHandler')
 
-    if (hasAccount === null) {
-      return message.reply("Please make an account with `tcp create`!");
+    if(!Account({_id: message.author.id})) {
+      message.reply('You need to create an account with `tcp create`!')
     }
 
     let currentPossesions = await new Promise((resolve, reject) => {
-      accountDB.findOne({ _id: message.author.id }, function (err, docs) {
+      accountDB.findOne({
+        _id: message.author.id
+      }, function (err, docs) {
         resolve({
           totalInHand: docs.balanceInHand,
           totalInBank: docs.balanceInBank,
@@ -42,7 +43,9 @@ module.exports = {
     });
 
     let itemBeingSold = await new Promise((resolve, reject) => {
-      itemsDB.findOne({ _id: idInInventory }, function (err, docs) {
+      itemsDB.findOne({
+        _id: idInInventory
+      }, function (err, docs) {
         resolve(docs || null);
       });
     });
@@ -57,10 +60,13 @@ module.exports = {
 
     let sellingPrice = itemBeingSold.value * howMany;
 
-    accountDB.update(
-      { _id: message.author.id },
-      { $pull: { Items: idInInventory } }
-    );
+    accountDB.update({
+      _id: message.author.id
+    }, {
+      $pull: {
+        Items: idInInventory
+      }
+    });
 
     let allSimilar = () => {
       let countTotalItems = 0;
@@ -75,16 +81,22 @@ module.exports = {
     };
 
     for (let i = 0; i < allSimilar() - howMany; i++) {
-      accountDB.update(
-        { _id: message.author.id },
-        { $push: { Items: idInInventory } }
-      );
+      accountDB.update({
+        _id: message.author.id
+      }, {
+        $push: {
+          Items: idInInventory
+        }
+      });
     }
 
-    accountDB.update(
-      { _id: message.author.id },
-      { $inc: { balanceInBank: sellingPrice } }
-    );
+    accountDB.update({
+      _id: message.author.id
+    }, {
+      $inc: {
+        balanceInBank: sellingPrice
+      }
+    });
 
     message.reply(
       `Added **${sellingPrice}** ${currency.currencyName} to your bank account and sold **${howMany}** **${idInInventory}**`

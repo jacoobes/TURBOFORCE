@@ -9,7 +9,7 @@ module.exports =  {
             argType: 'string',
         },
         description: 'finds item properties',
-        callback: async (client, message, args) => {
+        callback: async (client, message, {argument}) => {
 
 const {MessageEmbed} = require('discord.js')
   
@@ -26,16 +26,11 @@ var arrayOfAllItems = await new Promise((resolve) => {itemsDB.find({}, function(
 })
 
 
-
 for (var itemsStored of arrayOfAllItems) {
 
     var valuesOfItem = Object.values(itemsStored)
 
-    if(valuesOfItem.some( value => value.toLowerCase() === args.toLowerCase())) {
-
-
-
-
+    if(valuesOfItem.some( value => value.toLowerCase() === argument.toLowerCase())) {
 
     let itemEmbeds = new MessageEmbed()
 

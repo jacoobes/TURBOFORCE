@@ -8,16 +8,13 @@ module.exports = {
         const {
             allDBS: { accountDB },
         } = require('../../index')
+        
+        const {Account} = require('../../economyHandler')
+       
+        if(!Account({_id: message.author.id})) {
 
-        let hasAccount =  await new Promise((resolve, reject) => {accountDB.findOne({_id: message.author.id}, function(err,docs){
-            resolve(docs)
-        })
-      })
-    
-      if(hasAccount === null){
-    
-        return message.reply('Please make an account with `tcp create`!')
-      }
+            message.reply("Please make an account with `tcp create`!")
+        }
 
         const currency = require('../../config.json')
 
@@ -109,7 +106,7 @@ module.exports = {
 
        } else {
 
-        message.reply(`The customer said "${randomElement(wrongAnswersOnly)}" and left, throwing your ${collected.content} on you.`)
+        message.reply(`The customer said "${randomElement(wrongAnswersOnly)}" and left, throwing your ${collected.first().content} on you.`)
 
 
        }
